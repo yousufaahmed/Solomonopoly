@@ -16,7 +16,7 @@ class Campus(models.Model):
 class Gamekeeper(models.Model):
     gamekeeper_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    location = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
     # PROTECT - if a referenced record should not be deleted while it has dependencies
     # SET_NULL - if related records should remain but lose their reference
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE, related_name='gamekeepers')
@@ -26,7 +26,7 @@ class Player(models.Model):
     name = models.CharField(max_length=100)
     password = models.CharField(max_length=128)
     points = models.IntegerField(default=0)
-    deck = models.CharField(max_length=200, blank=True)
+    deck = models.ManyToManyField('Card', blank=True)
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
 
 class Task(models.Model):
@@ -49,7 +49,7 @@ class Checkpoint(models.Model):
         CYCLING = "cycling", "cycling"
         RECYCLE = "recycle", "recycle"
 
-    check_id = models.AutoField(primary_key=True)
+    checkpoint_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
     type = models.CharField(
@@ -58,3 +58,47 @@ class Checkpoint(models.Model):
         default=CheckpointType.BUS  # Set a default to ensure it's mandatory
     )
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
+    
+class GamekeeperTask(models.Model):
+    gamekeeper = models.ForeignKey(Gamekeeper, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('gamekeeper', 'task')  # Ensures a Gamekeeper can only be assigned a Task once
+
+
+class PlayerTask(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('player', 'task')  # Ensures a Player can only have one record per Task
+
+
+class Purchases(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    purchase_time = models.DateTimeField(auto_now_add=True)  # Optional: track when purchase happened
+
+    class Meta:
+        unique_together = ('player', 'card')  # Ensures a Player can't buy the same card multiple times
+
+
+class Visits(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    checkpoint = models.ForeignKey(Checkpoint, on_delete=models.CASCADE)
+    visited_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('player', 'checkpoint', 'visited_time')  # Avoid duplicate visits at the same time
+
+
+class TaskCheckpoint(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    checkpoint = models.ForeignKey(Checkpoint, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('task', 'checkpoint')  # Ensures a Task is assigned to a Checkpoint only once
+
+    
