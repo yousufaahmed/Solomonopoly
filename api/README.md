@@ -22,13 +22,13 @@ For User Registration and accessing/refreshing JWT tokens:
 Task Endpoints:
 1) navigate to http://localhost:8000/api/tasks/ to view list of tasks - you will need to be authenticated as an admin to do this
 2) navigate to http://localhost:8000/api/task/ to create a task - you will need to be authenticated as an admin to do this
-3) navigate to http://localhost:8000/api/task/<task_id>/ to view task details - you will need to be an authenticated user to do this
-4) navigate to http://localhost:8000/api/task/<task_id>/update/ to update task details - you will need to be authenticated as an admin to do this
+3) navigate to http://localhost:8000/api/task/task_id/ to view task details - you will need to be an authenticated user to do this
+4) navigate to http://localhost:8000/api/task/task_id/update/ to update task details - you will need to be authenticated as an admin to do this
 
 Card Endpoints:
 1) navigate to http://localhost:8000/api/cards/ to view a list of cards - you will need to be authenticated as an admin to do this
-2) navigate to http://localhost:8000/api/card/<card_id>/ to view a cards details - you will need to be an authenticated user to do this
-3) navigate to http://localhost:8000/api/player/<player_id>/purchases/ to  view the card purchase records of a user - you will need to be authenticated to do this
+2) navigate to http://localhost:8000/api/card/card_id/ to view a cards details - you will need to be an authenticated user to do this
+3) navigate to http://localhost:8000/api/player/player_id/purchases/ to  view the card purchase records of a user - you will need to be authenticated to do this
 
 ## Current Issues:
 Lots of code for the api is commented out (including many endpoints) until the following changes are made
