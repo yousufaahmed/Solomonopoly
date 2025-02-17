@@ -1,6 +1,8 @@
 # Solomonopoly
 Sustainability Project
 
+## BACKEND
+
 virtual Environment
 python -m venv env  
 
@@ -24,3 +26,22 @@ python manage.py runserver
 1) python manage.py makemigrations myapp
 2) python manage.py migrate
 
+
+## FRONTEND
+
+cd frontend
+
+virtual Environment
+python -m venv env 
+.\env\Scripts\activate  <- WINDOWS
+
+
+### DOWNLOAD DEPENDENCIES
+npm install
+
+### RUN APP
+npm run dev
+
+
+FRONTEND TEMPLATE COMES FROM HERE:
+https://github.com/techwithtim/Django-React-Full-Stack-App
