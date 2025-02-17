@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+# need to integrate inbuilt django user model somehow
 
 class Trivia(models.Model):
     trivia_id = models.AutoField(primary_key=True)
@@ -79,10 +80,10 @@ class PlayerTask(models.Model):
 class Purchases(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    purchase_time = models.DateTimeField(auto_now_add=True)  # Optional: track when purchase happened
+    purchase_time = models.DateTimeField(auto_now_add=True)  # Optional: track when purchase happened --- this is necessary for the pk
 
     class Meta:
-        unique_together = ('player', 'card')  # Ensures a Player can't buy the same card multiple times
+        unique_together = ('player', 'card')  # Ensures a Player can't buy the same card multiple times  --- this is wrong the player should be able to buy multiple of the same card if they want
 
 
 class Visits(models.Model):
