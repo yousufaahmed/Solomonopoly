@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
-import cv2
-from django.http import JsonResponse
+from django.shortcuts import render
+
 # Create your views here.
 
 def indexView(request):

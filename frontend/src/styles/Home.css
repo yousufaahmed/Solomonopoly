@@ -1,4 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #e4e4e4;
+}
 
+.home_container{
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #0b4433;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+}
+
+.home_container h1{
+    font-size: 100px;
+    font-weight: 600;
+    transform: translate(80px,-1000px);
+    margin-bottom: 5px;
+}
+
+.home_container h2{
+    transform: translate(80px,-1000px);
+    font-size: 50px;
+    font-weight: 300;
+}
+
+.home_container .tree{
+    background-image: url('./assets/tree.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+}
+
+.home_container .qr_button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 70px;
+    width: 600px;
+    height: 120px;
+    background-color: #0b4433;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 50px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 45px;
+    text-shadow: 4px 4px black;
+    font-weight: 600;
+    transform: translate(0px,300px);
+}
+
+.home_container .qr_image{
+    width: 70px;
+    transform: translate(20px,0px);
+}
+
+.home_container .sustainability_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 540px;
+    height: 100px;
+    background-color: #3EC77C;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 50px;
+    box-shadow: 2px 2px black;
+    color: #e4e4e4;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    text-shadow: 4px 4px black;
+    font-weight: 600;
+    transform: translate(0px,330px);
+}
+/* 
 /* Container for the whole page */
 div {
     font-family: Arial, sans-serif;
@@ -67,4 +157,3 @@ div {
   form input[type="submit"]:hover {
     background-color: #0056b3;
   }
-  
