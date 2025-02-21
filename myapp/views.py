@@ -1,11 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import cv2
 from django.http import JsonResponse
 # Create your views here.
 
 def indexView(request):
     return render(request, "index.html")
-
 
 def scan_qrcode(request):
     cap = cv2.VideoCapture(0)  # Open the webcam
@@ -24,3 +23,4 @@ def scan_qrcode(request):
 
     cap.release()  # Release camera if no QR found
     return JsonResponse({"error": "No QR Code detected"})
+
