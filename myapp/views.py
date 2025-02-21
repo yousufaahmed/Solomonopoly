@@ -8,28 +8,19 @@ def indexView(request):
 
 
 def scan_qrcode(request):
-    # Initialize webcam
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0)  # Open the webcam
     detector = cv2.QRCodeDetector()
-
-    scanned_data = None
-
+    
     while True:
-        _, img = cap.read()
-        data, bbox, _ = detector.detectAndDecode(img)
-
-        if data:
-            scanned_data = data
+        success, img = cap.read()
+        if not success:
             break
+        
+        data, bbox, _ = detector.detectAndDecode(img)  # Detect QR Code
+        
+        if data:  # If QR Code is found
+            cap.release()  # Release camera
+            return JsonResponse({"qrcode_data": data})  # Return QR data as JSON
 
-        cv2.imshow("QR Code Scanner", img)
-        if cv2.waitKey(1) == ord("q"):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-
-    if scanned_data:
-        return JsonResponse({"qrcode_data": scanned_data})  # Return scanned text as JSON
-
-    return JsonResponse({"error": "No QR code detected"}, status=400)
+    cap.release()  # Release camera if no QR found
+    return JsonResponse({"error": "No QR Code detected"})
