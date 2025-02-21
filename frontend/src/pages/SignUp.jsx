@@ -6,7 +6,7 @@ const SignUp = () => {
         <><div className='signupcontainer'>
 
             <button type='button'
-            onClick={() => window.location.href ='http://192.168.0.76:5173/splashscreen'}>X</button>
+            onClick={() => window.location.href ='/splashscreen'}>X</button>
 
             <div className='signupheader'>
                 <h1>Create Your</h1>
@@ -32,11 +32,11 @@ const SignUp = () => {
                     <input type='password' placeholder='Confirm Password' required />
                 </div>
 
-                <button type="submit" onClick={() => window.location.href ='http://192.168.0.76:5173/home'}>SIGN UP</button>
+                <button type="submit" onClick={() => window.location.href ='/home'}>SIGN UP</button>
 
                 <div className='signup-footer'>
                     <h1>Have an account?</h1>
-                    <a href='http://192.168.0.76:5173/loginform'>Sign In</a>
+                    <a href='/loginform'>Sign In</a>
                 </div>
             </form>
         </div>

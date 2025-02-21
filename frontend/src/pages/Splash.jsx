@@ -11,8 +11,8 @@ const SplashScreen = () => {
       <img src={logo} alt="Green Exeter Logo" className="logo" />
       <h2 className="welcome-text">Welcome Back</h2>
       <div className="splash-button">
-      <a href="http://192.168.0.76:5173/loginform" className="splashbutton">SIGN IN</a>
-      <a href="http://192.168.0.76:5173/signup" className="splashbutton">SIGN UP</a>
+      <a href="/loginform" className="splashbutton">SIGN IN</a>
+      <a href="/signup" className="splashbutton">SIGN UP</a>
 
       </div>
     </div>
