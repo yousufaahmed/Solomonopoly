@@ -5,12 +5,12 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 def indexView(request):
-    return render(request, "qrcode.html")
+    return render(request, "index.html")
 
 @csrf_exempt  # Disable CSRF protection for testing (enable it in production)
 def scan_qrcode(request):
     if request.method == "GET":
-        return render(request, "index.html")  # Load the page
+        return render(request, "qrcode.html")  # Load the page
 
     elif request.method == "POST":
         try:
