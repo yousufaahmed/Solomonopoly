@@ -4,6 +4,7 @@ import LoginForm from "./pages/LoginForm"
 import SignUp from "./pages/SignUp"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
+import QRScreen from "./pages/QRScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/splashscreen" element={<SplashScreen/>}/>
           <Route path="/home" element={<Home/>}/>
+          <Route path="/qr" element={<QRScreen/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
