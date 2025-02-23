@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+  }
+
+.user_container{
+    width: 1000px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.user_container .settings_icon{
+    width: 90px;
+    background-color: transparent;
+    border-color: transparent;
+    transform: translate(-370px,75px);
+}
+
+.settings_icon .settings_image{
+    width: 70px;
+}
+
+.user_container .coins_icon{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 250px;
+    background-color: transparent;
+    font-size: 50px;
+    font-weight: 600;
+    border-radius: 70px;
+    border-color:transparent;
+    color: black;
+    transform: translate(330px,-30px);
+}
+
+.coins_icon .coins_image{
+    width: 60px;
+    margin-left: 25px;
+}
+
+.user_intro{
+    font-size: 100px;
+    color: black;
+    font-weight: 650;
+}
+
+.user_id{
+    font-size: 40px;
+    color: gray;
+    font-weight: 300;
+}
+
+.user_date{
+    font-size: 40px;
+    color: black;
+    font-weight: 300;
+}
+
+.campus_btn{
+    width: 850px;
+    height: 180px;
+    background-color: #0b4433;
+    border-radius: 50px;
+    font-family: "Poppins", 'sans serif';
+    font-size: 50px;
+    font-weight: 600;
+    color: white;
+    padding-right: 250px;
+}
+
+.leaderpos_btn{
+    width: 850px;
+    height: 180px;
+    background-color: #0b4433;
+    border-radius: 50px;
+    font-family: "Poppins", 'sans serif';
+    font-size: 50px;
+    font-weight: 600;
+    color: white;
+    padding-right: 80px;
+}
+
+.remtasks_btn{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 50px;
+    padding-top: 60px;
+    gap: 30px;
+    width: 850px;
+    height: 500px;
+    background-color: #0b4433;
+    border-radius: 50px;
+    font-family: "Poppins", 'sans serif';
+    font-size: 50px;
+    font-weight: 600;
+    color: white;
+}
+
+.remtasks1_btn, .remtasks2_btn{
+    display: flex;
+    width: 750px;
+    height: 120px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2e8b58;
+    font-family: "Poppins", 'sans serif';
+    font-size: 40px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 2px 2px black;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.arrow_image1, .arrow_image2{
+    width: 60px;
+}

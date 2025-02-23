@@ -6,6 +6,7 @@ import jsQR from 'jsqr';
 import '../styles/QRScreen.css';
 import qr_code from '../assets/qr_code.png';
 import ios_torch_button from '../assets/ios_torch_button.png';
+import Footer from '../components/footer';
 
 function QRScreen() {
   const webcamRef = useRef(null);
@@ -119,6 +120,11 @@ function QRScreen() {
           <i className="fas fa-user-circle"></i>
           <i className="fas fa-bars"></i>
         </div>
+
+        <div className="footer">
+        <Footer />
+        </div>
+
       </div>
     </>
   );
