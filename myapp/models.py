@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 # need to integrate inbuilt django user model somehow
 
@@ -24,8 +24,8 @@ class Gamekeeper(models.Model):
 
 class Player(models.Model):
     player_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    password = models.CharField(max_length=128)
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # Temporary null value
+    username = models.CharField(max_length=100)
     points = models.IntegerField(default=0)
     deck = models.ManyToManyField('Card', blank=True)
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
@@ -83,7 +83,7 @@ class Purchases(models.Model):
     purchase_time = models.DateTimeField(auto_now_add=True)  # Optional: track when purchase happened --- this is necessary for the pk
 
     class Meta:
-        unique_together = ('player', 'card')  # Ensures a Player can't buy the same card multiple times  --- this is wrong the player should be able to buy multiple of the same card if they want
+        unique_together = ('player', 'card', 'purchase_time')
 
 
 class Visits(models.Model):

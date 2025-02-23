@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.indexView),
-    path("qrcode/", views.scan_qrcode, name="qrcode")
+    # path("qrcode/", views.scan_qrcode, name="qrcode")
 ]
