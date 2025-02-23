@@ -21,13 +21,13 @@ class CreateUserView(generics.CreateAPIView):
 class PlayerListView(generics.ListAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
-    permission_classes = [AllowAny]#IsAdminUser]
+    permission_classes = [IsAdminUser]
 
 
 class PlayerView(generics.RetrieveAPIView):
     queryset=Player.objects.all()
     serializer_class = PlayerSerializer
-    permission_classes = [AllowAny]#IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     lookup_field = 'player_id'
 
@@ -39,7 +39,7 @@ class PlayerView(generics.RetrieveAPIView):
 class UpdatePlayerDetailsView(generics.UpdateAPIView):
     queryset=Player.objects.all()
     serializer_class=PlayerSerializer
-    permission_classes=[AllowAny]#IsAuthenticated]
+    permission_classes=[IsAuthenticated]
 
     lookup_field = 'player_id'
 
@@ -59,7 +59,7 @@ class TaskView(generics.RetrieveAPIView):
 class CreateTaskView(generics.CreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [AllowAny]#IsAdminUser]
+    permission_classes = [IsAdminUser]
 
 class UpdateTaskView(generics.UpdateAPIView):
     queryset = Task.objects.all()
