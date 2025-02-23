@@ -101,5 +101,3 @@ class TaskCheckpoint(models.Model):
 
     class Meta:
         unique_together = ('task', 'checkpoint')  # Ensures a Task is assigned to a Checkpoint only once
-
-    

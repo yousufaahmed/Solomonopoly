@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="/static/js/qrcode.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #video {
+            width: 80%;
+            max-width: 500px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+    <video id="video" autoplay></video>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <p id="result">Scan a QR code...</p>
+    
+    
+</body>
+</html>

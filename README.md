@@ -32,8 +32,12 @@ python manage.py runserver
 cd frontend
 
 virtual Environment
+
 python -m venv env 
+
 .\env\Scripts\activate  <- WINDOWS
+
+source env/bin/activate <- MacOS
 
 
 ### DOWNLOAD DEPENDENCIES
