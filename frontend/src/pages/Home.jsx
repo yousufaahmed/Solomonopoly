@@ -2,6 +2,8 @@ import React from "react";
 import '../styles/Home.css'
 import qr from '../assets/qr_code.png'
 import tree from '../assets/tree.png'
+import Footer from "../components/footer";
+import ovals from "../assets/ovals.png"
 
 
 const Home = () => {
@@ -23,11 +25,13 @@ const Home = () => {
             <img src={qr} alt="qr_scanner" className="qr_image"/>
             </button>
 
-            <button type="submit" className="sustainability_btn">Learn More About Sustainability</button>
+            <button type="submit" className="sustainability_btn" onClick={() => window.open("https://www.exeter.ac.uk/about/sustainability/", "_blank")}>Learn More About Sustainability</button>
 
-            <div className="oval1"></div>
-            <div className="oval2"></div>
-            <div className="oval3"></div>
+            <div className="ovals" style={{ backgroundImage: `url(${ovals})`}}></div>
+
+            <div className="footer">
+                <Footer/>
+            </div>
 
         </div>
     );

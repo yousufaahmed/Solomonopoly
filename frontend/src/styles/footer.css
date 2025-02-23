@@ -1,3 +1,39 @@
 .footer_container{
-    
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #CCCCCC;
+    margin: 0;
+    z-index: 99;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 140px;
+}
+
+.footer_container .footer_home, .footer_user, .footer_qr{
+    font-family: "Poppins", "sans-serif";
+    font-size:50px;
+    color: #e7e7e7;
+    text-align: center;
+    background-color: #CCCCCC;
+    width: 150px;
+    border-color: #CCCCCC;   
+}
+
+.footer_container .qr_black{
+    width: 80px;
+    transform: translate(0,10px);
+}
+
+.footer_container .home_img{
+    width: 80px;
+    transform: translate(0,10px);
+}
+
+.footer_container .user_img{
+    width: 120px;
+    transform: translate(0,15px);
 }
