@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import '../styles/Leaderboard.css';  // Import styles from the styles folder
-import Footer from '../components/footer';  // Import existing Footer component
-import profile_picture from '../assets/user_profile.png'
+// Written by Aleem Abbas-Hussain
 
+// All relevant imports
+import React, { useState } from 'react';
+import '../styles/Leaderboard.css';
+import Footer from '../components/footer';  // Import existing Footer component
+import profile_picture from '../assets/user_profile.png' // Import profile picture for user "Mark"
+
+
+// Array containing all 'friends'
 const Leaderboard = () => {
   const friendsList = [
     { name: "Mark (You)", score: 342, image: profile_picture },
@@ -10,6 +15,7 @@ const Leaderboard = () => {
     { name: "Sophie", score: 327, image: "https://randomuser.me/api/portraits/women/1.jpg" }
   ];
 
+// Array containing all app users (also includes friends)
   const leaderboardData = {
     Everyone: [
       { name: "James", score: 364, image: "https://randomuser.me/api/portraits/men/1.jpg" },
@@ -36,15 +42,16 @@ const Leaderboard = () => {
 
   // Get data for the active tab
   const displayData = activeTab === "Everyone" 
-    ? getRankedData([...leaderboardData.Everyone])  // Spread to avoid mutating original
+    ? getRankedData([...leaderboardData.Everyone])
     : getRankedData([...leaderboardData.Friends]);
 
+  // Creates divider to hold all in the leaderboard page
   return (
     <div className="leaderboard-container">
       <header className="leaderboard-header">
         Leaderboard
       </header>
-
+      
       <div className="tabs">
         <button
           className={`tab-button ${activeTab === "Everyone" ? "active" : ""}`}
