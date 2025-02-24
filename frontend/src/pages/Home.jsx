@@ -5,7 +5,6 @@ import tree from '../assets/tree.png'
 import Footer from "../components/footer";
 import ovals from "../assets/ovals.png"
 
-
 const Home = () => {
     return (
         <div className="home_container">
@@ -15,22 +14,49 @@ const Home = () => {
                 <h2>Welcome to Green Exeter!</h2>
             </div>
 
-            <div className="tree"style={{ backgroundImage: `url(${tree})`}}></div>
+            <div className="tree" style={{ backgroundImage: `url(${tree})` }}></div>
 
-            <button type="button" className="home_leaderboard_btn"> Leaderboard</button>
+            <button 
+                type="button" 
+                className="home_leaderboard_btn" 
+                onClick={() => window.location.href ='/leaderboard'}
+            >
+                Leaderboard
+            </button>
+
 
             <button type="button" className="home_taskboard_btn"> Taskboard</button>
 
-            <button type="submit" className="qr_button" onClick={() => window.location.href ='/qr'}>Scan a QR Code 
-            <img src={qr} alt="qr_scanner" className="qr_image"/>
+            <button 
+                type="button" 
+                className="home_taskboard_btn" 
+                onClick={() => window.location.href ='/taskboard'}
+            >
+                Close to Completing
             </button>
 
-            <button type="submit" className="sustainability_btn" onClick={() => window.open("https://www.exeter.ac.uk/about/sustainability/", "_blank")}>Learn More About Sustainability</button>
 
-            <div className="ovals" style={{ backgroundImage: `url(${ovals})`}}></div>
+            <button 
+                type="submit" 
+                className="qr_button" 
+                onClick={() => window.location.href ='/qr'}
+            >
+                Scan a QR Code 
+                <img src={qr} alt="qr_scanner" className="qr_image"/>
+            </button>
+
+            <button 
+                type="submit" 
+                className="sustainability_btn" 
+                onClick={() => window.open("https://www.exeter.ac.uk/about/sustainability/", "_blank")}
+            >
+                Learn More About Sustainability
+            </button>
+
+            <div className="ovals" style={{ backgroundImage: `url(${ovals})` }}></div>
 
             <div className="footer">
-                <Footer/>
+                <Footer />
             </div>
 
         </div>
