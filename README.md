@@ -47,5 +47,20 @@ npm install
 npm run dev
 
 
+# TESTING
+
+Run Django Tests:
+
+python manage.py test
+
+Run Frontend Tests:
+
+cd frontend
+npm test
+
+Run full-stack tests (cypress or Playwright):
+npx cypress open
+
+
 FRONTEND TEMPLATE COMES FROM HERE:
 https://github.com/techwithtim/Django-React-Full-Stack-App
