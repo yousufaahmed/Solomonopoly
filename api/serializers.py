@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint
 from rest_framework import serializers
 
+
 ### This serializer/model might need to be changed ###
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -13,6 +14,20 @@ class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ["player_id", "user","username", "points", "deck", "campus"]
+
+class LeaderboardSerializer(serializers.ModelSerializer):
+    rank = serializers.SerializerMethodField()
+    username = serializers.CharField(source='user.username')
+
+    class Meta:
+        model = Player
+        fields = ["rank", "username", "points"]
+
+    def get_rank(self, obj):
+        queryset = Player.objects.all().order_by("-points")
+        #get list of players ordered by points, return index + 1 of current player
+        return list(queryset).index(obj)+1 
+
 
 class TriviaSerializer(serializers.ModelSerializer):
     class Meta:

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer, PlayerTaskSerializer
+from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer, PlayerTaskSerializer, LeaderboardSerializer
 from myapp.models import Player, Task, Card, Purchases, PlayerTask
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
@@ -46,6 +46,10 @@ class UpdatePlayerDetailsView(generics.UpdateAPIView):
 
     lookup_field = 'player_id'
 
+class LeaderboardView(generics.ListAPIView):
+    queryset = Player.objects.all().order_by('-points')
+    serializer_class = LeaderboardSerializer
+    permission_classes = [AllowAny]
 
 
 ### Task Views ###
