@@ -20,7 +20,7 @@
 }
 
 /* Settings button styling */
-.user_container .settings_icon {
+.user_container .sign_out_icon {
     width: 90px;
     background-color: transparent; /* Transparent background */
     border-color: transparent; /* No border */
@@ -28,7 +28,7 @@
 }
 
 /* Image inside the settings button */
-.settings_icon .settings_image {
+.sign_out_icon .sign_out_image {
     width: 70px; /* Size of the settings icon */
 }
 
