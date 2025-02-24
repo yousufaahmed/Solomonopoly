@@ -54,10 +54,10 @@ export default function TaskBoard() {
               />
               {/* Display the progress or completion check */}
               {(task.completedCheck || task.completed === task.total) ? (
-                <span className="task-end-text">&#10004;</span> // Checkmark for completed tasks
+                <span className="task-end-text">&#10004;</span> //Checkmark for completed tasks
               ) : (
                 <span className="task-end-text">
-                  {task.completed}/{task.total} // Display completed out of total
+                  {task.completed}/{task.total} 
                 </span>
               )}
             </div>

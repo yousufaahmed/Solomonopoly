@@ -26,9 +26,9 @@ body, html {
 
 /* Logo positioning */
 .logo {
-    width: 70%;
+    width: 150%;
     height: auto;
-    transform: translateY(-150px);
+    transform: translate(0px,-150px);
 }
 
 /* Welcome text */

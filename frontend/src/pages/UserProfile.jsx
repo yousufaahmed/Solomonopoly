@@ -1,4 +1,3 @@
-
 // Written by Mohammed Zarrar Shahid
 
 
@@ -6,7 +5,7 @@
 import React from "react";
 import '../styles/UserProfile.css'; // Import custom CSS for UserProfile component
 import Footer from "../components/footer"; // Import Footer component
-import settings from "../assets/settings.png"; // Import settings icon
+import sign_out from "../assets/sign_out.png"; // Import sign_out icon
 import coins from "../assets/coins.png"; // Import coins icon
 import user_profile from '../assets/user_profile.png'; // Import user profile image
 import arrow from '../assets/arrow.png'; // Import arrow icon
@@ -21,16 +20,12 @@ const UserProfile = () => {
             {/* Settings button with settings icon */}
             <button 
                 type="submit" 
-                className="settings_icon"
+                className="sign_out_icon"
             >
                 <img 
-                    src={settings} 
-                    alt="settings" 
-                    className="settings_image"
-
-            <button type="submit" className="settings_icon">
-                <img src={settings} alt="settings" className="settings_image" onClick={() => window.location.href ='/splashscreen'}></img>
-
+                    src={sign_out} 
+                    alt="signout" 
+                    className="sign_out_image" onClick={() => window.location.href ='/splashscreen'}></img>
             </button>
 
             {/* Coins button displaying user's coin balance */}
