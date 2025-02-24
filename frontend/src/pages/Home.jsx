@@ -24,6 +24,9 @@ const Home = () => {
                 Leaderboard
             </button>
 
+
+            <button type="button" className="home_taskboard_btn"> Taskboard</button>
+
             <button 
                 type="button" 
                 className="home_taskboard_btn" 
@@ -31,6 +34,7 @@ const Home = () => {
             >
                 Close to Completing
             </button>
+
 
             <button 
                 type="submit" 

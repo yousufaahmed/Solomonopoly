@@ -20,7 +20,7 @@
     text-align: center;
     background-color: #CCCCCC;
     width: 150px;
-    border-color: #CCCCCC;   
+    border-color: transparent;   
 }
 
 .footer_container .qr_black{
@@ -36,4 +36,8 @@
 .footer_container .user_img{
     width: 120px;
     transform: translate(0,15px);
+}
+
+.footer_container .footer_user{
+    transform: translate(0,5px);
 }
