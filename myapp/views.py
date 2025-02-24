@@ -1,11 +1,11 @@
 # import cv2
 # import numpy as np
-# from django.shortcuts import render
+from django.shortcuts import render
 # from django.http import JsonResponse
 # from django.views.decorators.csrf import csrf_exempt
 
-# def indexView(request):
-#     return render(request, "index.html")
+def indexView(request):
+    return render(request, "index.html")
 
 # @csrf_exempt  # Disable CSRF protection for testing (enable it in production)
 # def scan_qrcode(request):

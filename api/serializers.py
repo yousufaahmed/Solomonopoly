@@ -54,11 +54,13 @@ class GamekeeperTaskSerializer(serializers.ModelSerializer):
         fields = ["gamekeeper", "task"]
 
 class PlayerTaskSerializer(serializers.ModelSerializer):
-    task_name = serializers.CharField(source ='task.title', read_only = True)
+    #task_name = serializers.CharField(source ='task.title', read_only = True)
+    #player_name = serializers.CharField(source='player.username', read_only=True)
+
     class Meta:
         model = PlayerTask
         fields = ["player", "task", "completed"]
-        extra_kwargs = {'completed':{'read_only':True}}
+        extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
 
     def create(self, validated_data):
         player = validated_data['player']

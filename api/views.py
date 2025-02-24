@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer, PlayerTaskSerializer
-from myapp.models import Player, Task, Card, Purchases
+from myapp.models import Player, Task, Card, Purchases, PlayerTask
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
 # Create your views here.
@@ -18,12 +18,13 @@ class CreateUserView(generics.CreateAPIView):
 
 ###  Player views - Need to change models & serializers first ###
 
+# Lists all the players
 class PlayerListView(generics.ListAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
     permission_classes = [IsAdminUser]
 
-
+# Gets the and individual players' details
 class PlayerView(generics.RetrieveAPIView):
     queryset=Player.objects.all()
     serializer_class = PlayerSerializer
@@ -36,6 +37,8 @@ class PlayerView(generics.RetrieveAPIView):
 #     serializer_class = PlayerSerializer
 #     permission_classes = [AllowAny]
 
+
+# Update the individual players' details
 class UpdatePlayerDetailsView(generics.UpdateAPIView):
     queryset=Player.objects.all()
     serializer_class=PlayerSerializer
@@ -44,23 +47,28 @@ class UpdatePlayerDetailsView(generics.UpdateAPIView):
     lookup_field = 'player_id'
 
 
+
 ### Task Views ###
 
+# Return a list of all the tasks
 class TaskListView(generics.ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAdminUser]
 
+# Return the details of an individual task
 class TaskView(generics.RetrieveAPIView):
     queryset = Task.objects.all()
     serializer_class=TaskSerializer
     permission_classes = [IsAuthenticated]
 
+# Create a new task
 class CreateTaskView(generics.CreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAdminUser]
 
+# Change task details
 class UpdateTaskView(generics.UpdateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -68,6 +76,7 @@ class UpdateTaskView(generics.UpdateAPIView):
 
 ### Need to fix player first ###
 
+# Assign a task to a player
 class AssignTaskToPlayerView(generics.CreateAPIView):
     serializer_class =  PlayerTaskSerializer
 
@@ -89,8 +98,25 @@ class AssignTaskToPlayerView(generics.CreateAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class PlayerTaskView(generics.ListAPIView):
-#     serializer_class = PlayerTaskSerializer
+class UpdatePlayerTaskView(generics.UpdateAPIView):
+    #queryset = PlayerTask.objects.all()
+    serializer_class = PlayerTaskSerializer
+    permission_classes = [AllowAny]#IsAuthenticated]
+
+    def get_object(self):
+        player_id = self.kwargs["player_id"]
+        task_id = self.kwargs["task_id"]
+        return get_object_or_404(PlayerTask, player_id=player_id, task_id=task_id)
+#    lookup_field = 'id'
+# 
+
+class PlayerTaskView(generics.ListAPIView):
+     serializer_class = PlayerTaskSerializer
+     permission_classes = [AllowAny]#IsAuthenticated]
+     
+
+
+
 
 ### Card/Purchase Views ###
 
@@ -161,3 +187,8 @@ class PlayerPurchasesView(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+### Misc Views ###
+
+#class LeaderboardView():
