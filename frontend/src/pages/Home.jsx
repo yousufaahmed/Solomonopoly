@@ -19,7 +19,7 @@ const Home = () => {
 
             <button type="button" className="home_leaderboard_btn"> Leaderboard</button>
 
-            <button type="button" className="home_taskboard_btn"> Close to Completing</button>
+            <button type="button" className="home_taskboard_btn"> Taskboard</button>
 
             <button type="submit" className="qr_button" onClick={() => window.location.href ='/qr'}>Scan a QR Code 
             <img src={qr} alt="qr_scanner" className="qr_image"/>

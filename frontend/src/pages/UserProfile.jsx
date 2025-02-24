@@ -1,7 +1,7 @@
 import React from "react"
 import '../styles/UserProfile.css'
 import Footer from "../components/footer"
-import settings from "../assets/settings.png"
+import settings from "../assets/sign_out.png"
 import coins from "../assets/coins.png"
 import user_profile from '../assets/user_profile.png'
 import arrow from '../assets/arrow.png'
@@ -11,7 +11,7 @@ const UserProfile = () => {
         <div className="user_container">
 
             <button type="submit" className="settings_icon">
-                <img src={settings} alt="settings" className="settings_image"/>
+                <img src={settings} alt="settings" className="settings_image" onClick={() => window.location.href ='/splashscreen'}></img>
             </button>
 
             <button type="submit" className="coins_icon">

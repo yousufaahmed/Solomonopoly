@@ -22,14 +22,14 @@
     font-weight: 600;
     margin-bottom: 5px;
     color: #0b4433;
-    transform: translate(0px, -140px);
+    transform: translate(0px, -200px);
 }
 
 .home_container h2{
     font-size: 50px;
     font-weight: 400;
     color: black;
-    transform: translate(0px, -160px);
+    transform: translate(0px, -210px);
 }
 
 .home_container .tree{
@@ -39,7 +39,7 @@
     width: 1500px;
     height: 1500px;
     position: absolute;
-    transform: translate(0px, -80px);
+    transform: translate(0px, -120px);
 }
 
 .home_container .qr_button{
@@ -58,7 +58,7 @@
     font-size: 45px;
     text-shadow: 4px 4px black;
     font-weight: 600;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
 
 .home_container .qr_image{
@@ -82,12 +82,12 @@
     font-size: 30px;
     text-shadow: 4px 4px black;
     font-weight: 600;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
 
 .home_leaderboard_btn{
     width: 800px;
-    height: 600px;
+    height: 400px;
     background-color: #0b4433;
     border-radius: 50px;
     font-family: "Poppins", 'sans serif';
@@ -95,7 +95,7 @@
     font-weight: 500;
     color: #e4e4e4;
     z-index: 2;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
 
 .home_taskboard_btn{
@@ -108,5 +108,5 @@
     font-weight: 500;
     color: #e4e4e4;
     z-index: 2;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
