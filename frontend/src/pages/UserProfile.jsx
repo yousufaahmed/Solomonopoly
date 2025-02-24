@@ -1,4 +1,6 @@
+
 // Written by Mohammed Zarrar Shahid
+
 
 // Import necessary modules and styles
 import React from "react";
@@ -15,6 +17,7 @@ const UserProfile = () => {
         // Main container for the UserProfile component
         <div className="user_container">
 
+
             {/* Settings button with settings icon */}
             <button 
                 type="submit" 
@@ -24,7 +27,10 @@ const UserProfile = () => {
                     src={settings} 
                     alt="settings" 
                     className="settings_image"
-                />
+
+            <button type="submit" className="settings_icon">
+                <img src={settings} alt="settings" className="settings_image" onClick={() => window.location.href ='/splashscreen'}></img>
+
             </button>
 
             {/* Coins button displaying user's coin balance */}

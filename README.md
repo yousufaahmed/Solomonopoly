@@ -32,8 +32,11 @@ python manage.py runserver
 cd frontend
 
 virtual Environment
+
 python -m venv env 
+
 .\env\Scripts\activate  <- WINDOWS
+
 source env/bin/activate <- MacOS
 
 
@@ -42,6 +45,21 @@ npm install
 
 ### RUN APP
 npm run dev
+
+
+# TESTING
+
+Run Django Tests:
+
+python manage.py test
+
+Run Frontend Tests:
+
+cd frontend
+npm test
+
+Run full-stack tests (cypress or Playwright):
+npx cypress open
 
 
 FRONTEND TEMPLATE COMES FROM HERE:

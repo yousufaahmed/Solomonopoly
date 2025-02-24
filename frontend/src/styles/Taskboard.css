@@ -11,6 +11,7 @@ body, html {
   background-color: #e4e4e4;
 }
 
+/* Taskboard Container */
 .taskboard-container {
   width: 1050px;
   min-height: 100vh;
@@ -23,6 +24,7 @@ body, html {
   align-items: center;
 }
 
+/* Taskboard Header */
 .taskboard-header {
   text-align: center;
   width: 100%;
@@ -44,6 +46,7 @@ body, html {
   margin: 8px 0 24px;
 }
 
+/* Taskboard Content */
 .taskboard-content {
   width: 100%;
   max-width: 1200px;
@@ -53,12 +56,14 @@ body, html {
   box-sizing: border-box;
 }
 
+/* Task Card */
 .task-card {
   background-color: transparent;
   padding: 16px 0;
   margin-bottom: 24px;
 }
 
+/* Task Title */
 .task-title {
   font-weight: bold;
   margin-bottom: 8px;
@@ -66,6 +71,7 @@ body, html {
   font-size: 28px;
 }
 
+/* Task Progress Bar */
 .task-progress {
   background-color: #e4e4e4;
   border-radius: 4px;
@@ -77,6 +83,7 @@ body, html {
   padding-right: 40px;
 }
 
+/* Progress Bar Fill */
 .task-progress-bar {
   background-color: #2E8B58;
   height: 100%;
@@ -92,6 +99,7 @@ body, html {
   font-size: 24px;
 }
 
+/* Full Progress Bar */
 .task-progress-bar.full {
   width: 100%;
   background-color: #2E8B58;
@@ -102,6 +110,7 @@ body, html {
   color: #e4e4e4;
 }
 
+/* Completed Progress Bar */
 .task-progress-bar.completed-bar {
   width: 100% !important;
   background-color: #2E8B58;
@@ -114,6 +123,7 @@ body, html {
   position: relative;
 }
 
+/* Text Inside Progress Bar */
 .task-progress-text-inside {
   color: #e4e4e4;
   font-weight: bold;
@@ -123,6 +133,7 @@ body, html {
   font-size: 24px;
 }
 
+/* End Text on Progress Bar */
 .task-end-text {
   margin-left: auto;
   padding-left: 8px;
@@ -133,11 +144,13 @@ body, html {
   right: 8px;
 }
 
+/* Completed Bar End Text */
 .task-progress-bar.completed-bar .task-end-text {
   right: 16px;
   color: #e4e4e4;
 }
 
+/* End Text Decoration */
 .task-progress-bar.completed-bar .task-end-text::before {
   content: '';
   position: absolute;
@@ -145,6 +158,7 @@ body, html {
   display: block;
 }
 
+/* Checkmark Indicator */
 .task-check {
   color: #0B4433;
   font-size: 28px;
@@ -152,8 +166,9 @@ body, html {
   text-align: right;
 }
 
-/* Footer Adjustment */
+/* Footer Styling */
 .footer {
   z-index: 10;
   position: relative;
 }
+

@@ -16,6 +16,7 @@
     align-items: center;
     text-align: center;
     position: relative;
+    overflow-y: auto;
 }
 
 /* Settings button styling */

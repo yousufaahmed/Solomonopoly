@@ -39,10 +39,13 @@ const Home = () => {
                 className="home_taskboard_btn" 
                 onClick={() => window.location.href ='/taskboard'}
             >
-                Close to Completing
+                Taskboard
             </button>
 
             {/* Button to navigate to the QR scanner page */}
+
+
+
             <button 
                 type="submit" 
                 className="qr_button" 
