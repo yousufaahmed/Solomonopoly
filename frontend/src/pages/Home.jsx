@@ -24,15 +24,12 @@ const Home = () => {
                 Leaderboard
             </button>
 
-
-            <button type="button" className="home_taskboard_btn"> Taskboard</button>
-
             <button 
                 type="button" 
                 className="home_taskboard_btn" 
                 onClick={() => window.location.href ='/taskboard'}
             >
-                Close to Completing
+                Taskboard
             </button>
 
 
