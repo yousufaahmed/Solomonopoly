@@ -1,35 +1,92 @@
-  import { BrowserRouter, Routes, Route } from "react-router-dom"
-  import SplashScreen from "./pages/Splash"
-  import LoginForm from "./pages/LoginForm"
-  import SignUp from "./pages/SignUp"
-  import Home from "./pages/Home"
-  import NotFound from "./pages/NotFound"
-  import QRScreen from "./pages/QRScreen"
-  import UserProfile from "./pages/UserProfile"
-  import Taskboard from "./pages/Taskboard"
-  import Leaderboard from "./pages/Leaderboard"
+//*Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein*//
+// Import necessary modules from React Router
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-  function App() {
-    return (
+// Import all the page components for routing
+import SplashScreen from "./pages/Splash";
+import LoginForm from "./pages/LoginForm";
+import SignUp from "./pages/SignUp";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import QRScreen from "./pages/QRScreen";
+import UserProfile from "./pages/UserProfile";
+import Taskboard from "./pages/Taskboard";
+import Leaderboard from "./pages/Leaderboard";
+
+// Define the App component
+function App() {
+  return (
+
     <>
-    <div>
+      <div>
+        {/* BrowserRouter wraps the entire application for routing */}
         <BrowserRouter>
           <Routes>
-            <Route index element={<SplashScreen/>}/>
-            <Route path="/loginform" element={<LoginForm/>}/>
-            <Route path="/signup" element={<SignUp/>}/>
-            <Route path="/splashscreen" element={<SplashScreen/>}/>
-            <Route path="/home" element={<Home/>}/>
-            <Route path="/qr" element={<QRScreen/>}/>
-            <Route path="/user" element={<UserProfile/>}/>
-            <Route path="/taskboard" element={<Taskboard/>}/>
-            <Route path="/leaderboard" element={<Leaderboard/>}/>
-            <Route path="*" element={<NotFound/>}/>
+            {/* Route definitions for each page */}
+            <Route 
+              index 
+              element={<SplashScreen />} 
+            />
+
+            {/* Route for the Login Form page */}
+            <Route 
+              path="/loginform" 
+              element={<LoginForm />} 
+            />
+
+            {/* Route for the Sign Up page */}
+            <Route 
+              path="/signup" 
+              element={<SignUp />} 
+            />
+
+            {/* Route for the Splash Screen page */}
+            <Route 
+              path="/splashscreen" 
+              element={<SplashScreen />} 
+            />
+
+            {/* Route for the Home page */}
+            <Route 
+              path="/home" 
+              element={<Home />} 
+            />
+
+            {/* Route for the QR Screen page */}
+            <Route 
+              path="/qr" 
+              element={<QRScreen />} 
+            />
+
+            {/* Route for the User Profile page */}
+            <Route 
+              path="/user" 
+              element={<UserProfile />} 
+            />
+
+            {/* Route for the Taskboard page */}
+            <Route 
+              path="/taskboard" 
+              element={<Taskboard />} 
+            />
+
+            {/* Route for the Leaderboard page */}
+            <Route 
+              path="/leaderboard" 
+              element={<Leaderboard />} 
+            />
+
+            {/* Catch-all route for 404 Not Found */}
+            <Route 
+              path="*" 
+              element={<NotFound />} 
+            />
           </Routes>
         </BrowserRouter>
       </div>
-      </>
-    );
-  }
+    </>
+  );
+}
 
-  export default App;
+// Export the App component as the default export
+export default App;
