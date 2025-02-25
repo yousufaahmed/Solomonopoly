@@ -12,16 +12,35 @@ import QRScreen from "./pages/QRScreen";
 import UserProfile from "./pages/UserProfile";
 import Taskboard from "./pages/Taskboard";
 import Leaderboard from "./pages/Leaderboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Define the App component
 function App() {
-  return (
 
+  function Logout() {
+    localStorage.clear()
+    return <Navigate to="/" />
+  }
+
+  function RegisterAndLogout() {
+    localStorage.clear()
+    return <SignUp />
+  }
+
+  return (
     <>
       <div>
         {/* BrowserRouter wraps the entire application for routing */}
         <BrowserRouter>
+          {/* Routes component contains all the Route components */}
           <Routes>
+            <Route path="/home"
+              element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+              }
+            />
             {/* Route definitions for each page */}
             <Route 
               index 
@@ -37,7 +56,7 @@ function App() {
             {/* Route for the Sign Up page */}
             <Route 
               path="/signup" 
-              element={<SignUp />} 
+              element={<RegisterAndLogout />} 
             />
 
             {/* Route for the Splash Screen page */}
@@ -49,31 +68,51 @@ function App() {
             {/* Route for the Home page */}
             <Route 
               path="/home" 
-              element={<Home />} 
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              } 
             />
 
             {/* Route for the QR Screen page */}
             <Route 
               path="/qr" 
-              element={<QRScreen />} 
+              element={
+                <ProtectedRoute>
+                  <QRScreen />
+                </ProtectedRoute>
+              } 
             />
 
             {/* Route for the User Profile page */}
             <Route 
               path="/user" 
-              element={<UserProfile />} 
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              } 
             />
 
             {/* Route for the Taskboard page */}
             <Route 
               path="/taskboard" 
-              element={<Taskboard />} 
+              element={
+                <ProtectedRoute>
+                  <Taskboard />
+                </ProtectedRoute>
+              } 
             />
 
             {/* Route for the Leaderboard page */}
             <Route 
               path="/leaderboard" 
-              element={<Leaderboard />} 
+              element={
+                <ProtectedRoute>
+                  <Leaderboard />
+                </ProtectedRoute>
+              } 
             />
 
             {/* Catch-all route for 404 Not Found */}
@@ -81,6 +120,7 @@ function App() {
               path="*" 
               element={<NotFound />} 
             />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </BrowserRouter>
       </div>
