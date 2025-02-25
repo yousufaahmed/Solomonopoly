@@ -70,7 +70,7 @@ class TaskView(generics.RetrieveAPIView):
 class CreateTaskView(generics.CreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]#IsAdminUser]
 
 # Change task details
 class UpdateTaskView(generics.UpdateAPIView):
