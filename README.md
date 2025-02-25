@@ -1,6 +1,18 @@
 # Solomonopoly
 Sustainability Project
 
+## Members
+1. Ernest Bozjigitov
+2. Sri Guhanathan
+3. Mohammed Shahid  
+4. Eliot Deacon
+5. Yousuf Ahmed
+6. Ahnaf Tahmid Haque
+7. Aleem Abbas-Hussain
+
+## Trello link
+https://trello.com/b/M4YLqqFd/solomonopoly
+
 ## BACKEND
 
 virtual Environment
@@ -52,7 +64,7 @@ npm run dev
 Run Django Tests:
 
 
-To run all tests, execute the following command from the **root directory**:  
+To run all backend tests, execute the following command from the **root directory**:  
 
 
 python manage.py test api.tests
