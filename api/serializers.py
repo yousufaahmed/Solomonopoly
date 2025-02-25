@@ -75,6 +75,24 @@ class PlayerTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerTask
         fields = ["player", "task", "completed"]
+        #extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
+
+    def create(self, validated_data):
+        player = validated_data['player']
+        task = validated_data['task']
+
+        if PlayerTask.objects.filter(player=player, task=task).exists():
+            raise serializers.ValidationError("The task has already been assigned to the player.")
+
+        return PlayerTask.objects.create(**validated_data)
+    
+class PlayerTaskSerializerUpdate(serializers.ModelSerializer):
+    #task_name = serializers.CharField(source ='task.title', read_only = True)
+    #player_name = serializers.CharField(source='player.username', read_only=True)
+
+    class Meta:
+        model = PlayerTask
+        fields = ["player", "task", "completed"]
         extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
 
     def create(self, validated_data):
