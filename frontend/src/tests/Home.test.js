@@ -1,3 +1,5 @@
+// Written by Mohammed Zarrar Shahid
+
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Home from "../pages/Home.jsx";

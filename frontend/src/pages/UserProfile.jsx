@@ -76,30 +76,33 @@ const UserProfile = () => {
                 Remaining Tasks:
 
                 {/* Task button for recycling task with arrow icon */}
-                <button 
-                    type="button" 
-                    className="remtasks1_btn"
-                >
-                    Recycle at all bin locations
-                    <img 
-                        src={arrow} 
-                        alt="arrow_img" 
-                        className="arrow_image1"
-                    />
-                </button>
+            <button 
+            type="button" 
+            className="remtasks1_btn"
+            data-testid="recycle-task-btn"  // <-- Added test id
+            >
+            Recycle at all bin locations
+            <img 
+                src={arrow} 
+                alt="arrow_img" 
+                className="arrow_image1"
+            />
+            </button>
 
-                {/* Task button for biking task with arrow icon */}
-                <button 
-                    type="button" 
-                    className="remtasks2_btn"
-                >
-                    Park bike at bike rack locations
-                    <img 
-                        src={arrow} 
-                        alt="arrow_img" 
-                        className="arrow_image2"
-                    />
-                </button>
+            {/* Task button for biking task with arrow icon */}
+            <button 
+            type="button" 
+            className="remtasks2_btn"
+            data-testid="bike-task-btn"  // <-- Added test id
+            >
+            Park bike at bike rack locations
+            <img 
+                src={arrow} 
+                alt="arrow_img" 
+                className="arrow_image2"
+            />
+            </button>
+
             </div>
 
             {/* Footer section */}
