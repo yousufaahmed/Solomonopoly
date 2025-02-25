@@ -1,9 +1,13 @@
+/*Written by Mohammed Zarrar Shahid*/
+
+/* Global reset to remove default margin, padding and box-sizing*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
+/* Main container for the home page layout */
 .home_container{
     width: 1000px;
     height: 100vh;
@@ -17,31 +21,35 @@
     position: relative;
 }
 
+/* Main heading styles */
 .home_container h1{
     font-size: 100px;
     font-weight: 600;
     margin-bottom: 5px;
     color: #0b4433;
-    transform: translate(0px, -140px);
+    transform: translate(0px, -200px);
 }
 
+/* Subheading styles */
 .home_container h2{
     font-size: 50px;
     font-weight: 400;
     color: black;
-    transform: translate(0px, -160px);
+    transform: translate(0px, -210px);
 }
 
+/* Large background tree image */
 .home_container .tree{
-    background-image: url('./assets/tree.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-image: url('./assets/tree.png');/* imported as a background image */
+    background-size: contain;/*makes sure tree in contained in the background*/
+    background-repeat: no-repeat;/*makes sure tree doesn't repeat*/
     width: 1500px;
     height: 1500px;
     position: absolute;
-    transform: translate(0px, -80px);
+    transform: translate(0px, -120px);
 }
 
+/* QR button styles */
 .home_container .qr_button{
     display: flex;
     align-items: center;
@@ -58,14 +66,16 @@
     font-size: 45px;
     text-shadow: 4px 4px black;
     font-weight: 600;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
 
+/* QR code image inside the button */
 .home_container .qr_image{
     width: 70px;
     transform: translate(20px,0px);
 }
 
+/* Sustainability button styles */
 .home_container .sustainability_btn{
     display: flex;
     align-items: center;
@@ -82,12 +92,13 @@
     font-size: 30px;
     text-shadow: 4px 4px black;
     font-weight: 600;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
 
+/* Leaderboard button styles */
 .home_leaderboard_btn{
     width: 800px;
-    height: 600px;
+    height: 400px;
     background-color: #0b4433;
     border-radius: 50px;
     font-family: "Poppins", 'sans serif';
@@ -95,9 +106,10 @@
     font-weight: 500;
     color: #e4e4e4;
     z-index: 2;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
 
+/* Taskboard button styles */
 .home_taskboard_btn{
     width: 800px;
     height: 400px;
@@ -108,5 +120,5 @@
     font-weight: 500;
     color: #e4e4e4;
     z-index: 2;
-    transform: translate(0px, -120px);
+    transform: translate(0px, -160px);
 }
