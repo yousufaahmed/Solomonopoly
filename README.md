@@ -69,6 +69,7 @@ Or if using on the same machine select the first server under "Local"
 Right-click, select "Inspect" and enter: 
 
 CONTROL + SHIFT + M -> WINDOWS
+
 COMMAND + SHIFT + M -> MACOS
 
 to enter Mobile view
@@ -94,21 +95,3 @@ npm install --save-dev jest
 ### 4 - Run tests
 
 npm test
-
-## BACKEND TESTING
-
-Run Django Tests:
-
-python manage.py test
-
-Run Frontend Tests:
-
-cd frontend
-npm test
-
-Run full-stack tests (cypress or Playwright):
-npx cypress open
-
-
-FRONTEND TEMPLATE COMES FROM HERE:
-https://github.com/techwithtim/Django-React-Full-Stack-App
