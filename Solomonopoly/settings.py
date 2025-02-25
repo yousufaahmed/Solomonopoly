@@ -57,7 +57,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'rest_framework',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'django_extensions',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'Solomonopoly.urls'
@@ -90,7 +93,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Solomonopoly.wsgi.application'
 
-
+# CORS_ALLOWED_ORIGINS = [
+#     "https://localhost:5173",
+# ]
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -137,6 +142,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "myapp/static")

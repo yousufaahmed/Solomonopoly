@@ -2,3 +2,7 @@ django
 djangorestframework
 djangorestframework-simplejwt
 python-dotenv
+django-extensions
+werkzeug
+pyOpenSSL
+django-cors-headers

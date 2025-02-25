@@ -1,0 +1,164 @@
+/*Written by Aleem Abbas-Hussain*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+  font-family: 'Poppins', sans-serif;
+} /*Sets all fonts to poppins*/
+
+
+/* Container for the leaderboard page */
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e4e4e4;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Styles for the leaderboard heading */
+.leaderboard-header {
+  font-size: 80px;
+  font-weight: bold;
+  color: #2d6a4f;
+  margin-bottom: 16px;
+}
+
+/* Tabs container for switching between sections */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+/* Individual tab button styles */
+.tab-button {
+  padding: 9px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: #e4e4e4;
+  color: #495057;
+  font-size: 30px;
+  transition: background-color 0.3s;
+  border-radius: 20px;
+  margin: 10px;
+  transform: translate(0px, -20px);
+}
+
+/* Active tab button styling */
+.tab-button.active {
+  background-color: #009951;
+  color: #e4e4e4;
+}
+
+/* Container for the leaderboard list */
+.leaderboard-list {
+  width: 800px;
+  max-width: 1000px;
+  background-color: #e4e4e4;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+  transform: translate(0px, 10px);
+}
+
+/* Styling for each leaderboard entry */
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #c2c2c2;
+}
+
+/* Container for user details inside leaderboard */
+.leaderboard-user {
+  display: flex;
+  align-items: center;
+}
+
+/* User profile image */
+.user-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 16px;
+  border: 2px solid #d3d3d3;
+}
+
+/* Container for user information */
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Username styling */
+.user-name {
+  font-weight: bold;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+/* Score text styling */
+.user-score {
+  color: #6c757d;
+  font-size: 30px;
+}
+
+/* Rank text styling */
+.user-rank {
+  color: #adb5bd;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+/* Container for adding a friend via friend code */
+.friend-code-container {
+  width: 100%;
+  max-width: 550px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #e4e4e4;
+  padding: 8px;
+  border-radius: 10px;
+  transform: translate(-280px, 1425px);
+}
+
+/* Input field for entering a friend code */
+.friend-code-input {
+  width: 60%;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid #009951;
+  margin-right: 10px;
+  background-color: #e4e4e4;
+  font-size: 28px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Button for adding a friend */
+.add-friend-button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #009951;
+  color: #e4e4e4;
+  cursor: pointer;
+  transition: background-color 0.3s; /*transitions to colour when clicked*/
+  font-size: 28px;
+}
+
+/* Hover effect for the add friend button */
+.add-friend-button:hover {
+  background-color: #1b4332;
+}
+
+  
+  

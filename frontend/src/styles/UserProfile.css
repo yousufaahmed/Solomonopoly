@@ -1,10 +1,12 @@
+/* Global Reset and Font Styling */
 * {
     margin: 0;
     padding: 0;
-    font-family: "Poppins", sans-serif;
-  }
+    font-family: "Poppins", sans-serif; /* Set global font to Poppins */
+}
 
-.user_container{
+/* Main container for the User Profile component */
+.user_container {
     width: 1000px;
     height: 100vh;
     display: flex;
@@ -14,69 +16,79 @@
     align-items: center;
     text-align: center;
     position: relative;
+    overflow-y: auto;
 }
 
-.user_container .settings_icon{
+/* Settings button styling */
+.user_container .sign_out_icon {
     width: 90px;
-    background-color: transparent;
-    border-color: transparent;
-    transform: translate(-370px,75px);
+    background-color: transparent; /* Transparent background */
+    border-color: transparent; /* No border */
+    transform: translate(-370px, 75px); /* Position adjustment */
 }
 
-.settings_icon .settings_image{
-    width: 70px;
+/* Image inside the settings button */
+.sign_out_icon .sign_out_image {
+    width: 70px; /* Size of the settings icon */
 }
 
-.user_container .coins_icon{
+/* Coins button styling */
+.user_container .coins_icon {
     display: flex;
     align-items: center;
     gap: 40px;
     width: 250px;
     background-color: transparent;
-    font-size: 50px;
-    font-weight: 600;
+    font-size: 50px; /* Font size for coin balance */
+    font-weight: 600; /* Bold text */
     border-radius: 70px;
-    border-color:transparent;
-    color: black;
-    transform: translate(330px,-30px);
+    border-color: transparent;
+    color: black; /* Text color */
+    transform: translate(330px, -30px); /* Position adjustment */
 }
 
-.coins_icon .coins_image{
-    width: 60px;
-    margin-left: 25px;
+/* Image inside the coins button */
+.coins_icon .coins_image {
+    width: 60px; /* Size of the coins icon */
+    margin-left: 25px; /* Spacing from the left */
 }
 
-.user_intro{
+/* Styling for the introductory text */
+.user_intro {
     font-size: 100px;
     color: black;
     font-weight: 650;
 }
 
-.user_id{
+/* Styling for the user ID text */
+.user_id {
     font-size: 40px;
     color: gray;
     font-weight: 300;
 }
 
-.user_date{
+/* Styling for the join date text */
+.user_date {
     font-size: 40px;
     color: black;
     font-weight: 300;
 }
 
-.campus_btn{
+/* Button styling for displaying campus location */
+.campus_btn {
     width: 850px;
     height: 180px;
-    background-color: #0b4433;
+    background-color: #0b4433; /* Dark green background */
     border-radius: 50px;
     font-family: "Poppins", 'sans serif';
     font-size: 50px;
     font-weight: 600;
-    color: white;
-    padding-right: 250px;
+    color: white; /* White text color */
+    padding-right: 250px; /* Adjust padding */
 }
 
-.leaderpos_btn{
+/* Button styling for displaying leaderboard position */
+.leaderpos_btn {
     width: 850px;
     height: 180px;
     background-color: #0b4433;
@@ -88,7 +100,8 @@
     padding-right: 80px;
 }
 
-.remtasks_btn{
+/* Container for remaining tasks */
+.remtasks_btn {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -105,22 +118,26 @@
     color: white;
 }
 
-.remtasks1_btn, .remtasks2_btn{
+/* Styling for individual task buttons */
+.remtasks1_btn, 
+.remtasks2_btn {
     display: flex;
     width: 750px;
     height: 120px;
     align-items: center;
     justify-content: space-between;
-    background-color: #2e8b58;
+    background-color: #2e8b58; /* Lighter green background */
     font-family: "Poppins", 'sans serif';
     font-size: 40px;
     font-weight: 600;
     color: white;
-    text-shadow: 2px 2px black;
+    text-shadow: 2px 2px black; /* Text shadow for better visibility */
     padding-left: 15px;
     padding-right: 15px;
 }
 
-.arrow_image1, .arrow_image2{
-    width: 60px;
+/* Arrow images inside task buttons */
+.arrow_image1, 
+.arrow_image2 {
+    width: 60px; /* Size of the arrow icons */
 }

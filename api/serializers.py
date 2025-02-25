@@ -15,6 +15,11 @@ class PlayerSerializer(serializers.ModelSerializer):
         model = Player
         fields = ["player_id", "user","username", "points", "deck", "campus"]
 
+class PlayerIdOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['player_id']
+
 class LeaderboardSerializer(serializers.ModelSerializer):
     rank = serializers.SerializerMethodField()
     username = serializers.CharField(source='user.username')

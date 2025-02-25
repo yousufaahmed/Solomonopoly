@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate
+from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate
 from myapp.models import Player, Task, Card, Purchases, PlayerTask
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
@@ -13,6 +13,26 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes =  [AllowAny]
+
+class UsernameView(APIView):
+    # queryset = User.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    
+    def get(self, request, user_id):
+        # Retrieve the user by ID, or return 404 if not found
+        user = get_object_or_404(User, pk=user_id)
+        return Response(
+            {"username": user.username},
+            status=status.HTTP_200_OK
+        )
+    
+
+class PlayerIdView(generics.RetrieveAPIView):
+    queryset = Player.objects.all()
+    serializer_class = PlayerIdOnlySerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'user'
 
 # Create your views here.
 
@@ -31,6 +51,7 @@ class PlayerView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
 
     lookup_field = 'player_id'
+
 
 # class CreatePlayerView(generics.CreateAPIView):
 #     queryset=Player.objects.all()

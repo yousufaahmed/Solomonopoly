@@ -1,13 +1,17 @@
+/*Written by Mohammed Zarrar Shahid*/
+
+/* Import Poppins font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
+/* Reset margin, padding, and set box-sizing to border-box for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+/* Center the body content and set background color */
+body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +19,8 @@ body{
   background: #e4e4e4;
 }
 
-.container{
+/* Container to center and limit the width of the content */
+.container {
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -23,10 +28,11 @@ body{
   justify-content: center;
 }
 
-.container button{
+/* Button inside the container */
+.container button {
   width: 100px;
   height: 100px;
-  transform: translate(850px,200px);
+  transform: translate(850px, 200px); /* Moves button to a specific position */
   border-color: #e4e4e4;
   border-width: 0px;
   background-color: #e4e4e4;
@@ -36,12 +42,14 @@ body{
   font-weight: 500;
 }
 
+/* Header positioning */
 .header {
   position: absolute;
   top: 150px;
   left: 100px;
 }
 
+/* Bold heading with Poppins font */
 .poppins-bold {
   font-size: 90px;
   font-family: "Poppins", sans-serif;
@@ -50,6 +58,7 @@ body{
   color: #0b4433;
 }
 
+/* Light heading with Poppins font */
 .poppins-light {
   font-size: 90px;
   font-family: "Poppins", sans-serif;
@@ -58,7 +67,8 @@ body{
   color: #0b4433;
 }
 
-.wrapper{
+/* Wrapper for main content, rounded top, and large bottom padding */
+.wrapper {
   background: #2E8B58;
   padding: 80px 50px 50px;
   border-radius: 150px 150px 0 0;
@@ -68,14 +78,16 @@ body{
   bottom: 0;
 }
 
-.wrapper .input-box{
+/* Input box container */
+.wrapper .input-box {
   position: relative;
   width: 100%;
   height: 100px;
   margin-top: 90px;
 }
 
-.input-box input{
+/* Styling for text input fields */
+.input-box input {
   width: 100%;
   height: 120px;
   background: #e4e4e4;
@@ -87,18 +99,21 @@ body{
   color: #7D7D7D;
 }
 
-.input-box input::placeholder{
+/* Placeholder text color */
+.input-box input::placeholder {
   color: #7D7D7D;
 }
 
-.wrapper .forgot{
+/* Forgot password link container */
+.wrapper .forgot {
   display: flex;
-  justify-content:right;
+  justify-content: right;
   margin: 50px 20px 20px;
 }
 
-.forgot a{
-  font-family:"Poppins", sans-serif;
+/* Forgot password link styling */
+.forgot a {
+  font-family: "Poppins", sans-serif;
   font-size: 40px;
   font-weight: 500;
   color: #e4e4e4;
@@ -106,11 +121,13 @@ body{
   text-shadow: 1px 1px black;
 }
 
-.forgot a:hover{
+/* Hover effect for forgot password link */
+.forgot a:hover {
   text-decoration: underline;
 }
 
-.wrapper button{
+/* Button inside the wrapper */
+.wrapper button {
   width: 100%;
   height: 140px;
   border-radius: 700px;
@@ -126,29 +143,33 @@ body{
   text-shadow: 4px 4px black;
 }
 
-.wrapper .footer{
+/* Footer container */
+.wrapper .footer {
   margin-top: 50px;
   margin-left: 400px;
-  justify-content:right;
+  justify-content: right;
 }
 
-.footer h1{
-  font-family:"Poppins", sans-serif;
+/* Footer text styling */
+.footer h1 {
+  font-family: "Poppins", sans-serif;
   font-size: 40px;
   font-weight: 550;
   color: #e4e4e4;
   text-shadow: 1px 1px black;
 }
 
-.footer a{
+/* Footer link styling */
+.footer a {
   text-decoration: none;
-  font-family:"Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 40px;
   font-weight: 550;
   color: #0b4433;
   margin-left: 320px;
 }
 
-.footer a:hover{
+/* Hover effect for footer link */
+.footer a:hover {
   text-decoration: underline;
 }
