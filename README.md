@@ -51,7 +51,11 @@ npm run dev
 
 Run Django Tests:
 
-python manage.py test
+
+To run all tests, execute the following command from the **root directory**:  
+
+```sh
+python manage.py test api.tests
 
 Run Frontend Tests:
 
