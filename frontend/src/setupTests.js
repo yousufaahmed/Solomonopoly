@@ -1,6 +1,7 @@
-import '@testing-library/jest-dom';
+// src/setupTests.js
+import '@testing-library/jest-dom'; // Extends Jest with custom matchers
 
-// Polyfill TextEncoder if it's not defined (Node may not include it by default)
-if (typeof TextEncoder === 'undefined') {
-  global.TextEncoder = require('util').TextEncoder;
-}
+// Polyfill TextEncoder and TextDecoder for Jest (required for some libraries)
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;

@@ -1,7 +1,8 @@
 //*Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein*//
 // Import necessary modules from React Router
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+
 
 // Import all the page components for routing
 import SplashScreen from "./pages/Splash";
@@ -85,9 +86,8 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
+
     </>
   );
 }
-
-// Export the App component as the default export
 export default App;
