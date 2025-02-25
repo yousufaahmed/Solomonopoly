@@ -1,0 +1,79 @@
+<<<<<<< HEAD
+=======
+/*Written by Mohammed Zarrar Shahid*/
+
+/* Footer container styles */
+>>>>>>> 6cf15b28 (frontend)
+.footer_container{
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #CCCCCC;
+    margin: 0;
+<<<<<<< HEAD
+    z-index: 99;
+    position: fixed;
+    bottom: 0;
+=======
+    z-index: 99;/*Keeps footer ahead of everything else*/
+    position: fixed;/*Keeps footer fixed at the bottom*/
+    bottom: 0;/*Keeps footer at the bottom*/
+>>>>>>> 6cf15b28 (frontend)
+    left: 0;
+    width: 100%;
+    height: 140px;
+}
+
+<<<<<<< HEAD
+.footer_container .footer_home, .footer_user, .footer_qr{
+    font-family: "Poppins", "sans-serif";
+    font-size:50px;
+    color: #e7e7e7;
+    text-align: center;
+    background-color: #CCCCCC;
+    width: 150px;
+    border-color: #CCCCCC;   
+}
+
+=======
+/* Sets styles for footer container */
+.footer_container .footer_home, .footer_user, .footer_qr{
+    background-color: #CCCCCC;
+    width: 150px;
+    border-color: transparent;
+    box-shadow: 0;   
+}
+
+/* Size and placement of qr code image in footer */
+>>>>>>> 6cf15b28 (frontend)
+.footer_container .qr_black{
+    width: 80px;
+    transform: translate(0,10px);
+}
+
+<<<<<<< HEAD
+=======
+/* Size and placement of home image in footer */
+>>>>>>> 6cf15b28 (frontend)
+.footer_container .home_img{
+    width: 80px;
+    transform: translate(0,10px);
+}
+
+<<<<<<< HEAD
+.footer_container .user_img{
+    width: 120px;
+    transform: translate(0,15px);
+=======
+/* Size and placement of user profile image in footer */
+.footer_container .user_img{
+    width: 120px;
+    transform: translate(0,15px);
+}
+
+/* Placement of user profile picture container on footer adjusted */
+.footer_container .footer_user{
+    transform: translate(0,5px);
+>>>>>>> 6cf15b28 (frontend)
+}

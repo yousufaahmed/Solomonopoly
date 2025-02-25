@@ -1,0 +1,263 @@
+/* Written by Aleem Abbas-Hussain*/
+
+<<<<<<< HEAD
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+=======
+/* Import Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Reset margins and ensure full height for both HTML and body */
+>>>>>>> 6cf15b28 (frontend)
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+<<<<<<< HEAD
+    overflow: hidden;
+  }
+  
+  .qr-container {
+=======
+    overflow: hidden; /* Prevents scrolling */
+}
+
+/* Main container for QR scanner layout */
+.qr-container {
+>>>>>>> 6cf15b28 (frontend)
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+<<<<<<< HEAD
+    background-color: #e4e4e4;
+    text-align: center;
+  }
+  
+  .qr-header {
+    transform: translate(10px, 50px);
+  }
+  
+  .qr-header h2 {
+=======
+    background-color: #e4e4e4; /* Light grey background */
+    text-align: center;
+}
+
+/* Header section containing title and subtitle */
+.qr-header {
+    transform: translate(10px, 50px); /* Adjusts position */
+}
+
+/* QR Scanner title styling */
+.qr-header h2 {
+>>>>>>> 6cf15b28 (frontend)
+    color: #0B4433;
+    margin: 0;
+    font-size: 100px;
+    font-weight: 600;
+<<<<<<< HEAD
+    font-family: 'Poppins', sans-serif
+  }
+  
+  .qr-header p {
+    color: #666;
+    margin-top: -10px;
+    font-size: 35px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .qr-camera-container {
+=======
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Subtitle styling under the main title */
+.qr-header p {
+    color: #666;
+    margin-top: -10px; /* Adjust spacing */
+    font-size: 35px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Camera container for displaying video stream */
+.qr-camera-container {
+>>>>>>> 6cf15b28 (frontend)
+    position: relative;
+    width: 70vw;
+    height: 60vh;
+    max-width: 1000px;
+<<<<<<< HEAD
+    border-radius: 6%;
+    overflow: hidden;
+    transform: translate(0px, -00px);
+}
+
+=======
+    border-radius: 6%; /* Rounded corners */
+    overflow: hidden;
+}
+
+/* Torch button container for flashlight feature */
+>>>>>>> 6cf15b28 (frontend)
+.qr-torch {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+<<<<<<< HEAD
+    z-index: 10;
+}
+
+.torch-button {
+    background-color: #2E8B58;
+    color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 80px;      /* Increase padding for larger button */
+    font-size: 50px;    /* Increase icon size */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transform: translate(-250px, 0px);
+    z-index: 10;
+}
+
+
+
+.qr-camera-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
+}
+  
+  .qr-navbar {
+=======
+    z-index: 10; /* Ensures it's above other elements */
+}
+
+/* Styling for torch button */
+.torch-button {
+    background-color: #2E8B58; /* Green button */
+    color: white;
+    border: 1px solid black;
+    border-radius: 50%; /* Makes it circular */
+    padding: 80px; /* Increases button size */
+    font-size: 50px; /* Increases icon size */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transform: translate(-250px, 0px); /* Moves button to the left */
+    z-index: 10;
+}
+
+/* Video inside camera container */
+.qr-camera-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers the entire area */
+}
+
+/* Bottom navigation bar */
+.qr-navbar {
+>>>>>>> 6cf15b28 (frontend)
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #e4e4e4;
+    padding: 10px 0;
+<<<<<<< HEAD
+  }
+  
+  .qr-navbar i {
+    font-size: 30px;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  .qr-overlay {
+=======
+}
+
+/* Icons inside the navigation bar */
+.qr-navbar i {
+    font-size: 30px;
+    color: #666;
+    cursor: pointer;
+}
+
+/* QR overlay for guiding users */
+.qr-overlay {
+>>>>>>> 6cf15b28 (frontend)
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+<<<<<<< HEAD
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.qr-overlay-image {
+    width: 60%;         
+    height: auto;
+    object-fit: contain;
+    opacity: 0.4;
+    transform: translate(0px, -50px);        
+}
+
+=======
+    pointer-events: none; /* Prevents interaction */
+    z-index: 10000; /* Ensures it's always on top */
+}
+
+/* QR overlay image for alignment */
+.qr-overlay-image {
+    width: 60%;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.4; /* Slight transparency */
+    transform: translate(0px, -50px);
+}
+
+/* iOS-specific torch overlay */
+>>>>>>> 6cf15b28 (frontend)
+.ios-torch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+<<<<<<< HEAD
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.ios-torch-image {
+    width: 17%;         
+    height: auto;
+    object-fit: contain;
+    opacity: 1;
+    transform: translate(-7px, 490px);        
+}
+=======
+    pointer-events: none; /* Prevents interaction */
+    z-index: 10000;
+}
+
+/* iOS torch image styling */
+.ios-torch-image {
+    width: 17%;
+    height: auto;
+    object-fit: contain;
+    opacity: 1;
+    transform: translate(-7px, 490px); /* Adjusts position */
+}
+>>>>>>> 6cf15b28 (frontend)

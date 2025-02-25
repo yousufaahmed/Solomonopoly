@@ -1,0 +1,69 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+<<<<<<< HEAD
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "jsqr": "^1.4.0",
+    "jwt-decode": "^4.0.0",
+=======
+    "test": "jest"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.js"
+    ],
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "install": "^0.13.0",
+    "jsqr": "^1.4.0",
+    "jwt-decode": "^4.0.0",
+    "npm": "^11.1.0",
+>>>>>>> 6cf15b28 (frontend)
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.5",
+    "react-webcam": "^7.2.0"
+  },
+  "devDependencies": {
+<<<<<<< HEAD
+    "@eslint/js": "^9.19.0",
+=======
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@eslint/js": "^9.19.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+>>>>>>> 6cf15b28 (frontend)
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+<<<<<<< HEAD
+=======
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+>>>>>>> 6cf15b28 (frontend)
+    "vite": "^6.1.0"
+  }
+}
