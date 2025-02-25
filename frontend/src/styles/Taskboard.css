@@ -1,0 +1,174 @@
+/* Written by Aleem Abbas-Hussain */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Global Styles */
+body, html {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #e4e4e4;
+}
+
+/* Taskboard Container */
+.taskboard-container {
+  width: 1050px;
+  min-height: 100vh;
+  padding: 32px;
+  box-sizing: border-box;
+  background-color: #e4e4e4;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Taskboard Header */
+.taskboard-header {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 16px;
+  background-color: #e4e4e4;
+  border-radius: 16px;
+}
+
+.taskboard-header h2 {
+  font-size: 60px;
+  color: #0B4433;
+  margin: 0;
+}
+
+.taskboard-header p {
+  font-size: 28px;
+  color: #6b7280;
+  margin: 8px 0 24px;
+}
+
+/* Taskboard Content */
+.taskboard-content {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #6BB284;
+  padding: 32px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+/* Task Card */
+.task-card {
+  background-color: transparent;
+  padding: 16px 0;
+  margin-bottom: 24px;
+}
+
+/* Task Title */
+.task-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #e4e4e4;
+  font-size: 28px;
+}
+
+/* Task Progress Bar */
+.task-progress {
+  background-color: #e4e4e4;
+  border-radius: 4px;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+}
+
+/* Progress Bar Fill */
+.task-progress-bar {
+  background-color: #2E8B58;
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e4e4e4;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+}
+
+/* Full Progress Bar */
+.task-progress-bar.full {
+  width: 100%;
+  background-color: #2E8B58;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 8px;
+  color: #e4e4e4;
+}
+
+/* Completed Progress Bar */
+.task-progress-bar.completed-bar {
+  width: 100% !important;
+  background-color: #2E8B58;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+  color: #e4e4e4;
+  font-weight: bold;
+  position: relative;
+}
+
+/* Text Inside Progress Bar */
+.task-progress-text-inside {
+  color: #e4e4e4;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+}
+
+/* End Text on Progress Bar */
+.task-end-text {
+  margin-left: auto;
+  padding-left: 8px;
+  color: #0B4433;
+  font-weight: bold;
+  font-size: 28px;
+  position: absolute;
+  right: 8px;
+}
+
+/* Completed Bar End Text */
+.task-progress-bar.completed-bar .task-end-text {
+  right: 16px;
+  color: #e4e4e4;
+}
+
+/* End Text Decoration */
+.task-progress-bar.completed-bar .task-end-text::before {
+  content: '';
+  position: absolute;
+  right: 16px;
+  display: block;
+}
+
+/* Checkmark Indicator */
+.task-check {
+  color: #0B4433;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Footer Styling */
+.footer {
+  z-index: 10;
+  position: relative;
+}
+
