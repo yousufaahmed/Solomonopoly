@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, LeaderboardView,
-    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,
+    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView, UsernameView,
     CardListView, CardView, CreatePurchaseRecordView#, UserUpdateView#, PlayerCardListView
 )
 
 urlpatterns = [
+    path('user/<int:user_id>/username/', UsernameView.as_view(), name='username'),
     #Player Endpoints - Need to fix some stuff first, integrate inbuilt django user model
     path('players/', PlayerListView.as_view(), name='player-list'),
     path('player/<int:player_id>/', PlayerView.as_view(), name='player-detail'),

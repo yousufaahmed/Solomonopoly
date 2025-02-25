@@ -1,4 +1,4 @@
-// Written by Mohammed Zarrar Shahid
+// Written by Mohammed Zarrar Shahid and Yousuf Ahmed
 
 
 // Import necessary modules and styles
@@ -9,9 +9,46 @@ import sign_out from "../assets/sign_out.png"; // Import sign_out icon
 import coins from "../assets/coins.png"; // Import coins icon
 import user_profile from '../assets/user_profile.png'; // Import user profile image
 import arrow from '../assets/arrow.png'; // Import arrow icon
+import { jwtDecode } from 'jwt-decode';
+import { ACCESS_TOKEN } from "../constants";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 // Define the UserProfile component
 const UserProfile = () => {
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        const fetchUsername = async () => {
+            try {
+                const token = localStorage.getItem(ACCESS_TOKEN);
+                if (!token) return;
+
+                const decoded = jwtDecode(token);
+                console.log('Decoded token:', decoded);
+
+                const response = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch username');
+                }
+
+                const data = await response.json();
+                setName(data.username); // Adjust this based on your API response structure
+            } catch (error) {
+                console.error('Error fetching username:', error);
+                // Handle error (e.g., show default value)
+                setName('User');
+            }
+        };
+
+        fetchUsername();
+    }, []);
+
     return (
         // Main container for the UserProfile component
         <div className="user_container">
@@ -50,7 +87,7 @@ const UserProfile = () => {
 
             {/* User information section */}
             <div className="user_text">
-                <h1 className="user_intro">Hi Mark!</h1>
+                <h1 className="user_intro">Hi {name}!</h1>
                 <h1 className="user_id">#345-876</h1>
                 <h1 className="user_date">Joined Feb 2025</h1>
             </div>

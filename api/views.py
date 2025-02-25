@@ -14,6 +14,19 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes =  [AllowAny]
 
+class UsernameView(APIView):
+    # queryset = User.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    
+    def get(self, request, user_id):
+        # Retrieve the user by ID, or return 404 if not found
+        user = get_object_or_404(User, pk=user_id)
+        return Response(
+            {"username": user.username},
+            status=status.HTTP_200_OK
+        )
+
 # Create your views here.
 
 ###  Player views - Need to change models & serializers first ###
