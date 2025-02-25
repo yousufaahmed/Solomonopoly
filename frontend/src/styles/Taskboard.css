@@ -172,3 +172,25 @@ body, html {
   position: relative;
 }
 
+
+/* Task Button */
+.task-button {
+  background-color: #2E8B58;
+  color: #e4e4e4;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.task-button:hover {
+  background-color: #276c47;
+}
+
+/* Optional class for when the task is completed */
+.task-button.completed {
+  background-color: #4CAF50;
+}
+

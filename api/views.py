@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer, PlayerTaskSerializer, LeaderboardSerializer
+from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate
 from myapp.models import Player, Task, Card, Purchases, PlayerTask
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
@@ -26,6 +26,13 @@ class UsernameView(APIView):
             {"username": user.username},
             status=status.HTTP_200_OK
         )
+    
+
+class PlayerIdView(generics.RetrieveAPIView):
+    queryset = Player.objects.all()
+    serializer_class = PlayerIdOnlySerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'user'
 
 # Create your views here.
 
@@ -35,15 +42,16 @@ class UsernameView(APIView):
 class PlayerListView(generics.ListAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 # Gets the and individual players' details
 class PlayerView(generics.RetrieveAPIView):
     queryset=Player.objects.all()
     serializer_class = PlayerSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     lookup_field = 'player_id'
+
 
 # class CreatePlayerView(generics.CreateAPIView):
 #     queryset=Player.objects.all()
@@ -71,19 +79,20 @@ class LeaderboardView(generics.ListAPIView):
 class TaskListView(generics.ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 # Return the details of an individual task
 class TaskView(generics.RetrieveAPIView):
     queryset = Task.objects.all()
     serializer_class=TaskSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    lookup_field = 'task_id'
 
 # Create a new task
 class CreateTaskView(generics.CreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 # Change task details
 class UpdateTaskView(generics.UpdateAPIView):
@@ -117,7 +126,7 @@ class AssignTaskToPlayerView(generics.CreateAPIView):
 
 class UpdatePlayerTaskView(generics.UpdateAPIView):
     #queryset = PlayerTask.objects.all()
-    serializer_class = PlayerTaskSerializer
+    serializer_class = PlayerTaskSerializerUpdate
     permission_classes = [AllowAny]#IsAuthenticated]
 
     def get_object(self):
@@ -128,12 +137,20 @@ class UpdatePlayerTaskView(generics.UpdateAPIView):
 # 
 
 class PlayerTaskView(generics.ListAPIView):
-     serializer_class = PlayerTaskSerializer
-     permission_classes = [AllowAny]#IsAuthenticated]
-     
+    serializer_class = PlayerTaskSerializer
+    permission_classes = [AllowAny]  # Update with appropriate permission if necessary
 
+    def get_queryset(self):
+        player_id = self.kwargs["player_id"]
+        player = get_object_or_404(Player, pk=player_id)
+        return PlayerTask.objects.filter(player=player)
 
+    def get(self, request, player_id, *args, **kwargs):
+        player_tasks = self.get_queryset()
+        serializer = self.get_serializer(player_tasks, many=True)
 
+  
+        return Response(serializer.data)
 
 ### Card/Purchase Views ###
 
