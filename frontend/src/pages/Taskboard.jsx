@@ -83,23 +83,12 @@ import Footer from "../components/footer";
 import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 
-
-
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
+  const [taskTitles, setTaskTitles] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [playerId, setPlayerId] = useState(null);
-
-  // For this example, we assume playerId is 11;
-
-  // Map task IDs to user-friendly titles
-  const taskTitles = {
-    1: "Recycle at all bin locations",
-    2: "Park bike at bike racks",
-    3: "Have shorter showers",
-    4: "Use a re-usable bag",
-  };
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -109,13 +98,23 @@ const TaskBoard = () => {
 
         const decoded = jwtDecode(token);
         console.log('Decoded token:', decoded);
-        var response1 = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
-        var playerId = response1.data.player_id;
+        const response1 = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        const playerId = response1.data.player_id;
         setPlayerId(playerId);
+
         const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
-        console.log("Tasks data:", response.data);
         setTasks(response.data);
-        
+
+        // Fetch task details for each task
+        const taskMapping = {};
+        await Promise.all(
+          response.data.map(async (taskObj) => {
+            const taskResponse = await axios.get(`http://127.0.0.1:8000/api/task/${taskObj.task}/`);
+            taskMapping[taskObj.task] = taskResponse.data.title;
+          })
+        );
+
+        setTaskTitles(taskMapping);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -124,34 +123,25 @@ const TaskBoard = () => {
     };
 
     fetchTasks();
-  }, [playerId]);
+  }, []);
 
-  // Toggle the completed state of a task (and update the backend)
   const handleToggle = async (taskId) => {
-    // Find the current task object
     const taskObj = tasks.find((t) => t.task === taskId);
     if (!taskObj) return;
 
-    // Determine the new completed value
     const newCompleted = !taskObj.completed;
 
     try {
-      // Make PATCH request to update 'completed' in the backend
       await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
         completed: newCompleted
       });
 
-      // If successful, update local state
-      const updatedTasks = tasks.map((t) => {
-        if (t.task === taskId) {
-          return { ...t, completed: newCompleted };
-        }
-        return t;
-      });
+      const updatedTasks = tasks.map((t) =>
+        t.task === taskId ? { ...t, completed: newCompleted } : t
+      );
       setTasks(updatedTasks);
     } catch (err) {
       console.error("Error updating task:", err);
-      // Optionally show a user-facing error message
     }
   };
 
