@@ -4,58 +4,85 @@
 
 // Import necessary modules and components
 import React, { useRef, useEffect, useState } from 'react';
-import Webcam from 'react-webcam'; // Webcam component for accessing the device camera
-import jsQR from 'jsqr'; // Library for decoding QR codes from images
-import '../styles/QRScreen.css'; // Import custom CSS styles
-import qr_code from '../assets/qr_code.png'; // QR code overlay image
-import ios_torch_button from '../assets/ios_torch_button.png'; // Torch button image for iOS
-import Footer from '../components/footer'; // Footer component
+import Webcam from 'react-webcam';
+import jsQR from 'jsqr';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import '../styles/QRScreen.css';
+import qr_code from '../assets/qr_code.png';
+import ios_torch_button from '../assets/ios_torch_button.png';
+import Footer from '../components/footer';
+import { ACCESS_TOKEN } from '../constants';
 
-// Define the QRScreen component
 function QRScreen() {
-  // References and state variables
-  const webcamRef = useRef(null); // Reference to the webcam component
-  const [scanResult, setScanResult] = useState(''); // Store the result of the QR code scan
-  const [flashlightOn, setFlashlightOn] = useState(false); // Track the flashlight state
-  const [stream, setStream] = useState(null); // Store the media stream for flashlight control
-  const [track, setTrack] = useState(null); // Store the video track for flashlight control
+  const webcamRef = useRef(null);
+  const [scanResult, setScanResult] = useState('');
+  const [playerId, setPlayerId] = useState(null);
+  const [flashlightOn, setFlashlightOn] = useState(false);
+  const [stream, setStream] = useState(null);
+  const [track, setTrack] = useState(null);
 
-  // useEffect hook to continuously capture images and scan for QR codes
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Capture an image from the webcam
+    const fetchPlayerId = async () => {
+      try {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) return;
+
+        const decoded = jwtDecode(token);
+        console.log('Decoded token:', decoded);
+        const response = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        setPlayerId(response.data.player_id);
+      } catch (err) {
+        console.error("Error fetching player ID:", err);
+      }
+    };
+
+    fetchPlayerId();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
       const imageSrc = webcamRef.current.getScreenshot();
-      
+
       if (imageSrc) {
         const image = new Image();
         image.src = imageSrc;
 
-        image.onload = () => {
-          // Create a canvas to process the captured image
+        image.onload = async () => {
           const canvas = document.createElement('canvas');
           canvas.width = image.width;
           canvas.height = image.height;
           const context = canvas.getContext('2d');
-          
-          // Draw the captured image on the canvas
+
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
           const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-          
-          // Use jsQR to scan the image data for a QR code
+
           const code = jsQR(imageData.data, imageData.width, imageData.height);
 
           if (code) {
-            // If a QR code is found, update the state and alert the user
-            setScanResult(code.data);
-            alert(`QR Code Data: ${code.data}`);
+            const taskId = Number(code.data); // Ensure it's a number
+            setScanResult(taskId);
+            alert(`QR Code Task ID: ${taskId}`);
+
+            if (playerId) {
+              try {
+                await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
+                  completed: true,
+                });
+                alert("Task updated successfully!");
+              } catch (err) {
+                console.error("Error updating task:", err);
+                alert("Failed to update task.");
+              }
+            }
           }
         };
       }
-    }, 500); // Scan every 500 milliseconds
+    }, 500);
 
-    // Cleanup interval when the component unmounts
     return () => clearInterval(interval);
-  }, []);
+  }, [playerId]); // Runs when playerId is available
+  
 
   // Function to toggle the flashlight on and off
   const toggleFlashlight = async () => {
