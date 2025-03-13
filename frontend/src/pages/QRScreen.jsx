@@ -48,6 +48,7 @@ function QRScreen() {
             // If a QR code is found, update the state and alert the user
             setScanResult(code.data);
             alert(`QR Code Data: ${code.data}`);
+            
           }
         };
       }

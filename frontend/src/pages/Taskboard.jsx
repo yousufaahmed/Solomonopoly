@@ -99,6 +99,7 @@ const TaskBoard = () => {
     2: "Park bike at bike racks",
     3: "Have shorter showers",
     4: "Use a re-usable bag",
+    5: "Recyle cans and bottles",
   };
 
   useEffect(() => {
@@ -178,7 +179,7 @@ const TaskBoard = () => {
                 {taskObj.completed ? "Completed" : "Mark as Complete"}
               </button>
             </div>
-          </div>
+          </div> 
         ))}
       </div>
 

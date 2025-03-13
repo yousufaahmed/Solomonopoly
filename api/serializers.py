@@ -92,22 +92,22 @@ class PlayerTaskSerializer(serializers.ModelSerializer):
         return PlayerTask.objects.create(**validated_data)
     
 class PlayerTaskSerializerUpdate(serializers.ModelSerializer):
-    #task_name = serializers.CharField(source ='task.title', read_only = True)
-    #player_name = serializers.CharField(source='player.username', read_only=True)
-
     class Meta:
         model = PlayerTask
         fields = ["player", "task", "completed"]
-        extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
+        extra_kwargs = {'player': {'read_only': True}, 'task': {'read_only': True}}
 
-    def create(self, validated_data):
-        player = validated_data['player']
-        task = validated_data['task']
+    def update(self, instance, validated_data):
+        completed = validated_data.get('completed', instance.completed)
 
-        if PlayerTask.objects.filter(player=player, task=task).exists():
-            raise serializers.ValidationError("The task has already been assigned to the player.")
+        if not instance.completed and completed:  # Check if task is being completed now
+            instance.player.points += instance.task.points  # Add task points to player
+            instance.player.save()  # Save updated player points
 
-        return PlayerTask.objects.create(**validated_data)
+        instance.completed = completed  # Update task completion status
+        instance.save()
+        return instance
+
         
 
 #change this class to allow for multiple purchases of the same card, purchase_time needs to be included on the pk        
