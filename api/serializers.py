@@ -33,6 +33,18 @@ class LeaderboardSerializer(serializers.ModelSerializer):
         #get list of players ordered by points, return index + 1 of current player
         return list(queryset).index(obj)+1 
 
+class TaskBoardSerializer(serializers.ModelSerializer):
+    task_id = serializers.IntegerField(source="task.task_id", read_only=True)
+    title = serializers.CharField(source="task.title", read_only=True)
+    description = serializers.CharField(source="task.description", read_only=True)
+    kind = serializers.CharField(source="task.kind", read_only=True)
+    points = serializers.IntegerField(source="task.points", read_only=True)
+    player = serializers.CharField(source="player.username", read_only=True)  # Include player username
+    completed = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = PlayerTask
+        fields = ["player", "task_id", "title", "description", "kind", "points", "completed"]
 
 class TriviaSerializer(serializers.ModelSerializer):
     class Meta:
