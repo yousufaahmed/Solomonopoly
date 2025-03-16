@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
-    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView
-    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView#, UserUpdateView#, PlayerCardListView
+    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView,
+    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView #, UserUpdateView#, PlayerCardListView
 )
 
 urlpatterns = [
