@@ -10,6 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errMsg, setErMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ const SignUp = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
-      alert("Registration failed: " + error.response?.data || error.message);
+      setErMsg("Registration failed: " + (error.response?.data?.username?.join(" ") || error.message));
     } finally {
       setLoading(false);
     }
@@ -53,9 +54,10 @@ const SignUp = () => {
         <div className="signupheader">
           <h1>Create Your</h1>
           <h2>Account</h2>
+          <h2 className="error-msg" style={{color: "red"}}>{errMsg}</h2>
         </div>
       </div>
-
+      
       <div className="signupwrapper">
         <form onSubmit={handleSubmit}>
           <div className="signup-input-box">
@@ -63,7 +65,7 @@ const SignUp = () => {
               onChange={(e) => setName(e.target.value)}
               value={name}
               type="text"
-              placeholder="Full Name"
+              placeholder="Username"
               required
             />
           </div>
@@ -73,7 +75,7 @@ const SignUp = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address (username)"
+              placeholder="Email Address"
               required
             />
           </div>
