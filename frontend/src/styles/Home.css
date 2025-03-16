@@ -1,0 +1,87 @@
+/*Written by Mohammed Zarrar Shahid*/
+
+/* Global reset to remove default margin, padding and box-sizing*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+/* Main container for the home page layout */
+.home_container{
+    width: 1000px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+}
+
+/* Main heading styles */
+.home_container h1{
+    font-size: 50px;
+    font-weight: 600;   
+    margin-bottom: 5px;
+    color: #0b4433;
+}
+
+/* Large background tree image */
+.home_container .tree{
+    background-image: url('./assets/tree.png');/* imported as a background image */
+    background-size: contain;/*makes sure tree in contained in the background*/
+    background-repeat: no-repeat;/*makes sure tree doesn't repeat*/
+    width: 1500px;
+    height: 1500px;
+    position: absolute;
+    transform: translate(0px, -120px);
+}
+
+/* QR button styles */
+.home_container .qr_button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 70px;
+    width: 600px;
+    height: 120px;
+    background-color: #0b4433;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 50px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 45px;
+    text-shadow: 4px 4px black;
+    font-weight: 600;
+    transform: translate(0px, -160px);
+}
+
+/* QR code image inside the button */
+.home_container .qr_image{
+    width: 70px;
+    transform: translate(20px,0px);
+}
+
+/* Sustainability button styles */
+.home_container .sustainability_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 540px;
+    height: 100px;
+    background-color: #3EC77C;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 50px;
+    box-shadow: 2px 2px black;
+    color: #e4e4e4;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    text-shadow: 4px 4px black;
+    font-weight: 600;
+    transform: translate(0px, -160px);
+}
