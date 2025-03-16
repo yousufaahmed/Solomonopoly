@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
-    PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView,
-    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView,
+    PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
+    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView
     CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView#, UserUpdateView#, PlayerCardListView
 )
 
@@ -23,7 +23,7 @@ urlpatterns = [
     path('task/<int:task_id>/update/', UpdateTaskView.as_view(), name='task-update'),
     path('task/<int:player_id>/assign_task/', AssignTaskToPlayerView.as_view(), name='assign-task'),
     path('task/<int:player_id>/<int:task_id>/update/', UpdatePlayerTaskView.as_view(), name='update-player-task'),
-    path('player/<int:player_id>/tasks/', PlayerTaskView.as_view(), name='get-player-tasks'), # Used in Task Board for Each Player
+    path('player/<int:player_id>/tasks/', TaskboardView.as_view()),#PlayerTaskView.as_view(), name='get-player-tasks'), # Used in Task Board for Each Player
 
     #Card Endpoints
     path('cards/', CardListView.as_view(), name='card-list'),

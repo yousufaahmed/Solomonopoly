@@ -6,3 +6,4 @@ django-extensions
 werkzeug
 pyOpenSSL
 django-cors-headers
+pytest

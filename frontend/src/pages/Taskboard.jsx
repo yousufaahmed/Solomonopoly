@@ -116,6 +116,7 @@ const TaskBoard = () => {
         const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
         console.log("Tasks data:", response.data);
         setTasks(response.data);
+        
       } catch (err) {
         setError(err.message);
       } finally {

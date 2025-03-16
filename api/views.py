@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, AchievementSerializer, PlayerAchievementSerializer, PlayerAchievementSerializerUpdate
+from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer
 from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from django.db.models import Case, When, Value, IntegerField
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
@@ -75,6 +76,28 @@ class LeaderboardView(generics.ListAPIView):
 
 ### Task Views ###
 
+class TaskboardView(generics.ListAPIView):
+    serializer_class = TaskBoardSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        player_id = self.kwargs["player_id"]
+        player = get_object_or_404(Player, pk=player_id)
+
+        tasks = PlayerTask.objects.filter(player=player).select_related("task")
+
+        #valid_kinds = ['daily', 'weekly', 'location', 'group']
+
+        return tasks.order_by(Case(
+            When(task__kind='daily', then=1),
+            When(task__kind='weekly', then=2),
+            When(task__kind='location', then=3),
+            When(task__kind='group', then=4),
+            default=5,
+            output_field=IntegerField()
+        ))
+    
+
 # Return a list of all the tasks
 class TaskListView(generics.ListAPIView):
     queryset = Task.objects.all()
@@ -135,15 +158,33 @@ class UpdatePlayerTaskView(generics.UpdateAPIView):
         return get_object_or_404(PlayerTask, player_id=player_id, task_id=task_id)
 #    lookup_field = 'id'
 # 
+# class TaskboardView(generics.ListAPIView):
+#     serializer_class = PlayerTaskSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def get_queryset(self):
+#         return PlayerTask.objects.filter(player=self.request.user.player).select_related("task")
+    
+#     def list(self, request, *args, **kwargs):
+#         player_tasks = self.get_queryset()
+#         task_data = self.get_serializer(player_tasks, many=True).data
+
+#         grouped_tasks = defaultdict(list)
+#         for task in task_data:
+#             kind = task["task"]["kind"]
+#             grouped_tasks[kind].append(task)
+
+#         return Response(grouped_tasks)
+    
 
 class PlayerTaskView(generics.ListAPIView):
-    serializer_class = PlayerTaskSerializer
+    serializer_class = TaskSerializer
     permission_classes = [AllowAny]  # Update with appropriate permission if necessary
 
     def get_queryset(self):
         player_id = self.kwargs["player_id"]
         player = get_object_or_404(Player, pk=player_id)
-        return PlayerTask.objects.filter(player=player)
+        return Task.objects.filter(player=player).order_by("task__kind")
 
     def get(self, request, player_id, *args, **kwargs):
         player_tasks = self.get_queryset()

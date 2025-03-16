@@ -31,11 +31,21 @@ class Player(models.Model):
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
 
 class Task(models.Model):
+    class TaskKind(models.TextChoices):
+        DAILY = "daily", "daily"
+        WEEKLY = "weekly", "weekly"
+        LOCATION = "location", "location"
+        GROUP = "group", "group"
+    
     task_id = models.AutoField(primary_key=True)
     task_frame = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     title = models.CharField(max_length=100)
-    kind = models.CharField(max_length=50, blank=True)
+    kind = models.CharField(
+        max_length=50, 
+        choices=TaskKind.choices,
+        default=TaskKind.DAILY,
+        blank=True)
     points = models.IntegerField(default=0)
 
 class Achievement(models.Model):
