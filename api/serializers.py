@@ -1,7 +1,7 @@
 #Eliot's stuff >:(
 
 from django.contrib.auth.models import User
-from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint
+from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint, Achievement, PlayerAchievement
 from rest_framework import serializers
 
 
@@ -146,5 +146,46 @@ class UserSerializer(serializers.ModelSerializer):
         Player.objects.create(user=user, points=0, campus = default_campus )
         
         return user
+    
+
+class AchievementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Achievement
+        fields = ['achievement_id', 'name', 'description', 'logo']  # Auto-includes ID
         
         
+class PlayerAchievementSerializer(serializers.ModelSerializer):
+    #task_name = serializers.CharField(source ='task.title', read_only = True)
+    #player_name = serializers.CharField(source='player.username', read_only=True)
+
+    class Meta:
+        model = PlayerAchievement
+        fields = ["player", "achievement", "completed"]
+        #extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
+
+    def create(self, validated_data):
+        player = validated_data['player']
+        achievement = validated_data['achievement']
+
+        if PlayerAchievement.objects.filter(player=player, achievement=achievement).exists():
+            raise serializers.ValidationError("The achivement has already been assigned to the player.")
+
+        return PlayerAchievement.objects.create(**validated_data)
+    
+class PlayerAchievementSerializerUpdate(serializers.ModelSerializer):
+    #task_name = serializers.CharField(source ='task.title', read_only = True)
+    #player_name = serializers.CharField(source='player.username', read_only=True)
+
+    class Meta:
+        model = PlayerAchievement
+        fields = ["player", "achievement", "completed"]
+        extra_kwargs = {'player':{'read_only':True}, 'achievement':{'read_only':True}}
+
+    def create(self, validated_data):
+        player = validated_data['player']
+        achievement = validated_data['achievement']
+
+        if PlayerAchievement.objects.filter(player=player, achievement=achievement).exists():
+            raise serializers.ValidationError("The achievement has already been assigned to the player.")
+
+        return PlayerAchievement.objects.create(**validated_data)

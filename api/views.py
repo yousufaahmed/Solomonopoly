@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate
-from myapp.models import Player, Task, Card, Purchases, PlayerTask
+from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, AchievementSerializer, PlayerAchievementSerializer, PlayerAchievementSerializerUpdate
+from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
 # Create your views here.
@@ -221,7 +221,81 @@ class PlayerPurchasesView(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
+class CreateAchievementView(generics.CreateAPIView):
+    queryset = Achievement.objects.all()
+    serializer_class =  AchievementSerializer
+    permission_classes = [AllowAny]
+
+ # Return a list of all the tasks
+class AchievementListView(generics.ListAPIView):
+    queryset = Achievement.objects.all()
+    serializer_class = AchievementSerializer
+    permission_classes = [AllowAny]
+
+# Return the details of an individual task
+class AchievementView(generics.RetrieveAPIView):
+    queryset = Achievement.objects.all()
+    serializer_class=AchievementSerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'achievement_id'   
+
+# Assign a task to a player
+class AssignAchievementToPlayerView(generics.CreateAPIView):
+    serializer_class =  PlayerAchievementSerializer
+
+    def create(self, request, player_id, *args, **kwargs):
+        player = get_object_or_404(Player, pk=player_id)
+        achievement_id =request.data.get('achievement')
+
+        if not achievement_id:
+            return Response({"error":"Achievement ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        achievement = get_object_or_404(Achievement, pk=achievement_id)
+
+        player_achievement_data = {'player': player.player_id, 'achievement': achievement.achievement_id, 'completed': False }
+        serializer =  self.get_serializer(data=player_achievement_data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PlayerAchievementView(generics.ListAPIView):
+    serializer_class = PlayerAchievementSerializer
+    permission_classes = [AllowAny]  # Update with appropriate permission if necessary
+
+    def get_queryset(self):
+        player_id = self.kwargs["player_id"]
+        player = get_object_or_404(Player, pk=player_id)
+        return PlayerAchievement.objects.filter(player=player)
+
+    def get(self, request, player_id, *args, **kwargs):
+        player_achievements = self.get_queryset()
+        serializer = self.get_serializer(player_achievements, many=True)
+
+  
+        return Response(serializer.data)
+    
+class UpdateAchievementView(generics.UpdateAPIView):
+    queryset = Achievement.objects.all()
+    serializer_class = AchievementSerializer
+    permission_classes = [IsAdminUser]
+
+
+class UpdatePlayerAchievementView(generics.UpdateAPIView):
+    #queryset = PlayerTask.objects.all()
+    serializer_class = PlayerAchievementSerializerUpdate
+    permission_classes = [AllowAny]#IsAuthenticated]
+
+    def get_object(self):
+        player_id = self.kwargs["player_id"]
+        achievement_id = self.kwargs["achievement_id"]
+        return get_object_or_404(PlayerAchievement, player_id=player_id, achievement_id=achievement_id)
+ 
 
 ### Misc Views ###
 
