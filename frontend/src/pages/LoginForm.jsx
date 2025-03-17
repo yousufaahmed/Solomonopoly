@@ -84,7 +84,7 @@ const LoginForm = () => {
           </div>
 
           <div className="forgot">
-            <a href="#">Forgot password?</a>
+            <a href="/reset">Forgot password?</a>
           </div>
 
           {loading && <LoadingIndicator />}

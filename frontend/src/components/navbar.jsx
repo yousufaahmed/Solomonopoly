@@ -52,6 +52,14 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
+          onClick={() => navigate("/qr")}
+        >
+          <p>QR Scanner</p>
+        </button>
+
+        <button
+          type="button"
+          className="nav-links"
           onClick={() => navigate("/achievements")}
         >
           <p>Achievements</p>

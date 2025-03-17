@@ -13,6 +13,7 @@ import UserProfile from "./pages/UserProfile";
 import Taskboard from "./pages/Taskboard";
 import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ResetPwd from "./pages/ResetPassword";
 
 // Define the App component
 function App() {
@@ -50,6 +51,12 @@ function App() {
             <Route 
               path="/signup" 
               element={<RegisterAndLogout />} 
+            />
+
+            {/* Route for the Sign Up page */}
+            <Route 
+              path="/reset" 
+              element={<ResetPwd />} 
             />
 
             {/* Route for the QR Screen page */}
