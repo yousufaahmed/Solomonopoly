@@ -10,6 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errMsg, setErMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ const SignUp = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
-      alert("Registration failed: " + error.response?.data || error.message);
+      setErMsg("Registration failed: " + (error.response?.data?.username?.join(" ") || error.message));
     } finally {
       setLoading(false);
     }
@@ -68,17 +69,17 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="input-box">
+          <div className="signup-input-box1">
             <input
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address (Username)"
+              placeholder="Email Address"
               required
             />
           </div>
 
-          <div className="input-box">
+          <div className="signup-input-box2">
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -88,7 +89,7 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="input-box">
+          <div className="signup-input-box3">
             <input
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
@@ -98,10 +99,8 @@ const SignUp = () => {
             />
           </div>
 
-          {loading && <div>Loading...</div>}
-          <button type="submit" className="signup-btn">
-            SIGN UP
-          </button>
+          {loading && <LoadingIndicator />}
+          <button type="submit">SIGN UP</button>
 
           <div className="signup-footer">
             <h1>Have an account?</h1>

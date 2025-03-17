@@ -111,9 +111,9 @@ html, body {
 
 /* Icons inside the navigation bar */
 .qr-navbar i {
-  font-size: 30px;
-  color: #666;
-  cursor: pointer;
+    font-size: 30px;
+    color: #666;
+    cursor: pointer;
 }
 
 /* QR overlay for guiding users */

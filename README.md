@@ -38,26 +38,59 @@ python manage.py runserver
 1) python manage.py makemigrations myapp
 2) python manage.py migrate
 
+## RUN FRONTEND
 
-## FRONTEND
-
+### 1 - Enter frontend folder
 cd frontend
 
-virtual Environment
+### 2 - Start virtual environment in terminal
+python -m venv env
 
-python -m venv env 
-
-.\env\Scripts\activate  <- WINDOWS
+.\env\Scripts\activate <- WINDOWS
 
 source env/bin/activate <- MacOS
 
-
-### DOWNLOAD DEPENDENCIES
+### 3 - Download Dependencies
 npm install
 
-### RUN APP
+### 4 - Run app
 npm run dev
 
+### 5 (Mobile) - View website
+Enter the web address provided under "Network" into your Chrome browser.
+
+e.g. https://XXX.XXX.X.XXX:XXXX/
+
+### 5 (Laptop/PC) - View Website
+Enter the web address provided under "Network" into your Chrome browser.
+
+Or if using on the same machine select the first server under "Local"
+
+Right-click, select "Inspect" and enter:
+
+CONTROL + SHIFT + M -> WINDOWS
+
+COMMAND + SHIFT + M -> MACOS
+
+to enter Mobile view
+
+## FRONTEND TESTING
+
+### 1 - Enter frontend folder
+cd frontend
+
+### 2 - Start virtual environment in terminal
+python -m venv env
+
+.\env\Scripts\activate <- WINDOWS
+
+source env/bin/activate <- MacOS
+
+### 3 - Download Dependencies
+npm install --save-dev jest
+
+###4 - Run tests
+npm test
 
 # TESTING
 
