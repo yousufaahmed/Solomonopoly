@@ -3,7 +3,7 @@
 // All relevant imports
 import React, { useState } from 'react';
 import '../styles/Leaderboard.css';
-import Footer from '../components/footer';  // Import existing Footer component
+import Navbar from '../components/navbar';  // Import existing Footer component
 import profile_picture from '../assets/user_profile.png' // Import profile picture for user "Mark"
 
 
@@ -48,6 +48,7 @@ const Leaderboard = () => {
   // Creates divider to hold all in the leaderboard page
   return (
     <div className="leaderboard-container">
+      <Navbar/>
       <header className="leaderboard-header">
         Leaderboard
       </header>
@@ -94,8 +95,6 @@ const Leaderboard = () => {
         />
         <button className="add-friend-button">Add Friend</button>
       </div>
-
-      <Footer />  {/* Use the existing Footer component */}
     </div>
   );
 };
