@@ -47,7 +47,7 @@ const SignUp = () => {
       <button
         type="button"
         className="close-btn"
-        onClick={() => (window.location.href = "/splashscreen")}
+        onClick={() => (window.location.href = "/home")}
       >
         X
       </button>
@@ -100,7 +100,7 @@ const SignUp = () => {
           </div>
 
           {loading && <LoadingIndicator />}
-          <button type="submit">SIGN UP</button>
+          <button className="signup-btn" type="submit">SIGN UP</button>
 
           <div className="signup-footer">
             <h1>Have an account?</h1>

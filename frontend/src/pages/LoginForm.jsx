@@ -52,7 +52,7 @@ const LoginForm = () => {
       <button
         type="button"
         className="close-btn"
-        onClick={() => (window.location.href = "/splashscreen")}
+        onClick={() => (window.location.href = "/home")}
       >
         X
       </button>
@@ -69,7 +69,7 @@ const LoginForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address (username)"
+              placeholder="Email Address"
               required
             />
           </div>
@@ -87,10 +87,10 @@ const LoginForm = () => {
             <a href="#">Forgot password?</a>
           </div>
 
-          {loading && <div>Loading...</div>}
+          {loading && <LoadingIndicator />}
           <button type="submit">SIGN IN</button>
 
-          <div className="footer">
+          <div className="footer-1">
             <h1>Don't have an account?</h1>
             <a href="/signup">Sign up</a>
           </div>

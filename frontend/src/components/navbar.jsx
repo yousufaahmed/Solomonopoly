@@ -1,11 +1,14 @@
-// All relevant imports
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
-import logo from '../assets/logo_nav.png';
+import logo from "../assets/logo_nav.png";
+import user_profile from "../assets/user_profile.png";
+import { ACCESS_TOKEN } from "../constants";
 
-// Navbar component with hamburger menu for mobile
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -16,7 +19,7 @@ const Navbar = () => {
       <button
         type="button"
         className="navbar_home"
-        onClick={() => window.location.href = '/home'}
+        onClick={() => navigate("/home")}
       >
         <img src={logo} alt="logo_img" className="logo_img" />
       </button>
@@ -33,7 +36,7 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
-          onClick={() => window.location.href = '/leaderboard'}
+          onClick={() => navigate("/leaderboard")}
         >
           <p>Leaderboard</p>
         </button>
@@ -41,7 +44,7 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
-          onClick={() => window.location.href = '/taskboard'}
+          onClick={() => navigate("/taskboard")}
         >
           <p>Taskboard</p>
         </button>
@@ -49,7 +52,7 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
-          onClick={() => window.location.href = '/achievements'}
+          onClick={() => navigate("/achievements")}
         >
           <p>Achievements</p>
         </button>
@@ -57,18 +60,27 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
-          onClick={() => window.location.href = '/store'}
+          onClick={() => navigate("/store")}
         >
           <p>Store</p>
         </button>
 
-        <button
-          type="button"
-          className="login-nav"
-          onClick={() => window.location.href = '/loginform'}
-        >
-          <p>Log in</p>
-        </button>
+        {token ? (
+          <img
+            src={user_profile}
+            alt="Profile"
+            className="profile_pic"
+            onClick={() => navigate("/user")}
+          />
+        ) : (
+          <button
+            type="button"
+            className="login-nav"
+            onClick={() => navigate("/loginform")}
+          >
+            <p>Log in</p>
+          </button>
+        )}
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Navbar from "../components/navbar";
 
 // Define the UserProfile component
 const UserProfile = () => {
@@ -53,6 +54,7 @@ const UserProfile = () => {
         // Main container for the UserProfile component
         <div className="user_container">
 
+            <Navbar />
 
             {/* Settings button with settings icon */}
             <button 
@@ -141,12 +143,6 @@ const UserProfile = () => {
             </button>
 
             </div>
-
-            {/* Footer section */}
-            <div className="footer">
-                <Footer />
-            </div>
-
         </div>
     );
 }
