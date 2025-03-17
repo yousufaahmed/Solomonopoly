@@ -293,8 +293,12 @@ export default function TaskBoard() {
     // Main container for the TaskBoard component
     <div className="taskboard-container">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
       {/* Header section with title and subtitle */}
+=======
+            <Navbar />
+>>>>>>> Stashed changes
 =======
             <Navbar />
 >>>>>>> Stashed changes
@@ -372,6 +376,9 @@ export default function TaskBoard() {
         </>
       )}
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     </div>

@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 /********************************
   Base & Global Resets
 *********************************/
@@ -38,6 +39,8 @@ html, body {
   justify-content: flex-start; /* left-align the tabs */
   margin-bottom: 1rem;
 =======
+=======
+>>>>>>> Stashed changes
 * {
   box-sizing: border-box;
 }
@@ -79,6 +82,9 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 .tab-button {
@@ -89,7 +95,11 @@ body, html {
   cursor: pointer;
   font-size: 1rem;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   transition: background-color 0.2s ease;
+=======
+  border-radius: 20px;
+>>>>>>> Stashed changes
 =======
   border-radius: 20px;
 >>>>>>> Stashed changes
@@ -98,6 +108,7 @@ body, html {
   background-color: #2e7d32; /* accent color */
   color: #fff;
 }
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
 /********************************
@@ -113,6 +124,8 @@ body, html {
   Each Leaderboard Row (Item)
 *********************************/
 =======
+=======
+>>>>>>> Stashed changes
 .leaderboard-list {
   position: absolute;
   top: 190px;
@@ -123,14 +136,20 @@ body, html {
   background-color: #e2e2e2;
   padding: 1rem;
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 .leaderboard-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   background-color: #fff;
 =======
+=======
+>>>>>>> Stashed changes
   background-color: #FFF;
   margin-bottom: 0.5rem;
 >>>>>>> Stashed changes
@@ -139,10 +158,13 @@ body, html {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 /********************************
   User Info (Image + Name + Score)
 *********************************/
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 .leaderboard-user {
@@ -169,16 +191,20 @@ body, html {
   color: #777;
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 /********************************
   Rank on the Right
 *********************************/
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 .user-rank {
   font-weight: 600;
   font-size: 1rem;
 }
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
 /********************************
@@ -187,6 +213,9 @@ body, html {
 .friend-code-container {
 =======
 .friend-code-container {
+=======
+.friend-code-container {
+>>>>>>> Stashed changes
   position: absolute;
   bottom: 0;
   left: 0;
@@ -205,6 +234,9 @@ body, html {
   padding: 0.5rem 1rem;
   box-shadow: 0 -1px 2px rgba(0,0,0,0.1);
   border-radius: 15px 15px 0 0;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 .friend-code-input {
@@ -212,6 +244,7 @@ body, html {
   font-size: 1rem;
 }
 .add-friend-button {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   background-color: #2e7d32; /* accent color */
   color: #fff;
@@ -225,6 +258,15 @@ body, html {
 /********************************
   Responsive (Mobile) Adjustments
 *********************************/
+=======
+  background-color: #2e7d32;
+  color: #e2e2e2;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 20px;
+}
+>>>>>>> Stashed changes
 =======
   background-color: #2e7d32;
   color: #e2e2e2;

@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 // Written by Aleem Abbas-Hussain
 
 // All relevant imports
@@ -7,15 +8,21 @@ import '../styles/Leaderboard.css';
 import Navbar from '../components/navbar';  // Import existing Footer component
 import profile_picture from '../assets/user_profile.png' // Import profile picture for user "Mark"
 =======
+=======
+>>>>>>> Stashed changes
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/navbar';
 import '../styles/Leaderboard.css';
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 
 // Array containing all 'friends'
 const Leaderboard = () => {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   const friendsList = [
     { name: "Mark (You)", score: 342, image: profile_picture },
@@ -44,6 +51,8 @@ const Leaderboard = () => {
       .sort((a, b) => b.score - a.score)  // Sort by score descending
       .map((user, index) => ({
 =======
+=======
+>>>>>>> Stashed changes
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -67,6 +76,9 @@ const Leaderboard = () => {
     return [...array]
       .sort((a, b) => b.points - a.points)
       .map((user, i) => ({
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         ...user,
         rank: `#${index + 1}`  // Assign rank based on sorted position
@@ -74,22 +86,29 @@ const Leaderboard = () => {
   };
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   // Get data for the active tab
   const displayData = activeTab === "Everyone" 
     ? getRankedData([...leaderboardData.Everyone])
     : getRankedData([...leaderboardData.Friends]);
 =======
+=======
+>>>>>>> Stashed changes
   const everyoneData = getRankedData(leaderboardData);
   const friendsData = getRankedData(leaderboardData);
   const displayData = activeTab === "Everyone" ? everyoneData : friendsData;
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
   // Creates divider to hold all in the leaderboard page
   return (
     <div className="leaderboard-container">
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
       <Navbar/>
       <header className="leaderboard-header">
@@ -100,12 +119,19 @@ const Leaderboard = () => {
       <Navbar />
       <header className="leaderboard-header">Leaderboard</header>
 >>>>>>> Stashed changes
+=======
+      <Navbar />
+      <header className="leaderboard-header">Leaderboard</header>
+>>>>>>> Stashed changes
       <div className="tabs">
         <button className={`tab-button ${activeTab === "Everyone" ? "active" : ""}`} onClick={() => setActiveTab("Everyone")}>Everyone</button>
         <button className={`tab-button ${activeTab === "Friends" ? "active" : ""}`} onClick={() => setActiveTab("Friends")}>Friends</button>
       </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
       <div className="leaderboard-list">
@@ -113,11 +139,15 @@ const Leaderboard = () => {
           <div key={index} className="leaderboard-item">
             <div className="leaderboard-user">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               <img
                 src={user.image}
                 alt={user.name}
                 className="user-image"
               />
+=======
+              <img src={user.image || "/fallback.png"} alt={user.username} className="user-image" />
+>>>>>>> Stashed changes
 =======
               <img src={user.image || "/fallback.png"} alt={user.username} className="user-image" />
 >>>>>>> Stashed changes
