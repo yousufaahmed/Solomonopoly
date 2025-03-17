@@ -1,0 +1,61 @@
+/* Navbar container styling remains unchanged */
+.navbar_container {
+    display: flex;
+    align-items: center;
+    background-color: #0B4433;
+    padding: 5px 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Logo image styling remains unchanged */
+.logo_img {
+    height: 80px;
+}
+
+/* Container for navigation links on the right */
+.nav-links-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes the container to the right */
+}
+
+/* Styling for all buttons remains unchanged */
+button {
+    background: none;
+    border: none;
+    color: #e4e4e4;
+    font-size: 16px;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 20px;
+}
+
+/* Navbar links styling remains unchanged */
+.nav-links {
+    padding: 2px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    color: #e4e4e4;
+}
+
+/* Login button styling remains unchanged */
+.login-nav {
+    padding: 5px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    color: #0B4433;
+    border-radius: 20px;
+    background-color: #e4e4e4;
+    width: 100px;
+}
+
+/* Hover effect for buttons remains unchanged */
+button:hover {
+    color: #2E8B58;
+    transition: background-color 0.3s;
+}
