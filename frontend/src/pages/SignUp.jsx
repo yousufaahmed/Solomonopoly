@@ -42,23 +42,23 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <div className="signupcontainer">
-        <button
-          type="button"
-          onClick={() => window.location.href = '/splashscreen'}
-        >
-          X
-        </button>
-        <div className="signupheader">
-          <h1>Create Your</h1>
-          <h2>Account</h2>
-        </div>
+    <div className="signup-container">
+      <button
+        type="button"
+        className="close-btn"
+        onClick={() => (window.location.href = "/splashscreen")}
+      >
+        X
+      </button>
+
+      <div className="signup-header">
+        <h1>Create Your</h1>
+        <h2>Account</h2>
       </div>
 
-      <div className="signupwrapper">
+      <div className="signup-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="signup-input-box">
+          <div className="input-box">
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
@@ -68,17 +68,17 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="signup-input-box1">
+          <div className="input-box">
             <input
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address (username)"
+              placeholder="Email Address (Username)"
               required
             />
           </div>
 
-          <div className="signup-input-box2">
+          <div className="input-box">
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -88,7 +88,7 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="signup-input-box3">
+          <div className="input-box">
             <input
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
@@ -98,8 +98,10 @@ const SignUp = () => {
             />
           </div>
 
-          {loading && <LoadingIndicator />}
-          <button type="submit">SIGN UP</button>
+          {loading && <div>Loading...</div>}
+          <button type="submit" className="signup-btn">
+            SIGN UP
+          </button>
 
           <div className="signup-footer">
             <h1>Have an account?</h1>
@@ -107,7 +109,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

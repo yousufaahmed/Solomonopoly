@@ -1,4 +1,4 @@
-/* Navbar container styling remains unchanged */
+/* Navbar container styling */
 .navbar_container {
     display: flex;
     align-items: center;
@@ -9,22 +9,22 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-}
-
-/* Logo image styling remains unchanged */
-.logo_img {
+  }
+  
+  /* Logo image styling */
+  .logo_img {
     height: 80px;
-}
-
-/* Container for navigation links on the right */
-.nav-links-container {
+  }
+  
+  /* Desktop: Container for navigation links on the right */
+  .nav-links-container {
     display: flex;
     align-items: center;
     margin-left: auto; /* Pushes the container to the right */
-}
-
-/* Styling for all buttons remains unchanged */
-button {
+  }
+  
+  /* Styling for all buttons */
+  button {
     background: none;
     border: none;
     color: #e4e4e4;
@@ -33,18 +33,18 @@ button {
     padding-left: 15px;
     padding-right: 15px;
     margin-left: 20px;
-}
-
-/* Navbar links styling remains unchanged */
-.nav-links {
+  }
+  
+  /* Navbar links styling */
+  .nav-links {
     padding: 2px;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     color: #e4e4e4;
-}
-
-/* Login button styling remains unchanged */
-.login-nav {
+  }
+  
+  /* Login button styling */
+  .login-nav {
     padding: 5px;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
@@ -52,10 +52,62 @@ button {
     border-radius: 20px;
     background-color: #e4e4e4;
     width: 100px;
-}
-
-/* Hover effect for buttons remains unchanged */
-button:hover {
+  }
+  
+  /* Hover effect for buttons */
+  button:hover {
     color: #2E8B58;
     transition: background-color 0.3s;
-}
+  }
+  
+  /* Hamburger icon styling - hidden by default */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  /* Each bar in the hamburger icon */
+  .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #e4e4e4;
+    border-radius: 2px;
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    /* Show hamburger icon and hide desktop nav-links */
+    .hamburger {
+      display: flex;
+    }
+    
+    .nav-links-container {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #0B4433;
+      position: absolute;
+      top: 100%; /* Place it below the navbar */
+      left: 0;
+      padding: 10px 0;
+    }
+    
+    /* When menu is open, show the dropdown links */
+    .nav-links-container.open {
+      display: flex;
+    }
+    
+    /* Adjust button styling within mobile dropdown */
+    .nav-links,
+    .login-nav {
+      margin: 10px 0;
+      padding: 10px;
+      text-align: center;
+    }
+  }
+  

@@ -10,6 +10,7 @@ import '../styles/QRScreen.css'; // Import custom CSS styles
 import qr_code from '../assets/qr_code.png'; // QR code overlay image
 import ios_torch_button from '../assets/ios_torch_button.png'; // Torch button image for iOS
 import Footer from '../components/footer'; // Footer component
+import Navbar from '../components/navbar';
 
 // Define the QRScreen component
 function QRScreen() {
@@ -101,27 +102,26 @@ function QRScreen() {
 
   return (
     <>
-      {/* Main container for the QR screen */}
       <div className="qr-container">
-        
+        <Navbar />
+
         {/* Header section with title and description */}
         <div className="qr-header">
           <h2>Scan QR</h2>
           <p>Use your phone's camera to scan a QR code</p>
         </div>
-  
+
         {/* Camera container for scanning QR codes */}
         <div className="qr-camera-container">
-          {/* Webcam component for live camera feed */}
           <Webcam
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={{
-              facingMode: 'environment', // Use the rear camera
+              facingMode: "environment", // Use the rear camera
             }}
           />
-  
+
           {/* Overlay for the QR scanning area */}
           <div className="qr-overlay">
             <img src={qr_code} alt="QR Overlay" className="qr-overlay-image" />
@@ -131,34 +131,24 @@ function QRScreen() {
           <div className="ios-torch">
             <img src={ios_torch_button} alt="IOS Torch" className="ios-torch-image" />
           </div>
-  
+
           {/* Button to toggle the flashlight */}
           <div className="qr-torch">
-            <button 
-              className="torch-button"
-              onClick={toggleFlashlight}
-            >
-              <i className={`fas fa-bolt ${flashlightOn ? 'on' : ''}`}></i>
+            <button className="torch-button" onClick={toggleFlashlight}>
+              <i className={`fas fa-bolt ${flashlightOn ? "on" : ""}`}></i>
             </button>
           </div>
         </div>
-  
+
         {/* Bottom navigation bar with icons */}
         <div className="qr-navbar">
           <i className="fas fa-home"></i>
           <i className="fas fa-user-circle"></i>
           <i className="fas fa-bars"></i>
         </div>
-
-        {/* Footer component */}
-        <div className="footer">
-          <Footer />
-        </div>
-
       </div>
     </>
   );
-}
+};
 
-// Export the QRScreen component as the default export
 export default QRScreen;

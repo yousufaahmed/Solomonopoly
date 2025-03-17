@@ -1,174 +1,148 @@
-/*Written by Mohammed Zarrar Shahid*/
-
 /* Import Poppins font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Reset default margin, padding, and apply border-box sizing */
+/* Reset and base styling */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Center the signup container on the page */
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #e4e4e4; /* Light grey background */
+  margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Main container for signup elements */
-.signupcontainer {
-  width: 100%;
-  max-width: 400px;
+/* 
+  1. Container fills entire viewport.
+  2. Positioned relative so the close button can be placed at the top right.
+  3. Using flex layout to center content vertically and horizontally.
+*/
+.signup-container {
+  width: 100vw;
+  height: 100vh;
+  background: #2E8B58; /* Main background color */
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-/* Back button for the signup page */
-.signupcontainer button {
-  width: 100px;
-  height: 100px;
-  transform: translate(390px, -910px); /* Position adjustment */
-  border-color: #e4e4e4;
-  border-width: 0px;
-  background-color: #e4e4e4;
-  color: #0b4433; /* Dark green color */
+/* Close button in the top-right corner */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  color: #0b4433;
   cursor: pointer;
-  font-size: 70px;
+}
+
+/* Header text (top portion) */
+.signup-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.signup-header h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: #e4e4e4;
+  margin-bottom: 10px;
+}
+
+.signup-header h2 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #e4e4e4;
+}
+
+/* Wrapper for the form */
+.signup-wrapper {
+  background: #0b4433;      /* Contrasting background */
+  border-radius: 20px;      /* Slight rounding on corners */
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 500px;         /* Keep form readable on large screens */
+}
+
+/* Form layout */
+.signup-wrapper form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Generic input box styling */
+.input-box {
+  margin-bottom: 20px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #e4e4e4;
+  color: #7D7D7D;
+}
+
+.input-box input::placeholder {
+  color: #7D7D7D;
+}
+
+.signup-btn {
+  width: 90%;             /* Same width as the input boxes */
+  padding: 15px;          /* Consistent padding */
+  font-size: 18px;
+  font-weight: 600;
+  background: #e4e4e4;
+  color: #0b4433;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 0 auto 20px;    /* Centers the button horizontally and adds bottom margin */
+}
+
+
+/* Footer container within the form */
+.signup-footer {
+  text-align: center;
+}
+
+.signup-footer h1 {
+  font-size: 16px;
+  color: #e4e4e4;
+  margin-bottom: 10px;
+}
+
+.signup-footer a {
+  font-size: 16px;
+  color: #e4e4e4;
+  text-decoration: underline;
   font-weight: 500;
 }
 
-/* Header section positioning */
-.signupheader {
-  position: absolute;
-  top: 90px;
-  left: 100px;
-}
-
-/* Styling for signup page main heading */
-.signupcontainer h1 {
-  font-family: "Poppins", sans-serif;
-  font-size: 80px;
-  font-weight: 600;
-  color: #0b4433;
-}
-
-/* Styling for secondary heading */
-.signupcontainer h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 80px;
-  font-weight: 300;
-  color: #0b4433;
-}
-
-/* Wrapper for the signup form */
-.signupwrapper {
-  position: fixed;
-  bottom: 0;
-  background: #2E8B58; /* Dark green background */
-  border-radius: 150px 150px 0 0; /* Rounded top corners */
-  width: 100%;
-  height: 1230px; /* Adjust height to fit content */
-  transform: translate(-440px, 0px); /* Adjust positioning */
-}
-
-/* Input field containers */
-.signupwrapper .signup-input-box,
-.signupwrapper .signup-input-box1,
-.signupwrapper .signup-input-box2,
-.signupwrapper .signup-input-box3 {
-  position: relative;
-  width: 100%;
-  height: 100px;
-}
-
-/* Positioning for each input field */
-.signupwrapper .signup-input-box {
-  transform: translate(40px, 110px);
-}
-
-.signupwrapper .signup-input-box1 {
-  transform: translate(40px, 210px);
-}
-
-.signupwrapper .signup-input-box2 {
-  transform: translate(40px, 310px);
-}
-
-.signupwrapper .signup-input-box3 {
-  transform: translate(40px, 410px);
-}
-
-/* Styling for input fields */
-.signup-input-box input,
-.signup-input-box1 input,
-.signup-input-box2 input,
-.signup-input-box3 input {
-  width: 90%;
-  height: 120px;
-  background: #e4e4e4; /* Light grey input field */
-  border-radius: 700px; /* Fully rounded input fields */
-  font-family: "Poppins", sans-serif;
-  font-size: 40px;
-  font-weight: 550;
-  padding: 50px; /* Padding for spacing inside input */
-  color: #7D7D7D; /* Grey text color */
-}
-
-/* Placeholder text styling */
-.signup-input-box input::placeholder,
-.signup-input-box1 input::placeholder,
-.signup-input-box2 input::placeholder,
-.signup-input-box3 input::placeholder {
-  color: #7D7D7D; /* Light grey placeholder text */
-}
-
-/* Signup button styling */
-.signupwrapper button {
-  width: 90%;
-  height: 140px;
-  transform: translate(40px, 520px);
-  border-radius: 700px; /* Fully rounded button */
-  border-color: black;
-  border-width: 4px;
-  background-color: #0b4433; /* Dark green button */
-  font-size: 50px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  color: #e4e4e4; /* Light text */
-  cursor: pointer;
-  text-shadow: 4px 4px black; /* Text shadow for contrast */
-}
-
-/* Footer section positioning */
-.signupwrapper .signup-footer {
-  transform: translate(570px, 560px);
-}
-
-/* Footer text styling */
-.signup-footer h1 {
-  font-family: "Poppins", sans-serif;
-  font-size: 40px;
-  font-weight: 550;
-  color: #e4e4e4; /* Light text */
-  text-shadow: 1px 1px black;
-}
-
-/* Link styling in the footer */
-.signup-footer a {
-  text-decoration: none;
-  font-family: "Poppins", sans-serif;
-  font-size: 40px;
-  font-weight: 550;
-  color: #0b4433;
-  margin-left: 220px;
-}
-
-/* Underline effect on hover */
-.signup-footer a:hover {
-  text-decoration: underline;
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  .signup-header h1 {
+    font-size: 32px;
+  }
+  .signup-header h2 {
+    font-size: 20px;
+  }
+  .signup-wrapper {
+    padding: 20px;
+  }
+  .input-box input {
+    font-size: 14px;
+    padding: 12px;
+  }
+  .signup-btn {
+    font-size: 16px;
+    padding: 12px;
+  }
 }

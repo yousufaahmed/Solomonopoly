@@ -3,7 +3,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Import all the page components for routing
-import SplashScreen from "./pages/Splash";
 import LoginForm from "./pages/LoginForm";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -44,7 +43,7 @@ function App() {
             {/* Route definitions for each page */}
             <Route 
               index 
-              element={<SplashScreen />} 
+              element={<LoginForm />} 
             />
 
             {/* Route for the Login Form page */}
@@ -57,12 +56,6 @@ function App() {
             <Route 
               path="/signup" 
               element={<RegisterAndLogout />} 
-            />
-
-            {/* Route for the Splash Screen page */}
-            <Route 
-              path="/splashscreen" 
-              element={<SplashScreen />} 
             />
 
             {/* Route for the Home page */}

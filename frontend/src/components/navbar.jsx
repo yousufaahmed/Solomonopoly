@@ -1,28 +1,77 @@
-//All relevant imports
-import React from "react";
+// All relevant imports
+import React, { useState } from "react";
 import "../styles/navbar.css";
-import logo from '../assets/logo_nav.png'
+import logo from '../assets/logo_nav.png';
 
-//Footer component, all buttons added going to corresponding pages
+// Navbar component with hamburger menu for mobile
 const Navbar = () => {
-    return(
-        <div className="navbar_container">
-            <button type="submit" className="navbar_home" onClick={() => window.location.href ='/home'}><img src={logo} alt="logo_img" className="logo_img"/></button> 
+  const [menuOpen, setMenuOpen] = useState(false);
 
-            <div class="nav-links-container">
-                <button type="submit" className="nav-links" onClick={() => window.location.href ='/leaderboard'}><p1>Leaderboard</p1></button>
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
-                <button type="submit" className="nav-links" onClick={() => window.location.href ='/taskboard'}><p1>Taskboard</p1></button>
+  return (
+    <div className="navbar_container">
+      <button
+        type="button"
+        className="navbar_home"
+        onClick={() => window.location.href = '/home'}
+      >
+        <img src={logo} alt="logo_img" className="logo_img" />
+      </button>
 
-                <button type="submit" className="nav-links" onClick={() => window.location.href ='/home'}><p1>Achievements</p1></button>
+      {/* Hamburger icon, visible on mobile */}
+      <div className="hamburger" onClick={toggleMenu}>
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </div>
 
-                <button type="submit" className="nav-links" onClick={() => window.location.href ='/home'}><p1>Store</p1></button>
+      {/* Navigation links container */}
+      <div className={`nav-links-container ${menuOpen ? "open" : ""}`}>
+        <button
+          type="button"
+          className="nav-links"
+          onClick={() => window.location.href = '/leaderboard'}
+        >
+          <p>Leaderboard</p>
+        </button>
 
-                <button type="submit" className="login-nav" onClick={() => window.location.href ='/loginform'}><p1>Log in</p1></button> 
-            </div>
+        <button
+          type="button"
+          className="nav-links"
+          onClick={() => window.location.href = '/taskboard'}
+        >
+          <p>Taskboard</p>
+        </button>
 
-        </div>       
-    );
-}
+        <button
+          type="button"
+          className="nav-links"
+          onClick={() => window.location.href = '/achievements'}
+        >
+          <p>Achievements</p>
+        </button>
+
+        <button
+          type="button"
+          className="nav-links"
+          onClick={() => window.location.href = '/store'}
+        >
+          <p>Store</p>
+        </button>
+
+        <button
+          type="button"
+          className="login-nav"
+          onClick={() => window.location.href = '/loginform'}
+        >
+          <p>Log in</p>
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Navbar;
