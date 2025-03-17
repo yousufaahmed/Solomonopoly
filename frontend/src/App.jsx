@@ -34,18 +34,11 @@ function App() {
         <BrowserRouter>
           {/* Routes component contains all the Route components */}
           <Routes>
-            <Route path="/home"
-              element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-              }
-            />
-            {/* Route definitions for each page */}
-            <Route 
-              index 
-              element={<SplashScreen />} 
-            />
+
+            {/* Redirect "/" to "/home" */}
+            <Route path="/" element={<Navigate to="/home" replace />} />
+
+            <Route path="/home" element={<Home />} />
 
             {/* Route for the Login Form page */}
             <Route 
@@ -57,22 +50,6 @@ function App() {
             <Route 
               path="/signup" 
               element={<RegisterAndLogout />} 
-            />
-
-            {/* Route for the Splash Screen page */}
-            <Route 
-              path="/splashscreen" 
-              element={<SplashScreen />} 
-            />
-
-            {/* Route for the Home page */}
-            <Route 
-              path="/home" 
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              } 
             />
 
             {/* Route for the QR Screen page */}

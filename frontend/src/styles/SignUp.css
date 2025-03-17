@@ -75,12 +75,19 @@ body {
   flex-direction: column;
 }
 
-/* Generic input box styling */
-.input-box {
+/* Combine selectors for all input box containers */
+.input-box,
+.signup-input-box1,
+.signup-input-box2,
+.signup-input-box3 {
   margin-bottom: 20px;
 }
 
-.input-box input {
+/* Combine selectors for the input elements inside these containers */
+.input-box input,
+.signup-input-box1 input,
+.signup-input-box2 input,
+.signup-input-box3 input {
   width: 100%;
   padding: 15px;
   font-size: 16px;
@@ -90,9 +97,14 @@ body {
   color: #7D7D7D;
 }
 
-.input-box input::placeholder {
+/* Combine selectors for the placeholder text in these inputs */
+.input-box input::placeholder,
+.signup-input-box1 input::placeholder,
+.signup-input-box2 input::placeholder,
+.signup-input-box3 input::placeholder {
   color: #7D7D7D;
 }
+
 
 .signup-btn {
   width: 90%;             /* Same width as the input boxes */

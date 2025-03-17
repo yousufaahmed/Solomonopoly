@@ -78,6 +78,17 @@
     background-color: #e4e4e4;
     border-radius: 2px;
   }
+
+  .profile_pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    margin: 10px;
+    border: 4px solid #2E8B58;
+  }
+  
   
   /* Mobile styles */
   @media (max-width: 768px) {

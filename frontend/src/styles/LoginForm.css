@@ -122,17 +122,17 @@ body {
 }
 
 /* Footer in form */
-.footer {
+.footer-1 {
   text-align: center;
 }
 
-.footer h1 {
+.footer-1 h1 {
   font-size: 16px;
   color: #e4e4e4;
   margin-bottom: 10px;
 }
 
-.footer a {
+.footer-1 a {
   font-size: 16px;
   color: #e4e4e4;
   text-decoration: underline;
