@@ -109,7 +109,7 @@ import Footer from '../components/footer';  // Update the import path if needed
 import Navbar from "../components/navbar"; 
 
 const Leaderboard = () => {
-  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [leaderboardData, setLeaderboardData] = useState([]);  // all data from API
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -135,7 +135,7 @@ const Leaderboard = () => {
       .sort((a, b) => b.points - a.points)  // Sort by points descending
       .map((user, index) => ({
         ...user,
-        rank: `#${index + 1}`  // Assign rank based on sorted position
+        rank: `#${i + 1}`,
       }));
   };
 
@@ -157,6 +157,23 @@ const Leaderboard = () => {
         Leaderboard
       </header>
 
+      {/* 3) Tabs pinned below the header */}
+      <div className="tabs">
+        <button
+          className={`tab-button ${activeTab === "Everyone" ? "active" : ""}`}
+          onClick={() => setActiveTab("Everyone")}
+        >
+          Everyone
+        </button>
+        <button
+          className={`tab-button ${activeTab === "Friends" ? "active" : ""}`}
+          onClick={() => setActiveTab("Friends")}
+        >
+          Friends
+        </button>
+      </div>
+
+      {/* 4) Scrollable list in the middle */}
       <div className="leaderboard-list">
         {displayData.map((user, index) => (
           <div key={index} className="leaderboard-item">
@@ -189,4 +206,3 @@ const Leaderboard = () => {
 };
 
 export default Leaderboard;
-

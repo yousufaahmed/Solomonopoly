@@ -1,164 +1,210 @@
-/*Written by Aleem Abbas-Hussain*/
+/* Leaderboard.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* 
+   Basic reset so padding doesn’t break layouts.
+   Also set your preferred font. 
+*/
+* {
+  box-sizing: border-box;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif; /* or your choice */
+}
 
-
-*{
-  font-family: 'Poppins', sans-serif;
-} /*Sets all fonts to poppins*/
-
-
-/* Container for the leaderboard page */
+/************************************************
+  1) Main container
+************************************************/
 .leaderboard-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #e4e4e4;
-  padding: 16px;
-  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100vh; /* fill viewport */
+  overflow: hidden; /* we'll scroll only in .leaderboard-list */
 }
 
-/* Styles for the leaderboard heading */
+/************************************************
+  2) Navbar
+************************************************/
+/* 
+  We assume your <Navbar /> has its own CSS:
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;  // or whatever it is
+    background-color: #2e7d32;
+    z-index: 10000;
+  }
+  If it's not pinned, you'd do it here. 
+*/
+
+/************************************************
+  3) Leaderboard Header
+************************************************/
+/* 
+  Pin it below the navbar. If your navbar is 60px tall,
+  set top: 60px. If it's 70px, do top: 70px, etc.
+*/
 .leaderboard-header {
-  font-size: 80px;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 50px; /* approximate height of the header text */
+  background-color: #fff;
+  z-index: 999;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #2d6a4f;
-  margin-bottom: 16px;
-}
-
-/* Tabs container for switching between sections */
-.tabs {
+  padding: 1rem;
   display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
+  align-items: center; /* vertically center the text */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-/* Individual tab button styles */
+/************************************************
+  4) Tabs
+************************************************/
+/* 
+  Pin below the header. If the header is 50px tall
+  (plus 60px for navbar?), that’s 110px. Adjust as needed.
+*/
+.tabs {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  right: 0;
+  height: 50px; /* approximate height for the tab bar */
+  background-color: #fff;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
 .tab-button {
-  padding: 9px 20px;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
   border: none;
+  background-color: #f5f5f5;
   cursor: pointer;
-  background-color: #e4e4e4;
-  color: #495057;
-  font-size: 30px;
-  transition: background-color 0.3s;
-  border-radius: 20px;
-  margin: 10px;
-  transform: translate(0px, -20px);
+  font-size: 1rem;
 }
 
-/* Active tab button styling */
 .tab-button.active {
-  background-color: #009951;
-  color: #e4e4e4;
+  background-color: #2e7d32;
+  color: #fff;
 }
 
-/* Container for the leaderboard list */
+/************************************************
+  5) Scrollable List
+************************************************/
+/*
+  We place this below the tabs. If the tabs end at 160px,
+  we start from there. Then we stop 60px from the bottom
+  to make room for the friend-code bar. 
+  (160px = 60 for navbar + 50 for header + 50 for tabs = 160.)
+*/
 .leaderboard-list {
-  width: 800px;
-  max-width: 1000px;
-  background-color: #e4e4e4;
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 32px;
-  box-sizing: border-box;
-  transform: translate(0px, 10px);
+  position: absolute;
+  top: 160px;
+  bottom: 60px; /* leave room for friend-code container pinned at bottom */
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  background-color: #f2f2f2;
+  padding: 1rem;
 }
 
-/* Styling for each leaderboard entry */
+/* Each item in the list */
 .leaderboard-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #c2c2c2;
+  justify-content: space-between;
+  background-color: #fff;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Container for user details inside leaderboard */
 .leaderboard-user {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
 }
 
-/* User profile image */
 .user-image {
-  width: 120px;
-  height: 120px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
   border-radius: 50%;
-  margin-right: 16px;
-  border: 2px solid #d3d3d3;
 }
 
-/* Container for user information */
 .user-info {
   display: flex;
   flex-direction: column;
 }
 
-/* Username styling */
 .user-name {
-  font-weight: bold;
-  font-size: 32px;
-  font-weight: 500;
+  font-weight: 600;
+  margin: 0;
 }
 
-/* Score text styling */
 .user-score {
-  color: #6c757d;
-  font-size: 30px;
+  margin: 0;
+  color: #777;
 }
 
-/* Rank text styling */
 .user-rank {
-  color: #adb5bd;
-  font-weight: bold;
-  font-size: 40px;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
-/* Container for adding a friend via friend code */
+/************************************************
+  6) Friend Code Container (Bottom)
+************************************************/
 .friend-code-container {
-  width: 100%;
-  max-width: 550px;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  box-sizing: border-box;
-  background-color: #e4e4e4;
-  padding: 8px;
-  border-radius: 10px;
-  transform: translate(-280px, 1425px);
+  position: absolute; /* or fixed if you prefer it to ignore scrolling */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* approximate height for the bar */
+  background-color: #fff;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 -1px 2px rgba(0,0,0,0.1);
 }
 
-/* Input field for entering a friend code */
 .friend-code-input {
-  width: 60%;
-  padding: 12px;
-  border-radius: 20px;
-  border: 1px solid #009951;
-  margin-right: 10px;
-  background-color: #e4e4e4;
-  font-size: 28px;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
-/* Button for adding a friend */
 .add-friend-button {
-  padding: 12px 16px;
+  background-color: #2e7d32;
+  color: #fff;
   border: none;
-  border-radius: 20px;
-  background-color: #009951;
-  color: #e4e4e4;
+  padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: background-color 0.3s; /*transitions to colour when clicked*/
-  font-size: 28px;
+  border-radius: 4px;
 }
 
-/* Hover effect for the add friend button */
-.add-friend-button:hover {
-  background-color: #1b4332;
+/************************************************
+  7) Responsive Adjustments
+************************************************/
+@media (max-width: 600px) {
+  .leaderboard-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-rank {
+    align-self: flex-end;
+  }
 }
-
-  
-  
