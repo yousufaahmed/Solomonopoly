@@ -43,29 +43,28 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <div className="signupcontainer">
-        <button
-          type="button"
-          onClick={() => window.location.href = '/splashscreen'}
-        >
-          X
-        </button>
-        <div className="signupheader">
-          <h1>Create Your</h1>
-          <h2>Account</h2>
-          <h2 className="error-msg" style={{color: "red"}}>{errMsg}</h2>
-        </div>
+    <div className="signup-container">
+      <button
+        type="button"
+        className="close-btn"
+        onClick={() => (window.location.href = "/splashscreen")}
+      >
+        X
+      </button>
+
+      <div className="signup-header">
+        <h1>Create Your</h1>
+        <h2>Account</h2>
       </div>
-      
-      <div className="signupwrapper">
+
+      <div className="signup-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="signup-input-box">
+          <div className="input-box">
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
               type="text"
-              placeholder="Username"
+              placeholder="Full Name"
               required
             />
           </div>
@@ -109,7 +108,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

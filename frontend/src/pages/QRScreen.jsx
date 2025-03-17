@@ -4,85 +4,59 @@
 
 // Import necessary modules and components
 import React, { useRef, useEffect, useState } from 'react';
-import Webcam from 'react-webcam';
-import jsQR from 'jsqr';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import '../styles/QRScreen.css';
-import qr_code from '../assets/qr_code.png';
-import ios_torch_button from '../assets/ios_torch_button.png';
-import Footer from '../components/footer';
-import { ACCESS_TOKEN } from '../constants';
+import Webcam from 'react-webcam'; // Webcam component for accessing the device camera
+import jsQR from 'jsqr'; // Library for decoding QR codes from images
+import '../styles/QRScreen.css'; // Import custom CSS styles
+import qr_code from '../assets/qr_code.png'; // QR code overlay image
+import ios_torch_button from '../assets/ios_torch_button.png'; // Torch button image for iOS
+import Footer from '../components/footer'; // Footer component
+import Navbar from '../components/navbar';
 
+// Define the QRScreen component
 function QRScreen() {
-  const webcamRef = useRef(null);
-  const [scanResult, setScanResult] = useState('');
-  const [playerId, setPlayerId] = useState(null);
-  const [flashlightOn, setFlashlightOn] = useState(false);
-  const [stream, setStream] = useState(null);
-  const [track, setTrack] = useState(null);
+  // References and state variables
+  const webcamRef = useRef(null); // Reference to the webcam component
+  const [scanResult, setScanResult] = useState(''); // Store the result of the QR code scan
+  const [flashlightOn, setFlashlightOn] = useState(false); // Track the flashlight state
+  const [stream, setStream] = useState(null); // Store the media stream for flashlight control
+  const [track, setTrack] = useState(null); // Store the video track for flashlight control
 
+  // useEffect hook to continuously capture images and scan for QR codes
   useEffect(() => {
-    const fetchPlayerId = async () => {
-      try {
-        const token = localStorage.getItem(ACCESS_TOKEN);
-        if (!token) return;
-
-        const decoded = jwtDecode(token);
-        console.log('Decoded token:', decoded);
-        const response = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
-        setPlayerId(response.data.player_id);
-      } catch (err) {
-        console.error("Error fetching player ID:", err);
-      }
-    };
-
-    fetchPlayerId();
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(async () => {
+    const interval = setInterval(() => {
+      // Capture an image from the webcam
       const imageSrc = webcamRef.current.getScreenshot();
-
+      
       if (imageSrc) {
         const image = new Image();
         image.src = imageSrc;
 
-        image.onload = async () => {
+        image.onload = () => {
+          // Create a canvas to process the captured image
           const canvas = document.createElement('canvas');
           canvas.width = image.width;
           canvas.height = image.height;
           const context = canvas.getContext('2d');
-
+          
+          // Draw the captured image on the canvas
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
           const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-
+          
+          // Use jsQR to scan the image data for a QR code
           const code = jsQR(imageData.data, imageData.width, imageData.height);
 
           if (code) {
-            const taskId = Number(code.data); // Ensure it's a number
-            setScanResult(taskId);
-            alert(`QR Code Task ID: ${taskId}`);
-
-            if (playerId) {
-              try {
-                await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
-                  completed: true,
-                });
-                alert("Task updated successfully!");
-              } catch (err) {
-                console.error("Error updating task:", err);
-                alert("Failed to update task.");
-              }
-            }
+            // If a QR code is found, update the state and alert the user
+            setScanResult(code.data);
+            alert(`QR Code Data: ${code.data}`);
           }
         };
       }
-    }, 500);
+    }, 500); // Scan every 500 milliseconds
 
+    // Cleanup interval when the component unmounts
     return () => clearInterval(interval);
-  }, [playerId]); // Runs when playerId is available
-  
+  }, []);
 
   // Function to toggle the flashlight on and off
   const toggleFlashlight = async () => {
@@ -128,27 +102,26 @@ function QRScreen() {
 
   return (
     <>
-      {/* Main container for the QR screen */}
       <div className="qr-container">
-        
+        <Navbar />
+
         {/* Header section with title and description */}
         <div className="qr-header">
           <h2>Scan QR</h2>
           <p>Use your phone's camera to scan a QR code</p>
         </div>
-  
+
         {/* Camera container for scanning QR codes */}
         <div className="qr-camera-container">
-          {/* Webcam component for live camera feed */}
           <Webcam
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={{
-              facingMode: 'environment', // Use the rear camera
+              facingMode: "environment", // Use the rear camera
             }}
           />
-  
+
           {/* Overlay for the QR scanning area */}
           <div className="qr-overlay">
             <img src={qr_code} alt="QR Overlay" className="qr-overlay-image" />
@@ -158,34 +131,24 @@ function QRScreen() {
           <div className="ios-torch">
             <img src={ios_torch_button} alt="IOS Torch" className="ios-torch-image" />
           </div>
-  
+
           {/* Button to toggle the flashlight */}
           <div className="qr-torch">
-            <button 
-              className="torch-button"
-              onClick={toggleFlashlight}
-            >
-              <i className={`fas fa-bolt ${flashlightOn ? 'on' : ''}`}></i>
+            <button className="torch-button" onClick={toggleFlashlight}>
+              <i className={`fas fa-bolt ${flashlightOn ? "on" : ""}`}></i>
             </button>
           </div>
         </div>
-  
+
         {/* Bottom navigation bar with icons */}
         <div className="qr-navbar">
           <i className="fas fa-home"></i>
           <i className="fas fa-user-circle"></i>
           <i className="fas fa-bars"></i>
         </div>
-
-        {/* Footer component */}
-        <div className="footer">
-          <Footer />
-        </div>
-
       </div>
     </>
   );
-}
+};
 
-// Export the QRScreen component as the default export
 export default QRScreen;

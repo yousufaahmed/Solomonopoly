@@ -199,6 +199,9 @@ import '../styles/Taskboard.css';
 import Footer from "../components/footer";
 import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
+import Navbar from "../components/navbar"; 
+
+
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);

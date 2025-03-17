@@ -46,19 +46,20 @@ const LoginForm = () => {
     }
   };
 
+ 
   return (
-    <>
-      <div className="container">
-        <button
-          type="button"
-          onClick={() => (window.location.href = "/splashscreen")}
-        >
-          X
-        </button>
-        <div className="header">
-          <h1 className="poppins-bold">Hello</h1>
-          <h2 className="poppins-light">Sign In!</h2>
-        </div>
+    <div className="container">
+      <button
+        type="button"
+        className="close-btn"
+        onClick={() => (window.location.href = "/splashscreen")}
+      >
+        X
+      </button>
+
+      <div className="header">
+        <h1 className="poppins-bold">Hello</h1>
+        <h2 className="poppins-light">Sign In!</h2>
       </div>
 
       <div className="wrapper">
@@ -86,7 +87,7 @@ const LoginForm = () => {
             <a href="#">Forgot password?</a>
           </div>
 
-          {loading && <LoadingIndicator />}
+          {loading && <div>Loading...</div>}
           <button type="submit">SIGN IN</button>
 
           <div className="footer">
@@ -95,10 +96,9 @@ const LoginForm = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
 export default LoginForm;
-
 

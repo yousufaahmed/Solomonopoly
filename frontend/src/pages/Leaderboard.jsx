@@ -106,6 +106,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Leaderboard.css';
 import Footer from '../components/footer';  // Update the import path if needed
+import Navbar from "../components/navbar"; 
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -150,6 +151,8 @@ const Leaderboard = () => {
 
   return (
     <div className="leaderboard-container">
+
+      <Navbar />
       <header className="leaderboard-header">
         Leaderboard
       </header>
@@ -181,8 +184,6 @@ const Leaderboard = () => {
         />
         <button className="add-friend-button">Add Friend</button>
       </div>
-
-      <Footer />
     </div>
   );
 };
