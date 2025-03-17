@@ -1,89 +1,45 @@
-/* Leaderboard.css */
-
-/* 
-   Basic reset so padding doesn’t break layouts.
-   Also set your preferred font. 
-*/
 * {
   box-sizing: border-box;
 }
 body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif; /* or your choice */
+  font-family: 'Poppins', sans-serif;
 }
-
-/************************************************
-  1) Main container
-************************************************/
 .leaderboard-container {
   position: relative;
   width: 100%;
-  height: 100vh; /* fill viewport */
-  overflow: hidden; /* we'll scroll only in .leaderboard-list */
+  height: 100vh;
+  overflow: hidden;
 }
-
-/************************************************
-  2) Navbar
-************************************************/
-/* 
-  We assume your <Navbar /> has its own CSS:
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;  // or whatever it is
-    background-color: #2e7d32;
-    z-index: 10000;
-  }
-  If it's not pinned, you'd do it here. 
-*/
-
-/************************************************
-  3) Leaderboard Header
-************************************************/
-/* 
-  Pin it below the navbar. If your navbar is 60px tall,
-  set top: 60px. If it's 70px, do top: 70px, etc.
-*/
 .leaderboard-header {
   position: absolute;
-  top: 60px;
+  top: 100px;
   left: 0;
   right: 0;
-  height: 50px; /* approximate height of the header text */
-  background-color: #fff;
+  height: 50px;
+  background-color: #e4e4e4;
   z-index: 999;
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight:normal;
   padding: 1rem;
   display: flex;
-  align-items: center; /* vertically center the text */
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  align-items: center;
+  justify-content: center;
 }
-
-/************************************************
-  4) Tabs
-************************************************/
-/* 
-  Pin below the header. If the header is 50px tall
-  (plus 60px for navbar?), that’s 110px. Adjust as needed.
-*/
 .tabs {
   position: absolute;
-  top: 110px;
+  top: 150px;
   left: 0;
   right: 0;
-  height: 50px; /* approximate height for the tab bar */
-  background-color: #fff;
+  height: 50px;
+  background-color: #e2e2e2;
   z-index: 998;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 1rem;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
-
 .tab-button {
   margin-right: 0.5rem;
   padding: 0.5rem 1rem;
@@ -91,88 +47,66 @@ body, html {
   background-color: #f5f5f5;
   cursor: pointer;
   font-size: 1rem;
+  border-radius: 20px;
 }
-
 .tab-button.active {
-  background-color: #2e7d32;
+  background-color: #2E8B58;
   color: #fff;
 }
-
-/************************************************
-  5) Scrollable List
-************************************************/
-/*
-  We place this below the tabs. If the tabs end at 160px,
-  we start from there. Then we stop 60px from the bottom
-  to make room for the friend-code bar. 
-  (160px = 60 for navbar + 50 for header + 50 for tabs = 160.)
-*/
 .leaderboard-list {
   position: absolute;
-  top: 160px;
-  bottom: 60px; /* leave room for friend-code container pinned at bottom */
+  top: 190px;
+  bottom: 60px;
   left: 0;
   right: 0;
   overflow-y: auto;
-  background-color: #f2f2f2;
+  background-color: #e2e2e2;
   padding: 1rem;
 }
-
-/* Each item in the list */
 .leaderboard-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: #FFF;
   margin-bottom: 0.5rem;
   padding: 0.75rem 1rem;
-  border-radius: 6px;
+  border-radius: 15px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-
 .leaderboard-user {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
-
 .user-image {
   width: 50px;
   height: 50px;
   object-fit: cover;
   border-radius: 50%;
 }
-
 .user-info {
   display: flex;
   flex-direction: column;
 }
-
 .user-name {
   font-weight: 600;
   margin: 0;
 }
-
 .user-score {
   margin: 0;
   color: #777;
 }
-
 .user-rank {
   font-weight: 600;
   font-size: 1rem;
 }
-
-/************************************************
-  6) Friend Code Container (Bottom)
-************************************************/
 .friend-code-container {
-  position: absolute; /* or fixed if you prefer it to ignore scrolling */
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px; /* approximate height for the bar */
-  background-color: #fff;
+  height: 60px;
+  background-color: #e2e2e2;
   z-index: 999;
   display: flex;
   align-items: center;
@@ -180,25 +114,19 @@ body, html {
   padding: 0.5rem 1rem;
   box-shadow: 0 -1px 2px rgba(0,0,0,0.1);
 }
-
 .friend-code-input {
   flex: 1;
   padding: 0.5rem;
   font-size: 1rem;
 }
-
 .add-friend-button {
-  background-color: #2e7d32;
-  color: #fff;
+  background-color: #2E8B58;
+  color: #e2e2e2;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 20px;
 }
-
-/************************************************
-  7) Responsive Adjustments
-************************************************/
 @media (max-width: 600px) {
   .leaderboard-item {
     flex-direction: column;
