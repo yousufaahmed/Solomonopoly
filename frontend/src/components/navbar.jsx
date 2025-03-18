@@ -60,6 +60,14 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
+          onClick={() => navigate("/map")}
+        >
+          <p>Map</p>
+        </button>
+
+        <button
+          type="button"
+          className="nav-links"
           onClick={() => navigate("/achievements")}
         >
           <p>Achievements</p>

@@ -1,0 +1,46 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.leaflet-container {
+    top: 90px;
+    height: 100vh;
+  }
+
+/* Ensure wrapper can position the legend */
+.map-wrapper {
+    position: relative;
+  }
+  
+  /* Legend container */
+  .map-legend {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    background: #0b4433;
+    padding: 10px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    color: #e4e4e4;
+  }
+  
+  /* Single legend row */
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .legend-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Icon sizing */
+  .legend-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  

@@ -14,6 +14,7 @@ import Taskboard from "./pages/Taskboard";
 import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPwd from "./pages/ResetPassword";
+import Map from "./pages/Map";
 
 // Define the App component
 function App() {
@@ -57,6 +58,11 @@ function App() {
             <Route 
               path="/reset" 
               element={<ResetPwd />} 
+            />
+
+            <Route 
+              path="/map" 
+              element={<Map />} 
             />
 
             {/* Route for the QR Screen page */}
