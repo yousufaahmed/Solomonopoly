@@ -14,6 +14,7 @@ import Taskboard from "./pages/Taskboard";
 import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPwd from "./pages/ResetPassword";
+import Store from "./pages/Store";
 
 // Define the App component
 function App() {
@@ -95,6 +96,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Leaderboard />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the Leaderboard page */}
+            <Route 
+              path="/store" 
+              element={
+                <ProtectedRoute>
+                  <Store />
                 </ProtectedRoute>
               } 
             />
