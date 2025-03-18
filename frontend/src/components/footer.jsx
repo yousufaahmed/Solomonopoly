@@ -1,21 +1,35 @@
-/*Written by Mohammed Zarrar Shahid*/
+import React from 'react';
+import '../styles/footer.css';
+import logo from "../assets/logo_nav.png";
 
-//All relevant imports
-import React from "react";
-import "../styles/footer.css";
-import blackqr from '../assets/qr_code_black.png'
-import home from '../assets/home.png'
-import user_profile from '../assets/user_profile.png'
-
-//Footer component, all buttons added going to corresponding pages
 const Footer = () => {
-    return(
-        <div className="footer_container">
-            <button type="submit" className="footer_home" onClick={() => window.location.href ='/home'}><img src={home} alt="home_img" className="home_img"/></button> 
-            <button type="submit" className="footer_user" onClick={() => window.location.href ='/user'}><img src={user_profile} alt="user_img" className="user_img"/></button>
-            <button type="submit" className="footer_qr"  onClick={() => window.location.href ='/qr'}><img src={blackqr} alt="qr_code_black" className="qr_black"/></button>
-        </div>       
-    );
-}
+  return (
+    <div className="footer-container">
+      <div className="footer-left">
+        <ul className="footer-links">
+          <li>
+            <a href="/terms">Terms &amp; Conditions</a>
+          </li>
+          <li>
+            <a href="/privacy">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="/contact">Contact Us</a>
+          </li>
+          <li className="company-address">
+            1234 Company Address, City, State, Zip
+          </li>
+        </ul>
+      </div>
+      <div className="footer-right">
+      <img src={logo} alt="Company Logo" className="footer-logo" />
+
+        <div className="additional-info">
+          <p>© {new Date().getFullYear()} Company Name. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Footer;

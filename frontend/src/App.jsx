@@ -15,6 +15,8 @@ import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPwd from "./pages/ResetPassword";
 import Map from "./pages/Map";
+import TandCs from "./pages/TermsAndConditions";
+import Footer from "./components/Footer";
 
 // Define the App component
 function App() {
@@ -104,6 +106,16 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+
+            {/* Route for the Leaderboard page */}
+            <Route 
+              path="/TermsAndConditions" 
+              element={
+                  <TandCs />
+                
+              } 
+            />
+
 
             {/* Catch-all route for 404 Not Found */}
             <Route 

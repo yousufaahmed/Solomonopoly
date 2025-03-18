@@ -1,0 +1,83 @@
+/* TERMS & CONDITIONS STYLES */
+
+.page-wrapper {
+  background-color: #2e8b58; /* This background is only applied to this container */
+  padding: 2rem; /* optional: add padding so the content isn’t flush against the edge */
+}
+
+
+.terms-container {
+    background-color: #e4e4e4; /* Dark green */
+    color: black !important; /* Force all text white */
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 2rem auto;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.6;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+
+  .terms-container,
+  .terms-container * {
+    color: black !important;
+  }
+  
+  
+  .terms-container *,
+  .terms-container h1,
+  .terms-container h2,
+  .terms-container h3,
+  .terms-container p,
+  .terms-container li {
+    color: black !important;
+  }
+  
+  .terms-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .terms-container h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .terms-container p,
+  .terms-container li {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .terms-container ul,
+  .terms-container ol {
+    margin-left: 1.5rem;
+  }
+  
+  .terms-container a {
+    color: #2e8b58 !important; /* Light accent for links */
+    text-decoration: underline;
+  }
+  
+  .terms-container a:hover {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+
+  .close-btn-tandc {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: #e4e4e4;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close-btn-tandc:hover {
+    color: #0b4433; /* dark green on hover */
+  }
+  

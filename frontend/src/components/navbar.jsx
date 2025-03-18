@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import logo from "../assets/logo_nav.png";
@@ -6,33 +6,43 @@ import user_profile from "../assets/user_profile.png";
 import { ACCESS_TOKEN } from "../constants";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem(ACCESS_TOKEN);
+  // Create a state to track authentication.
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    Boolean(localStorage.getItem(ACCESS_TOKEN))
+  );
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+  // Create a function to update the authentication state.
+  const checkAuth = () => {
+    setIsAuthenticated(Boolean(localStorage.getItem(ACCESS_TOKEN)));
   };
 
+  // Option 1: Listen to the 'storage' event for cross-tab updates.
+  useEffect(() => {
+    window.addEventListener("storage", checkAuth);
+    return () => {
+      window.removeEventListener("storage", checkAuth);
+    };
+  }, []);
+
+  // Option 2: Use an interval or custom event if needed. For example:
+  // useEffect(() => {
+  //   const interval = setInterval(checkAuth, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
-    <div className="navbar_container">
+    <nav className="navbar_container">
       <button
         type="button"
         className="navbar_home"
         onClick={() => navigate("/home")}
       >
-        <img src={logo} alt="logo_img" className="logo_img" />
+        <img src={logo} alt="logo" className="logo_img" />
       </button>
 
-      {/* Hamburger icon, visible on mobile */}
-      <div className="hamburger" onClick={toggleMenu}>
-        <span className="bar"></span>
-        <span className="bar"></span>
-        <span className="bar"></span>
-      </div>
-
-      {/* Navigation links container */}
-      <div className={`nav-links-container ${menuOpen ? "open" : ""}`}>
+      <div className="nav-links-container">
+        {/* Other navigation links */}
         <button
           type="button"
           className="nav-links"
@@ -40,7 +50,6 @@ const Navbar = () => {
         >
           <p>Leaderboard</p>
         </button>
-
         <button
           type="button"
           className="nav-links"
@@ -48,15 +57,13 @@ const Navbar = () => {
         >
           <p>Taskboard</p>
         </button>
-
         <button
           type="button"
           className="nav-links"
           onClick={() => navigate("/qr")}
         >
-          <p>QR Scanner</p>
+          <p>QR-Scanner</p>
         </button>
-
         <button
           type="button"
           className="nav-links"
@@ -64,15 +71,13 @@ const Navbar = () => {
         >
           <p>Map</p>
         </button>
-
         <button
           type="button"
           className="nav-links"
-          onClick={() => navigate("/achievements")}
+          onClick={() => navigate("/inventory")}
         >
-          <p>Achievements</p>
+          <p>Inventory</p>
         </button>
-
         <button
           type="button"
           className="nav-links"
@@ -81,7 +86,7 @@ const Navbar = () => {
           <p>Store</p>
         </button>
 
-        {token ? (
+        {isAuthenticated ? (
           <img
             src={user_profile}
             alt="Profile"
@@ -98,7 +103,7 @@ const Navbar = () => {
           </button>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 
