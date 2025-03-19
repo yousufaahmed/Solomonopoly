@@ -275,6 +275,7 @@ const TaskBoard = () => {
 
   return (
     <div className="taskboard-container">
+      <Navbar />
       <div className="taskboard-header">
         <h2>Remaining Tasks</h2>
         <p>All tasks remaining for this week</p>
@@ -342,9 +343,6 @@ const TaskBoard = () => {
         </>
       )}
 
-      <div className="footer">
-        <Footer />
-      </div>
     </div>
   );
 };

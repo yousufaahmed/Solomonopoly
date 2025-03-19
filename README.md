@@ -15,15 +15,17 @@ https://trello.com/b/M4YLqqFd/solomonopoly
 
 ## BACKEND
 
-virtual Environment
-python -m venv env  
+### 1 - Start virtual environment in terminal
+python -m venv env
 
-.\env\Scripts\activate  
+.\env\Scripts\activate <- WINDOWS
 
-download dependencies
+source env/bin/activate <- MacOS 
+
+### 2 - Download dependencies
 pip install -r requirements.txt
 
-run django server
+### 3 - Run django server
 python manage.py runserver
 
 
@@ -89,10 +91,10 @@ source env/bin/activate <- MacOS
 ### 3 - Download Dependencies
 npm install --save-dev jest
 
-###4 - Run tests
+### 4 - Run tests
 npm test
 
-# TESTING
+## BACKEND TESTING
 
 Run Django Tests:
 
@@ -102,14 +104,10 @@ To run all backend tests, execute the following command from the **root director
 
 python manage.py test api.tests
 
-Run Frontend Tests:
-
-cd frontend
-npm test
+## FULL-STACK TESTING
 
 Run full-stack tests (cypress or Playwright):
 npx cypress open
-
 
 FRONTEND TEMPLATE COMES FROM HERE:
 https://github.com/techwithtim/Django-React-Full-Stack-App
