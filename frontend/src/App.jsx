@@ -14,9 +14,8 @@ import Taskboard from "./pages/Taskboard";
 import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPwd from "./pages/ResetPassword";
-import Map from "./pages/Map";
-import TandCs from "./pages/TermsAndConditions";
-import Footer from "./components/Footer";
+import Store from "./pages/Store";
+import Inventory from "./pages/Inventory"
 
 // Define the App component
 function App() {
@@ -62,17 +61,22 @@ function App() {
               element={<ResetPwd />} 
             />
 
-            <Route 
-              path="/map" 
-              element={<Map />} 
-            />
-
             {/* Route for the QR Screen page */}
             <Route 
               path="/qr" 
               element={
                 <ProtectedRoute>
                   <QRScreen />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the QR Screen page */}
+            <Route 
+              path="/inventory" 
+              element={
+                <ProtectedRoute>
+                  <Inventory />
                 </ProtectedRoute>
               } 
             />
@@ -109,13 +113,13 @@ function App() {
 
             {/* Route for the Leaderboard page */}
             <Route 
-              path="/TermsAndConditions" 
+              path="/store" 
               element={
-                  <TandCs />
-                
+                <ProtectedRoute>
+                  <Store />
+                </ProtectedRoute>
               } 
             />
-
 
             {/* Catch-all route for 404 Not Found */}
             <Route 

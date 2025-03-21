@@ -1,0 +1,68 @@
+/* Main container for the inventory page */
+.inventory-container {
+  display: flex;
+  height: calc(100vh); /* Adjust height if Navbar has a fixed height */
+  padding: 20px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 100px;
+  overflow-y: auto;
+}
+
+/* Left side: large card display */
+.card-display {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 20px;
+}
+
+.card-display h1 {
+  margin-bottom: 20px;
+}
+
+.card-display img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Right side: scrollable thumbnails container */
+.thumbnail-box {
+  flex: 1;
+  padding-left: 20px;
+  box-sizing: border-box;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+/* Thumbnails grid inside the scrollable container */
+.card-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Thumbnail styles */
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+}
+
+.thumbnail.active,
+.thumbnail:hover {
+  border-color: #2E8B58;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
