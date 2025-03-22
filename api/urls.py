@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
     TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView,
-    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView #, UserUpdateView#, PlayerCardListView
+    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView#, UserUpdateView#, PlayerCardListView
 )
 
 urlpatterns = [
@@ -44,5 +44,6 @@ urlpatterns = [
     #path('player/<int:player_id>/deck/', PlayerCardListView.as_view(), name='player-deck'),  -- finish this
 
     #more to come
+    path('player/<int:player_id>/redeem_pack/', RedeemCardPackView.as_view(), name='redeem-pack'),
 
 ]
