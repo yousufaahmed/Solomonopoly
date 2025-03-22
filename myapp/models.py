@@ -59,6 +59,7 @@ class Card(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     rarity = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='card_images/', blank=True, null=True)
 
 class Checkpoint(models.Model):
     class CheckpointType(models.TextChoices):

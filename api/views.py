@@ -197,10 +197,10 @@ class PlayerTaskView(generics.ListAPIView):
 
 ### Card/Purchase Views ###
 
-class CardListView(generics.ListAPIView):
+class CardListView(generics.ListCreateAPIView):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 class CardView(generics.RetrieveAPIView):
     queryset = Card.objects.all()

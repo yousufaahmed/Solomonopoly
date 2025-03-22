@@ -7,3 +7,4 @@ werkzeug
 pyOpenSSL
 django-cors-headers
 pytest
+Pillow

@@ -71,7 +71,7 @@ class TaskSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ["card_id", "name", "description", "rarity"]
+        fields = ["card_id", "name", "description", "rarity", "image"]
         
 class CheckpointSerializer(serializers.ModelSerializer):
     class Meta:
