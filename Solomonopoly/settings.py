@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_extensions',
     'corsheaders',
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,8 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_ID')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PW')
 
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
