@@ -46,7 +46,7 @@ class TaskBoardSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = PlayerTask
-        fields = ["player", "task_id", "title", "description", "tags", "points", "completed"]
+        fields = ["player", "task_id", "title", "description", "tags", "points", "completed", "count"]
 
 class TriviaSerializer(serializers.ModelSerializer):
     class Meta:
