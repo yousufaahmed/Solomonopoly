@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body, html {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #e2E2E2;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.taskboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  margin: 80px auto 0;
+  min-height: 100vh;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+  background-color: #e2E2E2;
+  margin-top: 100px;
+}
+
+.taskboard-header {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 16px;
+  margin-bottom: 10px;
+  background-color: #E2E2E2;
+  border-radius: 16px;
+}
+
+.taskboard-header h2 {
+  font-size: 1.8rem;
+  font-weight: normal;
+  color: #0B4433;
+  margin: 0;
+}
+
+.taskboard-header p {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 8px 0 24px;
+}
+
+.taskboard-content {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #0B4433;
+  padding: 32px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.task-card {
+  background-color: transparent;
+  padding: 16px 0;
+  margin-bottom: 24px;
+}
+
+.task-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #0B4433;
+  font-size: 16px;
+}
+
+.task-progress {
+  background-color: #E2E2E2;
+  border-radius: 4px;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+}
+
+.task-progress-bar {
+  background-color: #0B4433;
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e4e4e4;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+}
+
+.task-progress-bar.full {
+  width: 100%;
+  background-color: #0B4433;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 8px;
+  color: #e4e4e4;
+}
+
+.task-progress-bar.completed-bar {
+  width: 100% !important;
+  background-color: #0B4433;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+  color: #e4e4e4;
+  font-weight: bold;
+  position: relative;
+}
+
+.task-progress-text-inside {
+  color: #e4e4e4;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+}
+
+.task-end-text {
+  margin-left: auto;
+  padding-left: 8px;
+  color: #0B4433;
+  font-weight: bold;
+  font-size: 24px;
+  position: absolute;
+  right: 8px;
+}
+
+.task-progress-bar.completed-bar .task-end-text {
+  right: 16px;
+  color: #e4e4e4;
+}
+
+.task-progress-bar.completed-bar .task-end-text::before {
+  content: '';
+  position: absolute;
+  right: 16px;
+  display: block;
+}
+
+.task-check {
+  color: #0B4433;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.footer {
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  border-top: 2px solid #ddd;
+}
+
+.task-button {
+  background-color: #2E8B58;
+  color: #e4e4e4;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.task-button:hover {
+  background-color: #0B4433;
+  opacity: 0.9;
+}
+
+.task-button.completed {
+  background-color: #2E8B58;
+}
+
+body, html {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.taskboard-scrollable {
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
+  width: 100%;
+  padding: 10px;
+  background-color: #E2E2E2;
+}
+
+.task-section {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  background: #fff;
+  border-radius: 6px;
+  min-height: 50px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.task-section-header.fixed-height {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-icon {
+  font-weight: bold;
+}
+
+.task-list {
+  width: 100%;
+  padding: 10px;
+}
+
+.task-card {
+  width: 100%;
+  max-width: 800px;
+  padding: 10px;
+  margin: 5px 0;
+  background: #FAF9F6;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  /* 
+    For the "task-action" container below to push the button to the right, 
+    we can make .task-card a flex column or leave it as is.
+  */
+  display: flex;
+  flex-direction: column;
+}
+
+.task-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task-button {
+  transform: translate(-20px, -50px);
+}
+
+
+
+.task-separator {
+  width: 100%;
+  border: 1px solid #E2E2E2;
+  margin: 20px 0;
+}
+
+.completed-tasks-section {
+  width: 100%;
+  max-width: 800px;
+  background: #FFF;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-message {
+  text-align: center;
+  color: black;
+  font-style: italic;
+  margin-top: 10px;
+}

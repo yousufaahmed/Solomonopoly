@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
 
-from .models import (
+from myapp.models import (
     Trivia, Campus, Gamekeeper, Player, Task, Card, Checkpoint,
     GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint
 )

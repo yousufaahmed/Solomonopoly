@@ -31,12 +31,28 @@ class Player(models.Model):
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
 
 class Task(models.Model):
+    class TaskKind(models.TextChoices):
+        DAILY = "daily", "daily"
+        WEEKLY = "weekly", "weekly"
+        LOCATION = "location", "location"
+        GROUP = "group", "group"
+    
     task_id = models.AutoField(primary_key=True)
     task_frame = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     title = models.CharField(max_length=100)
-    kind = models.CharField(max_length=50, blank=True)
+    kind = models.CharField(
+        max_length=50, 
+        choices=TaskKind.choices,
+        default=TaskKind.DAILY,
+        blank=True)
     points = models.IntegerField(default=0)
+
+class Achievement(models.Model):
+    achievement_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    logo = models.CharField(max_length=1000)
 
 class Card(models.Model):
     card_id = models.AutoField(primary_key=True)
@@ -73,7 +89,7 @@ class PlayerTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
 
-    class Meta:
+    class Meta: # Can be changed so that tasks repeat
         unique_together = ('player', 'task')  # Ensures a Player can only have one record per Task
 
 
@@ -101,3 +117,12 @@ class TaskCheckpoint(models.Model):
 
     class Meta:
         unique_together = ('task', 'checkpoint')  # Ensures a Task is assigned to a Checkpoint only once
+
+
+class PlayerAchievement(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('player', 'achievement')  # Ensures a Player can only have one record per Achivement

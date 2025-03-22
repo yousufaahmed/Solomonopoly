@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+.leaderboard-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.leaderboard-header {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: #e4e4e4;
+  z-index: 999;
+  font-size: 1.8rem;
+  font-weight:normal;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tabs {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: #e2e2e2;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+.tab-button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 20px;
+}
+.tab-button.active {
+  background-color: #2E8B58;
+  color: #fff;
+}
+.leaderboard-list {
+  position: absolute;
+  top: 190px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  background-color: #e2e2e2;
+  padding: 1rem;
+}
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFF;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.leaderboard-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.user-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+.user-name {
+  font-weight: 600;
+  margin: 0;
+}
+.user-score {
+  margin: 0;
+  color: #777;
+}
+.user-rank {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.friend-code-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #e2e2e2;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 -1px 2px rgba(0,0,0,0.1);
+}
+.friend-code-input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.add-friend-button {
+  background-color: #2E8B58;
+  color: #e2e2e2;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 20px;
+}
+@media (max-width: 600px) {
+  .leaderboard-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-rank {
+    align-self: flex-end;
+  }
+}

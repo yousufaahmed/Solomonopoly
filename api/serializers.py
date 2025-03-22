@@ -1,7 +1,7 @@
 #Eliot's stuff >:(
 
 from django.contrib.auth.models import User
-from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint
+from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint, Achievement, PlayerAchievement
 from rest_framework import serializers
 
 
@@ -14,6 +14,11 @@ class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ["player_id", "user","username", "points", "deck", "campus"]
+
+class PlayerIdOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['player_id']
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     rank = serializers.SerializerMethodField()
@@ -28,6 +33,18 @@ class LeaderboardSerializer(serializers.ModelSerializer):
         #get list of players ordered by points, return index + 1 of current player
         return list(queryset).index(obj)+1 
 
+class TaskBoardSerializer(serializers.ModelSerializer):
+    task_id = serializers.IntegerField(source="task.task_id", read_only=True)
+    title = serializers.CharField(source="task.title", read_only=True)
+    description = serializers.CharField(source="task.description", read_only=True)
+    kind = serializers.CharField(source="task.kind", read_only=True)
+    points = serializers.IntegerField(source="task.points", read_only=True)
+    player = serializers.CharField(source="player.username", read_only=True)  # Include player username
+    completed = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = PlayerTask
+        fields = ["player", "task_id", "title", "description", "kind", "points", "completed"]
 
 class TriviaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -75,7 +92,7 @@ class PlayerTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerTask
         fields = ["player", "task", "completed"]
-        extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
+        #extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
 
     def create(self, validated_data):
         player = validated_data['player']
@@ -85,6 +102,24 @@ class PlayerTaskSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("The task has already been assigned to the player.")
 
         return PlayerTask.objects.create(**validated_data)
+    
+class PlayerTaskSerializerUpdate(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerTask
+        fields = ["player", "task", "completed"]
+        extra_kwargs = {'player': {'read_only': True}, 'task': {'read_only': True}}
+
+    def update(self, instance, validated_data):
+        completed = validated_data.get('completed', instance.completed)
+
+        if not instance.completed and completed:  # Check if task is being completed now
+            instance.player.points += instance.task.points  # Add task points to player
+            instance.player.save()  # Save updated player points
+
+        instance.completed = completed  # Update task completion status
+        instance.save()
+        return instance
+
         
 
 #change this class to allow for multiple purchases of the same card, purchase_time needs to be included on the pk        
@@ -123,5 +158,46 @@ class UserSerializer(serializers.ModelSerializer):
         Player.objects.create(user=user, points=0, campus = default_campus )
         
         return user
+    
+
+class AchievementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Achievement
+        fields = ['achievement_id', 'name', 'description', 'logo']  # Auto-includes ID
         
         
+class PlayerAchievementSerializer(serializers.ModelSerializer):
+    #task_name = serializers.CharField(source ='task.title', read_only = True)
+    #player_name = serializers.CharField(source='player.username', read_only=True)
+
+    class Meta:
+        model = PlayerAchievement
+        fields = ["player", "achievement", "completed"]
+        #extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
+
+    def create(self, validated_data):
+        player = validated_data['player']
+        achievement = validated_data['achievement']
+
+        if PlayerAchievement.objects.filter(player=player, achievement=achievement).exists():
+            raise serializers.ValidationError("The achivement has already been assigned to the player.")
+
+        return PlayerAchievement.objects.create(**validated_data)
+    
+class PlayerAchievementSerializerUpdate(serializers.ModelSerializer):
+    #task_name = serializers.CharField(source ='task.title', read_only = True)
+    #player_name = serializers.CharField(source='player.username', read_only=True)
+
+    class Meta:
+        model = PlayerAchievement
+        fields = ["player", "achievement", "completed"]
+        extra_kwargs = {'player':{'read_only':True}, 'achievement':{'read_only':True}}
+
+    def create(self, validated_data):
+        player = validated_data['player']
+        achievement = validated_data['achievement']
+
+        if PlayerAchievement.objects.filter(player=player, achievement=achievement).exists():
+            raise serializers.ValidationError("The achievement has already been assigned to the player.")
+
+        return PlayerAchievement.objects.create(**validated_data)
