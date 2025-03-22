@@ -1,9 +1,11 @@
+import random
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer
 from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
@@ -341,3 +343,25 @@ class UpdatePlayerAchievementView(generics.UpdateAPIView):
 ### Misc Views ###
 
 #class LeaderboardView():
+
+class RedeemCardPackView(generics.CreateAPIView):
+    serializer_class = PurchasesSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        player_id = kwargs.get("player_id")
+        player = get_object_or_404(Player, pk=player_id)
+
+        all_cards = list(Card.objects.all())
+        if len(all_cards) < 3:
+            return Response({"error": "Not enough cards in the database to redeem a pack."}, status=status.HTTP_400_BAD_REQUEST)
+
+        awarded_cards = random.sample(all_cards, k=3)
+        purchases = []
+        for card in awarded_cards:
+            purchase = Purchases.objects.create(player=player, card=card)
+            purchases.append(PurchasesSerializer(purchase).data)
+
+        return Response({"cards_awarded": purchases}, status=status.HTTP_201_CREATED)
+
+
