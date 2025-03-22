@@ -1,7 +1,7 @@
 #Eliot's stuff >:(
 
 from django.contrib.auth.models import User
-from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint, Achievement, PlayerAchievement
+from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint, Achievement, PlayerAchievement, Tag
 from rest_framework import serializers
 
 
@@ -37,14 +37,16 @@ class TaskBoardSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(source="task.task_id", read_only=True)
     title = serializers.CharField(source="task.title", read_only=True)
     description = serializers.CharField(source="task.description", read_only=True)
-    kind = serializers.CharField(source="task.kind", read_only=True)
+    #kind = serializers.CharField(source="task.kind", read_only=True)
     points = serializers.IntegerField(source="task.points", read_only=True)
     player = serializers.CharField(source="player.username", read_only=True)  # Include player username
     completed = serializers.BooleanField(read_only=True)
-
+    tags = serializers.SlugRelatedField(source="task.tags", many=True, read_only=True, slug_field="name")
+    count = serializers.IntegerField(source="task.count", read_only=True)
+    
     class Meta:
         model = PlayerTask
-        fields = ["player", "task_id", "title", "description", "kind", "points", "completed"]
+        fields = ["player", "task_id", "title", "description", "tags", "points", "completed"]
 
 class TriviaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -62,12 +64,26 @@ class CampusSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Gamekeeper
 #         fields = ["gamekeeper_id", "name", "password", "campus"]
-        
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Tag
+        fields = ["name"]
+
 class TaskSerializer(serializers.ModelSerializer):
+    tags = serializers.SlugRelatedField(
+        many=True, queryset=Tag.objects.all(), slug_field="name"
+    )
+
     class Meta:
         model = Task
-        fields = ["task_id", "task_frame", "description", "title", "kind", "points"]
-        
+        fields = ["task_id", "task_frame", "description", "title", "tags", "points", "count"]
+    
+    def update(self, instance, validated_data):
+        tags_data = validated_data.pop("tags",[])
+        instance = super().update(instance, validated_data) 
+        instance.tags.set(tags_data)
+        return instance
+
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
@@ -81,6 +97,8 @@ class CheckpointSerializer(serializers.ModelSerializer):
 ### These serializers/models might need to be changed ###
 
 class GamekeeperTaskSerializer(serializers.ModelSerializer):
+    task = TaskSerializer(read_only=True)
+
     class Meta:
         model = GamekeeperTask
         fields = ["gamekeeper", "task"]
