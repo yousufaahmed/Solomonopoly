@@ -54,6 +54,7 @@ source env/bin/activate <- MacOS
 
 ### 3 - Download Dependencies
 npm install
+npm install react-leaflet-cluster
 
 ### 4 - Run app
 npm run dev

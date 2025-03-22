@@ -37,15 +37,16 @@ html, body {
 .qr-header h2 {
   color: #0B4433;
   margin-bottom: 10px;
-  font-size: 48px;
-  font-weight: 600;
+  margin-top: 10px;
+  font-size: 1.8rem;
+  font-weight: normal;
 }
 
 .qr-header p {
   color: #666;
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 500;
-  margin: 0 0 30px;
+  margin: 8px 0 24px;
 }
 
 /* Camera container */

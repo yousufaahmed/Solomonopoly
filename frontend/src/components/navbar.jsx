@@ -60,9 +60,9 @@ const Navbar = () => {
         <button
           type="button"
           className="nav-links"
-          onClick={() => navigate("/achievements")}
+          onClick={() => navigate("/inventory")}
         >
-          <p>Achievements</p>
+          <p>Inventory</p>
         </button>
 
         <button
@@ -71,6 +71,15 @@ const Navbar = () => {
           onClick={() => navigate("/store")}
         >
           <p>Store</p>
+        </button>
+
+        {/* New Map button */}
+        <button
+          type="button"
+          className="nav-links"
+          onClick={() => navigate("/map")}
+        >
+          <p>Map</p>
         </button>
 
         {token ? (
