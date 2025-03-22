@@ -46,19 +46,20 @@ const LoginForm = () => {
     }
   };
 
+ 
   return (
-    <>
-      <div className="container">
-        <button
-          type="button"
-          onClick={() => (window.location.href = "/splashscreen")}
-        >
-          X
-        </button>
-        <div className="header">
-          <h1 className="poppins-bold">Hello</h1>
-          <h2 className="poppins-light">Sign In!</h2>
-        </div>
+    <div className="container">
+      <button
+        type="button"
+        className="close-btn"
+        onClick={() => (window.location.href = "/home")}
+      >
+        X
+      </button>
+
+      <div className="header">
+        <h1 className="poppins-bold">Hello</h1>
+        <h2 className="poppins-light">Sign In!</h2>
       </div>
 
       <div className="wrapper">
@@ -68,7 +69,7 @@ const LoginForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address (username)"
+              placeholder="Email Address"
               required
             />
           </div>
@@ -83,22 +84,21 @@ const LoginForm = () => {
           </div>
 
           <div className="forgot">
-            <a href="#">Forgot password?</a>
+            <a href="/reset">Forgot password?</a>
           </div>
 
           {loading && <LoadingIndicator />}
           <button type="submit">SIGN IN</button>
 
-          <div className="footer">
+          <div className="footer-1">
             <h1>Don't have an account?</h1>
             <a href="/signup">Sign up</a>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
 export default LoginForm;
-
 

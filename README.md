@@ -15,15 +15,17 @@ https://trello.com/b/M4YLqqFd/solomonopoly
 
 ## BACKEND
 
-virtual Environment
-python -m venv env  
+### 1 - Start virtual environment in terminal
+python -m venv env
 
-.\env\Scripts\activate  
+.\env\Scripts\activate <- WINDOWS
 
-download dependencies
+source env/bin/activate <- MacOS 
+
+### 2 - Download dependencies
 pip install -r requirements.txt
 
-run django server
+### 3 - Run django server
 python manage.py runserver
 
 
@@ -38,28 +40,61 @@ python manage.py runserver
 1) python manage.py makemigrations myapp
 2) python manage.py migrate
 
+## RUN FRONTEND
 
-## FRONTEND
-
+### 1 - Enter frontend folder
 cd frontend
 
-virtual Environment
+### 2 - Start virtual environment in terminal
+python -m venv env
 
-python -m venv env 
-
-.\env\Scripts\activate  <- WINDOWS
+.\env\Scripts\activate <- WINDOWS
 
 source env/bin/activate <- MacOS
 
-
-### DOWNLOAD DEPENDENCIES
+### 3 - Download Dependencies
 npm install
 
-### RUN APP
+### 4 - Run app
 npm run dev
 
+### 5 (Mobile) - View website
+Enter the web address provided under "Network" into your Chrome browser.
 
-# TESTING
+e.g. https://XXX.XXX.X.XXX:XXXX/
+
+### 5 (Laptop/PC) - View Website
+Enter the web address provided under "Network" into your Chrome browser.
+
+Or if using on the same machine select the first server under "Local"
+
+Right-click, select "Inspect" and enter:
+
+CONTROL + SHIFT + M -> WINDOWS
+
+COMMAND + SHIFT + M -> MACOS
+
+to enter Mobile view
+
+## FRONTEND TESTING
+
+### 1 - Enter frontend folder
+cd frontend
+
+### 2 - Start virtual environment in terminal
+python -m venv env
+
+.\env\Scripts\activate <- WINDOWS
+
+source env/bin/activate <- MacOS
+
+### 3 - Download Dependencies
+npm install --save-dev jest
+
+### 4 - Run tests
+npm test
+
+## BACKEND TESTING
 
 Run Django Tests:
 
@@ -69,14 +104,10 @@ To run all backend tests, execute the following command from the **root director
 
 python manage.py test api.tests
 
-Run Frontend Tests:
-
-cd frontend
-npm test
+## FULL-STACK TESTING
 
 Run full-stack tests (cypress or Playwright):
 npx cypress open
-
 
 FRONTEND TEMPLATE COMES FROM HERE:
 https://github.com/techwithtim/Django-React-Full-Stack-App

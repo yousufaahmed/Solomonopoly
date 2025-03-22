@@ -13,6 +13,8 @@ import UserProfile from "./pages/UserProfile";
 import Taskboard from "./pages/Taskboard";
 import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ResetPwd from "./pages/ResetPassword";
+import Store from "./pages/Store";
 
 // Define the App component
 function App() {
@@ -34,18 +36,11 @@ function App() {
         <BrowserRouter>
           {/* Routes component contains all the Route components */}
           <Routes>
-            <Route path="/home"
-              element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-              }
-            />
-            {/* Route definitions for each page */}
-            <Route 
-              index 
-              element={<SplashScreen />} 
-            />
+
+            {/* Redirect "/" to "/home" */}
+            <Route path="/" element={<Navigate to="/home" replace />} />
+
+            <Route path="/home" element={<Home />} />
 
             {/* Route for the Login Form page */}
             <Route 
@@ -59,20 +54,10 @@ function App() {
               element={<RegisterAndLogout />} 
             />
 
-            {/* Route for the Splash Screen page */}
+            {/* Route for the Sign Up page */}
             <Route 
-              path="/splashscreen" 
-              element={<SplashScreen />} 
-            />
-
-            {/* Route for the Home page */}
-            <Route 
-              path="/home" 
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              } 
+              path="/reset" 
+              element={<ResetPwd />} 
             />
 
             {/* Route for the QR Screen page */}
@@ -111,6 +96,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Leaderboard />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the Leaderboard page */}
+            <Route 
+              path="/store" 
+              element={
+                <ProtectedRoute>
+                  <Store />
                 </ProtectedRoute>
               } 
             />

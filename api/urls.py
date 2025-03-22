@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
-    PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView,
-    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, TaskboardView,
-    CardListView, CardView, CreatePurchaseRecordView#, UserUpdateView#, PlayerCardListView
+    PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
+    TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView,
+    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView#, UserUpdateView#, PlayerCardListView
 )
 
 urlpatterns = [
@@ -29,8 +29,21 @@ urlpatterns = [
     path('cards/', CardListView.as_view(), name='card-list'),
     path('card/<int:card_id>/', CardView.as_view(), name='card-detail'),
     path('player/<int:player_id>/purchases/', CreatePurchaseRecordView.as_view(), name='purchase-card' ),
+
+    #Achievement Endpoints
+    path('achievement/', CreateAchievementView.as_view(), name='achievement-list-create'),
+    path('achievements/', AchievementListView.as_view(), name = 'achievement-list'),
+    path('achievement/<int:achievement_id>/', AchievementView.as_view(), name='achievement-detail'),
+    path('achievement/<int:achievement_id>/update/', UpdateAchievementView.as_view(), name='achievement-update'),
+    path('achievement/<int:player_id>/assign_achievement/', AssignAchievementToPlayerView.as_view(), name='assign-achievement'),
+    path('achievement/<int:player_id>/<int:achievement_id>/update/', UpdatePlayerAchievementView.as_view(), name='update-player-achievement'),
+    path('player/<int:player_id>/achievements/', PlayerAchievementView.as_view(), name='get-player-achievements'), # Used in Task Board for Each Player
+
+
+
     #path('player/<int:player_id>/deck/', PlayerCardListView.as_view(), name='player-deck'),  -- finish this
 
     #more to come
+    path('player/<int:player_id>/redeem_pack/', RedeemCardPackView.as_view(), name='redeem-pack'),
 
 ]

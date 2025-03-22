@@ -10,6 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errMsg, setErMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,30 +36,30 @@ const SignUp = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
-      alert("Registration failed: " + error.response?.data || error.message);
+      setErMsg("Registration failed: " + (error.response?.data?.username?.join(" ") || error.message));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="signupcontainer">
-        <button
-          type="button"
-          onClick={() => window.location.href = '/splashscreen'}
-        >
-          X
-        </button>
-        <div className="signupheader">
-          <h1>Create Your</h1>
-          <h2>Account</h2>
-        </div>
+    <div className="signup-container">
+      <button
+        type="button"
+        className="close-btn"
+        onClick={() => (window.location.href = "/home")}
+      >
+        X
+      </button>
+
+      <div className="signup-header">
+        <h1>Create Your</h1>
+        <h2>Account</h2>
       </div>
 
-      <div className="signupwrapper">
+      <div className="signup-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="signup-input-box">
+          <div className="input-box">
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
@@ -73,7 +74,7 @@ const SignUp = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address (username)"
+              placeholder="Email Address"
               required
             />
           </div>
@@ -99,7 +100,7 @@ const SignUp = () => {
           </div>
 
           {loading && <LoadingIndicator />}
-          <button type="submit">SIGN UP</button>
+          <button className="signup-btn" type="submit">SIGN UP</button>
 
           <div className="signup-footer">
             <h1>Have an account?</h1>
@@ -107,7 +108,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
