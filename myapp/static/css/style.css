@@ -1,3 +1,13 @@
 body {
-    background-color: yellow;
+    background-image: url("/static/images/amina_j_mohammed.png"); /* Adjust the path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
 }
