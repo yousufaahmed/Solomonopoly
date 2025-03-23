@@ -63,7 +63,7 @@ function App() {
               element={<ResetPwd />} 
             />
 
-            {/* Route for the Sign Up page */}
+            {/* Route for the T&C page */}
             <Route 
               path="/TermsAndConditions" 
               element={<Terms />} 
