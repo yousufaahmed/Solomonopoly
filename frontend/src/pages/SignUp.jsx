@@ -1,16 +1,15 @@
-// Written by: Yousuf Ahmed, Mohammed Zarrar Shahid, Aleem-Deen Abbas Hussein
-
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import LoadingIndicator from '../components/LoadingIndicator';
-import '../styles/SignUp.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import LoadingIndicator from "../components/LoadingIndicator";
+import "../styles/SignUp.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErMsg] = useState("");
 
@@ -25,11 +24,17 @@ const SignUp = () => {
       setLoading(false);
       return;
     }
+    
+    if (!agreed) {
+      alert("You must agree to the Terms and Conditions.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await axios.post("http://localhost:8000/api/user/register/", {
         username,
-        password
+        password,
       });
 
       localStorage.setItem("accessToken", res.data.access);
@@ -38,10 +43,17 @@ const SignUp = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
-      setErMsg("Registration failed: " + (error.response?.data?.username?.join(" ") || error.message));
+      setErMsg(
+        "Registration failed: " +
+          (error.response?.data?.username?.join(" ") || error.message)
+      );
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleTermsClick = () => {
+    navigate("/terms");
   };
 
   return (
@@ -101,8 +113,29 @@ const SignUp = () => {
             />
           </div>
 
+          <div className="checkbox-container">
+            <input
+              type="checkbox"
+              id="termsCheckbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              required
+            />
+            <label htmlFor="termsCheckbox">
+              <button
+                type="button"
+                className="terms-btn"
+                onClick={() => (window.location.href = "/TermsAndConditions")}
+              >
+                Terms and Conditions
+              </button>
+            </label>
+          </div>
+
           {loading && <LoadingIndicator />}
-          <button className="signup-btn" type="submit">SIGN UP</button>
+          <button className="signup-btn" type="submit">
+            SIGN UP
+          </button>
 
           <div className="signup-footer">
             <h1>Have an account?</h1>

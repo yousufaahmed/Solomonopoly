@@ -23,7 +23,7 @@
     font-weight: 400;
     margin-top: 5px;
     color: #0b4433;
-    text-align: center;
+    text-align: left;
     /* Removed fixed positioning and transform for better flow */
     /* position: fixed; left: 20px; margin-left: 20px; transform: translate(0px, 70px); */
 }
@@ -66,8 +66,8 @@
     flex-direction: column; /* Stack buttons vertically */
     gap: 20px;              /* Space between buttons */
     top:80%;
-    transform: translate(25%,0%);
-    align-items: center;
+    transform: translate(0%,0%);
+    align-items: left;
     margin: 10px;
 }
 
@@ -82,6 +82,8 @@
     cursor: pointer;
     border-radius: 25px;
     transition: background-color 0.3s ease;
+    width: 350px;
+    height: 50px;
 }
 
 /* Sustainability Button (lighter green) */
@@ -95,6 +97,8 @@
     cursor: pointer;
     border-radius: 25px;
     transition: background-color 0.3s ease;
+    width: 350px;
+    height: 50px;
 }
 
 .learn_button:hover {
@@ -137,7 +141,7 @@
 
     .qr_button,
     .learn_button {
-        font-size: 12px;
+        font-size: 20px;
         padding: 6px 12px;
     }
 }

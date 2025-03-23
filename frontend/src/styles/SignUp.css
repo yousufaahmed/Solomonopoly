@@ -13,15 +13,11 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-/* 
-  1. Container fills entire viewport.
-  2. Positioned relative so the close button can be placed at the top right.
-  3. Using flex layout to center content vertically and horizontally.
-*/
+/* Container fills entire viewport */
 .signup-container {
   width: 100vw;
   height: 100vh;
-  background: #2E8B58; /* Main background color */
+  background: #2E8B58;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +37,7 @@ body {
   cursor: pointer;
 }
 
-/* Header text (top portion) */
+/* Header text */
 .signup-header {
   text-align: center;
   margin-bottom: 30px;
@@ -60,13 +56,13 @@ body {
   color: #e4e4e4;
 }
 
-/* Wrapper for the form */
+/* Form wrapper */
 .signup-wrapper {
-  background: #0b4433;      /* Contrasting background */
-  border-radius: 20px;      /* Slight rounding on corners */
+  background: #0b4433;
+  border-radius: 20px;
   padding: 40px 30px;
   width: 90%;
-  max-width: 500px;         /* Keep form readable on large screens */
+  max-width: 500px;
 }
 
 /* Form layout */
@@ -75,7 +71,7 @@ body {
   flex-direction: column;
 }
 
-/* Combine selectors for all input box containers */
+/* Input boxes */
 .input-box,
 .signup-input-box1,
 .signup-input-box2,
@@ -83,7 +79,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Combine selectors for the input elements inside these containers */
 .input-box input,
 .signup-input-box1 input,
 .signup-input-box2 input,
@@ -97,7 +92,6 @@ body {
   color: #7D7D7D;
 }
 
-/* Combine selectors for the placeholder text in these inputs */
 .input-box input::placeholder,
 .signup-input-box1 input::placeholder,
 .signup-input-box2 input::placeholder,
@@ -105,10 +99,10 @@ body {
   color: #7D7D7D;
 }
 
-
+/* Signup button */
 .signup-btn {
-  width: 90%;             /* Same width as the input boxes */
-  padding: 15px;          /* Consistent padding */
+  width: 90%;
+  padding: 15px;
   font-size: 18px;
   font-weight: 600;
   background: #e4e4e4;
@@ -116,11 +110,10 @@ body {
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  margin: 0 auto 20px;    /* Centers the button horizontally and adds bottom margin */
+  margin: 0 auto 20px;
 }
 
-
-/* Footer container within the form */
+/* Footer container */
 .signup-footer {
   text-align: center;
 }
@@ -136,6 +129,27 @@ body {
   color: #e4e4e4;
   text-decoration: underline;
   font-weight: 500;
+}
+
+/* Updated checkbox container */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  transform: translate(200px,0px);
+  /* Removed left margin for a tighter layout */
+}
+
+.checkbox-container label {
+  margin: 0; 
+  display: inline-flex;
+}
+
+.terms-btn {
+  color: #e4e4e4;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 /* Responsive adjustments for smaller screens */

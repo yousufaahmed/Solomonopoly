@@ -1,213 +1,252 @@
 /* Global Reset and Font Styling */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  /* Main container as a card-style UI */
-  .user_container {
-    width: 90%;
-    max-width: 1000px;
-    margin: 40px auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    position: relative;
-    overflow: hidden;
-    padding: 60px 40px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Top bar icons */
-  .user_container .sign_out_icon,
-  .user_container .coins_icon {
-    position: absolute;
-    scale: 1.1;
-    top: 80px;
-    background: transparent;
-    border: none;
-  }
-  
-  /* Sign-out icon positioned at top-left */
-  .user_container .sign_out_icon {
-    left: 20px;
-    width: 60px;
-  }
-  .sign_out_icon .sign_out_image {
-    width: 100%;
-  }
-  
-  /* Coins icon positioned at top-right */
-  .user_container .coins_icon {
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-  }
-  .coins_icon .coins_image {
-    width: 30px;
-  }
-  
-  /* Profile image styling */
-  .user_img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-top: 40px;
-  }
-  
-  /* User info text styling */
-  .user_text {
-    margin-top: 20px;
-    text-align: center;
-  }
-  .user_text .user_intro {
-    font-size: 48px;
-    color: #0b4433;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  .user_text .user_id,
-  .user_text .user_date {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 5px;
-  }
-  
-  /* Action buttons (Campus & Leaderboard) styling */
-  .campus_btn,
-  .leaderpos_btn {
-    width: 100%;
-    max-width: 850px;
-    height: 70px;
-    background-color: #0b4433;
-    border: none;
-    border-radius: 35px;
-    font-size: 24px;
-    font-weight: 600;
-    color: #fff;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
-  /* Container for remaining tasks: center children and use consistent padding */
-.remtasks_btn {
-    width: 100%;
-    max-width: 850px;
-    background-color: #0b4433;
-    border-radius: 35px;
-    padding: 30px 20px;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;   /* Center children horizontally */
-    gap: 20px;
-    font-size: 24px;
-    font-weight: 600;
-    color: #fff;
-    text-align: center;
-  }
-  
-  .remtasks1_btn,
-.remtasks2_btn {
-  width: 100%;
-  background-color: #2e8b58;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Main container as a card-style UI */
+.user_container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  padding: 60px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Top bar icons */
+.user_container .sign_out_icon,
+.user_container .coins_icon {
+  position: absolute;
+  scale: 1.1;
+  top: 80px;
+  background: transparent;
   border: none;
-  border-radius: 20px;
-  font-size: 22px;
-  font-weight: 600;
-  color: #fff;
-  padding: 15px 20px;
+}
+
+/* Sign-out icon positioned at top-left */
+.user_container .sign_out_icon {
+  left: 20px;
+  width: 60px;
+}
+.sign_out_icon .sign_out_image {
+  width: 100%;
+}
+
+/* Coins icon positioned at top-right */
+.user_container .coins_icon {
+  right: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+.coins_icon .coins_image {
+  width: 30px;
+}
+
+/* Profile image styling */
+.user_img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 40px;
+}
+
+/* User info text styling */
+.user_text {
+  margin-top: 20px;
+  text-align: center;
+}
+.user_text .user_intro {
+  font-size: 48px;
+  color: #0b4433;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.user_text .user_id,
+.user_text .user_date {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* Action buttons (Campus & Leaderboard) styling */
+.campus_btn,
+.leaderpos_btn {
+  width: 100%;
+  max-width: 850px;
+  height: 70px;
+  background-color: #0b4433;
+  border: none;
+  border-radius: 35px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: background 0.3s ease;
+}
+
+/* Container for remaining tasks: center children and use consistent padding */
+.remtasks_btn {
+  width: 100%;
+  max-width: 850px;
+  background-color: #0b4433;
+  border-radius: 35px;
+  padding: 30px 20px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.remtasks1_btn,
+.remtasks2_btn {
+width: 100%;
+background-color: #2e8b58;
+border: none;
+border-radius: 20px;
+font-size: 22px;
+font-weight: 600;
+color: #fff;
+padding: 15px 20px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+transition: background 0.3s ease;
 }
 
 .remtasks1_btn:hover,
 .remtasks2_btn:hover {
-  background-color: #257b46; 
-  color: #fff;
+background-color: #257b46; 
+color: #fff;
 }
-  
-  /* Arrow images inside task buttons */
-  .arrow_image1,
-  .arrow_image2 {
-    width: 30px;
+
+/* Arrow images inside task buttons */
+.arrow_image1,
+.arrow_image2 {
+  width: 30px;
+}
+
+/* Responsive adjustments for tablets and smaller devices */
+@media (max-width: 768px) {
+  .user_container {
+    padding: 40px 20px 20px;
   }
-  
-  
-  /* Responsive adjustments for tablets and smaller devices */
-  @media (max-width: 768px) {
-    .user_container {
-      padding: 40px 20px 20px;
-    }
-    .user_text .user_intro {
-      font-size: 36px;
-    }
-    .user_text .user_id,
-    .user_text .user_date {
-      font-size: 18px;
-    }
-    .campus_btn,
-    .leaderpos_btn {
-      height: 60px;
-      font-size: 20px;
-    }
-    .remtasks_btn {
-      font-size: 20px;
-      padding: 20px 15px;
-    }
-    .remtasks1_btn,
-    .remtasks2_btn {
-      height: 50px;
-      font-size: 18px;
-    }
+  .user_text .user_intro {
+    font-size: 36px;
   }
-  
-  @media (max-width: 480px) {
-    .user_container {
-      width: 95%;
-      padding: 30px 15px 15px;
-    }
-    .user_img {
-      width: 120px;
-      height: 120px;
-    }
-    .user_text .user_intro {
-      font-size: 28px;
-    }
-    .user_text .user_id,
-    .user_text .user_date {
-      font-size: 16px;
-    }
-    .campus_btn,
-    .leaderpos_btn {
-      height: 50px;
-      font-size: 16px;
-    }
-    .remtasks_btn {
-      font-size: 16px;
-      padding: 15px 10px;
-    }
-    .remtasks1_btn,
-    .remtasks2_btn {
-      height: 45px;
-      font-size: 16px;
-    }
-    .coins_icon {
-      font-size: 16px;
-    }
+  .user_text .user_id,
+  .user_text .user_date {
+    font-size: 18px;
   }
-  
+  .campus_btn,
+  .leaderpos_btn {
+    height: 60px;
+    font-size: 20px;
+  }
+  .remtasks_btn {
+    font-size: 20px;
+    padding: 20px 15px;
+  }
+  .remtasks1_btn,
+  .remtasks2_btn {
+    height: 50px;
+    font-size: 18px;
+  }
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 480px) {
+  .user_container {
+    width: 95%;
+    padding: 30px 15px 15px;
+  }
+  .user_img {
+    width: 120px;
+    height: 120px;
+  }
+  .user_text .user_intro {
+    font-size: 28px;
+  }
+  .user_text .user_id,
+  .user_text .user_date {
+    font-size: 16px;
+  }
+  .campus_btn,
+  .leaderpos_btn {
+    height: 50px;
+    font-size: 16px;
+  }
+  .remtasks_btn {
+    font-size: 16px;
+    padding: 15px 10px;
+  }
+  .remtasks1_btn,
+  .remtasks2_btn {
+    height: 45px;
+    font-size: 16px;
+  }
+  .coins_icon {
+    font-size: 16px;
+  }
+}
+
+/* Custom styles for the campus dropdown */
+.campus_select_container {
+width: 100%;
+max-width: 850px;
+margin: 20px 0;
+position: relative;
+}
+
+.campus_select {
+width: 100%;
+height: 70px;
+background-color: #0b4433;
+color: #fff;
+font-size: 24px;
+font-weight: 600;
+border: none;
+border-radius: 35px;
+text-align: center;
+cursor: pointer;
+
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+.campus_select:focus {
+outline: none;
+}
+
+.campus_select_container::after {
+content: "▼";
+font-size: 16px;
+color: #fff;
+position: absolute;
+top: 50%;
+right: 30px;
+transform: translateY(-50%);
+pointer-events: none;
+}

@@ -15,6 +15,9 @@ import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPwd from "./pages/ResetPassword";
 import Store from "./pages/Store";
+import Inventory from "./pages/Inventory"
+import Map from "./pages/Map"
+import Terms from "./pages/TermsAndConditions"
 
 // Define the App component
 function App() {
@@ -60,12 +63,28 @@ function App() {
               element={<ResetPwd />} 
             />
 
+            {/* Route for the T&C page */}
+            <Route 
+              path="/TermsAndConditions" 
+              element={<Terms />} 
+            />
+
             {/* Route for the QR Screen page */}
             <Route 
               path="/qr" 
               element={
                 <ProtectedRoute>
                   <QRScreen />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the QR Screen page */}
+            <Route 
+              path="/inventory" 
+              element={
+                <ProtectedRoute>
+                  <Inventory />
                 </ProtectedRoute>
               } 
             />
@@ -106,6 +125,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Store />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the Leaderboard page */}
+            <Route 
+              path="/map" 
+              element={
+                <ProtectedRoute>
+                  <Map />
                 </ProtectedRoute>
               } 
             />
