@@ -1,3 +1,5 @@
+// Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein
+
 import React from 'react';
 import Navbar from '../components/navbar';
 import '../styles/Store.css';

@@ -44,6 +44,7 @@ class Tag(models.Model):
         ELECTRIC = "electric", "electric"
         STREATHAM = "streatham", "streatham"
         ST_LUKES = "st lukes", "st lukes"
+        
 
     name = models.CharField(
         max_length=50,
