@@ -30,22 +30,55 @@ class Player(models.Model):
     deck = models.ManyToManyField('Card', blank=True)
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
 
-class Task(models.Model):
-    class TaskKind(models.TextChoices):
+class Tag(models.Model):
+    class TagKind(models.TextChoices):
         DAILY = "daily", "daily"
         WEEKLY = "weekly", "weekly"
         LOCATION = "location", "location"
         GROUP = "group", "group"
+        BUS = "bus", "bus"
+        CYCLE = "cycle", "cycle"
+        WALK = "walk", "walk"
+        RECYCLING = "recycling", "recycling"
+        WATER = "water", "water"
+        ELECTRIC = "electric", "electric"
+        STREATHAM = "streatham", "streatham"
+        ST_LUKES = "st lukes", "st lukes"
+        
+
+    name = models.CharField(
+        max_length=50,
+        choices=TagKind.choices,
+        unique=True
+        )
     
+    def __str__(self):
+        return self.name
+    
+
+class Task(models.Model):
+    # class TaskKind(models.TextChoices):
+    #     DAILY = "daily", "daily"
+    #     WEEKLY = "weekly", "weekly"
+    #     LOCATION = "location", "location"
+    #     GROUP = "group", "group"
+
+    # class TagKind(models.TextChoices):
+    #     BUS = "bus", "bus"
+    #     CYCLE = "bus", "bus"
+    #     WALK = "bus", "bus"
+
     task_id = models.AutoField(primary_key=True)
     task_frame = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     title = models.CharField(max_length=100)
-    kind = models.CharField(
-        max_length=50, 
-        choices=TaskKind.choices,
-        default=TaskKind.DAILY,
-        blank=True)
+    count = models.IntegerField(default=0)
+    tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
+    # kind = models.CharField(
+    #     max_length=50, 
+    #     choices=TaskKind.choices,
+    #     default=TaskKind.DAILY,
+    #     blank=True)
     points = models.IntegerField(default=0)
 
 class Achievement(models.Model):

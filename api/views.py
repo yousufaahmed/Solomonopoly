@@ -1,9 +1,11 @@
+import random
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer
 from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
@@ -84,42 +86,64 @@ class TaskboardView(generics.ListAPIView):
         player_id = self.kwargs["player_id"]
         player = get_object_or_404(Player, pk=player_id)
 
-        tasks = PlayerTask.objects.filter(player=player).select_related("task")
+        tasks = PlayerTask.objects.filter(player=player).select_related("task").prefetch_related("task__tags")
 
-        #valid_kinds = ['daily', 'weekly', 'location', 'group']
+        tag_priority = {
+            "daily":1,
+            "weekly": 2,
+            "location": 3,
+            "group": 4,
+            "campus":5,
+            "recycling":6,
+            "water":7,
+            "electric":8,
+            "bus":9,
+            "cycle":10,
+            "walk":11
+        }
 
-        return tasks.order_by(Case(
-            When(task__kind='daily', then=1),
-            When(task__kind='weekly', then=2),
-            When(task__kind='location', then=3),
-            When(task__kind='group', then=4),
-            default=5,
-            output_field=IntegerField()
-        ))
+        def sort_tags_by_priority(task):
+            task_tags = list(task.task.tags.values_list("name", flat=True))
+            priority = min((tag_priority.get(tag, 5) for tag in task_tags), default=5)  # Get lowest priority tag
+            return priority
+        
+        sorted_tasks = sorted(tasks, key=sort_tags_by_priority)
+
+        return sorted_tasks
+        # #valid_kinds = ['daily', 'weekly', 'location', 'group']
+
+        # return tasks.order_by(Case(
+        #     When(task__kind='daily', then=1),
+        #     When(task__kind='weekly', then=2),
+        #     When(task__kind='location', then=3),
+        #     When(task__kind='group', then=4),
+        #     default=5,
+        #     output_field=IntegerField()
+        # ))
     
 
 # Return a list of all the tasks
 class TaskListView(generics.ListAPIView):
-    queryset = Task.objects.all()
+    queryset = Task.objects.prefetch_related("tags").all()
     serializer_class = TaskSerializer
     permission_classes = [AllowAny]
 
 # Return the details of an individual task
 class TaskView(generics.RetrieveAPIView):
-    queryset = Task.objects.all()
+    queryset = Task.objects.prefetch_related("tags").all()
     serializer_class=TaskSerializer
     permission_classes = [AllowAny]
     lookup_field = 'task_id'
 
 # Create a new task
 class CreateTaskView(generics.CreateAPIView):
-    queryset = Task.objects.all()
+    queryset = Task.objects.prefetch_related("tags").all()
     serializer_class = TaskSerializer
     permission_classes = [AllowAny]
 
 # Change task details
 class UpdateTaskView(generics.UpdateAPIView):
-    queryset = Task.objects.all()
+    queryset = Task.objects.prefetch_related("tags").all()
     serializer_class = TaskSerializer
     permission_classes = [IsAdminUser]
 
@@ -341,3 +365,25 @@ class UpdatePlayerAchievementView(generics.UpdateAPIView):
 ### Misc Views ###
 
 #class LeaderboardView():
+
+class RedeemCardPackView(generics.CreateAPIView):
+    serializer_class = PurchasesSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        player_id = kwargs.get("player_id")
+        player = get_object_or_404(Player, pk=player_id)
+
+        all_cards = list(Card.objects.all())
+        if len(all_cards) < 3:
+            return Response({"error": "Not enough cards in the database to redeem a pack."}, status=status.HTTP_400_BAD_REQUEST)
+
+        awarded_cards = random.sample(all_cards, k=3)
+        purchases = []
+        for card in awarded_cards:
+            purchase = Purchases.objects.create(player=player, card=card)
+            purchases.append(PurchasesSerializer(purchase).data)
+
+        return Response({"cards_awarded": purchases}, status=status.HTTP_201_CREATED)
+
+
