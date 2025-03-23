@@ -111,3 +111,24 @@ npx cypress open
 
 FRONTEND TEMPLATE COMES FROM HERE:
 https://github.com/techwithtim/Django-React-Full-Stack-App
+
+
+
+
+
+
+
+
+
+
+
+
+
+# in case of database reset, run:
+
+python manage.py shell
+
+from myapp.models import Tag
+
+for tag_value, tag_label in Tag.TagKind.choices:
+    Tag.objects.get_or_create(name=tag_value)
