@@ -15,7 +15,6 @@ import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ResetPwd from "./pages/ResetPassword";
 import Store from "./pages/Store";
-import Inventory from "./pages/Inventory"
 
 // Define the App component
 function App() {

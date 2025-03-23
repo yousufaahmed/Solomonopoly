@@ -7,3 +7,8 @@ werkzeug
 pyOpenSSL
 django-cors-headers
 pytest
+celery
+django-celery-beat
+django-celery-results
+redis
+apscheduler
