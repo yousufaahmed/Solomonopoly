@@ -31,15 +31,20 @@ const Achievements = () => {
         const detailedAchievements = await Promise.all(
           playerAchievements.map(async (pa) => {
             const achievementRes = await axios.get(`http://localhost:8000/api/achievement/${pa.achievement}/`);
-            const maxCount = 10; // Set your starting baseline here
-            const progress = ((maxCount - pa.count) / maxCount) * 100;
+            const achievement = achievementRes.data;
+
+            const countNeeded = achievement.count_needed || 1; // use actual goal count, fallback to 1
+            const progress = Math.max(
+              0,
+              Math.min(100, ((countNeeded - pa.count) / countNeeded) * 100)
+            );
 
             return {
-              ...achievementRes.data,
+              ...achievement,
               progress,
               earned: pa.completed,
               remaining: pa.count,
-              maxCount: maxCount,
+              maxCount: countNeeded,
             };
           })
         );
@@ -61,7 +66,11 @@ const Achievements = () => {
           <div key={index} className="trophy-card">
             <div className="trophy-left">
               {trophy.logo ? (
-                <img src={`/assets/achievements/${trophy.logo}`} alt="Trophy" className="trophy-img" />
+                <img
+                  src={`/assets/achievements/${trophy.logo}`}
+                  alt="Trophy"
+                  className="trophy-img"
+                />
               ) : (
                 <div className="trophy-img-placeholder">🏆</div>
               )}
@@ -72,7 +81,7 @@ const Achievements = () => {
               <div className="trophy-progress-bar">
                 <div
                   className="trophy-progress-fill"
-                  style={{ width: `${Math.min(trophy.progress, 100)}%` }}
+                  style={{ width: `${trophy.progress}%` }}
                 ></div>
               </div>
               <p className="trophy-count">
