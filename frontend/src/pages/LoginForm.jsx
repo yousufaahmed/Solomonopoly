@@ -71,7 +71,7 @@ const LoginForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address"
+              placeholder="Username"
               required
             />
           </div>

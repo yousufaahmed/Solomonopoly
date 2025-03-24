@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../styles/UserProfile.css';
 import sign_out from "../assets/sign_out.png";
 import coinsImage from "../assets/coins.png";
-import default_profile from '../assets/user_profile.png';
+import default_profile from "../assets/profilepics/PROFILE_COMMON_DEFAULT.png";
 import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 import Navbar from "../components/navbar";
@@ -177,15 +177,42 @@ const UserProfile = () => {
         Delete Account 
       </button>
 
+
       {showDeleteConfirm && (
-        <button
-          type="button"
-          className="delete_confirm_btn"
-          onClick={() => console.log("Account deletion triggered")}
-        >
-          Click to confirm deletion
-        </button>
-      )}
+
+  <button
+  type="button"
+  className="delete_confirm_btn"
+  onClick={async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/player/${playerId}/delete/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      ;
+
+      if (response.ok) {
+        alert("Your account has been successfully deleted.");
+        localStorage.removeItem(ACCESS_TOKEN); // Remove token
+        window.location.href = "/"; // Redirect to home or login page
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to delete account: ${errorData.error || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Deletion error:", error);
+      alert("An error occurred while trying to delete your account.");
+    }
+  }}
+>
+  Click to confirm deletion
+</button>
+
+)}
+
+
     </div>
   );
 };

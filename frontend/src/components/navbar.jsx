@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import logo from "../assets/logo_nav.png";
-import default_profile from "../assets/user_profile.png";
+import default_profile from "../assets/profilepics/PROFILE_COMMON_DEFAULT.png";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
@@ -97,7 +97,7 @@ const Navbar = () => {
 
         {token ? (
           <img
-            src={profileImage}
+            src={profileImage || default_profile}
             alt="Profile"
             className="profile_pic"
             onClick={() => navigate("/user")}
