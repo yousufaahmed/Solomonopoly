@@ -229,12 +229,19 @@ class AchievementSerializer(serializers.ModelSerializer):
         instance = super().update(instance, validated_data) 
         instance.tags.set(tags_data)
         return instance
+    
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ["name"]
         
         
 class PlayerAchievementSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(many=True, read_only=True)  # Nested serializer for tags
     class Meta:
         model = PlayerAchievement
-        fields = ["player", "achievement", "completed", "count"]
+        fields = ["player", "achievement", "completed", "count", "tags"]
 
     def create(self, validated_data):
         player = validated_data['player']

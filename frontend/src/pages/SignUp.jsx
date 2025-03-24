@@ -19,6 +19,12 @@ const SignUp = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters!");
+      setLoading(false);
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       setLoading(false);

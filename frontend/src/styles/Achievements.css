@@ -79,6 +79,17 @@
     color: #6f42c1; /* purple tick */
   }
   
+  .trophy-img-placeholder {
+    font-size: 50px;
+  }
+  
+  .trophy-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+  
+
   @media (max-width: 768px) {
     /* Tighten up overall padding */
     .achievements-wrapper {
@@ -136,4 +147,10 @@
       font-size: 1.5rem;        /* Adjust icon size as desired */
     }
   }
+
+  .trophy-img {
+    width: 48px;
+    height: 48px;
+  }
+  
   
