@@ -20,6 +20,7 @@ import Map from "./pages/Map"
 import Terms from "./pages/TermsAndConditions"
 import Pack_Opening from "./pages/PackOpening"
 import UserForm from "./pages/UserForm"
+import Achievements from "./pages/Achievements"
 
 
 // Define the App component
@@ -137,6 +138,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Store />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the Achievements page */}
+            <Route 
+              path="/achievements" 
+              element={
+                <ProtectedRoute>
+                  <Achievements />
                 </ProtectedRoute>
               } 
             />

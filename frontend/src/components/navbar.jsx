@@ -49,6 +49,15 @@ const Navbar = () => {
           <p>Taskboard</p>
         </button>
 
+        {/* New Achievements button */}
+        <button
+          type="button"
+          className="nav-links"
+          onClick={() => navigate("/achievements")}
+        >
+          <p>Achievements</p>
+        </button>
+
         <button
           type="button"
           className="nav-links"
