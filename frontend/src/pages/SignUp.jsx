@@ -79,7 +79,7 @@ const SignUp = () => {
               onChange={(e) => setName(e.target.value)}
               value={name}
               type="text"
-              placeholder="Full Name"
+              placeholder="Email Address"
               required
             />
           </div>
@@ -89,7 +89,7 @@ const SignUp = () => {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
-              placeholder="Email Address"
+              placeholder="Username"
               required
             />
           </div>
