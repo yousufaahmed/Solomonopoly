@@ -53,26 +53,18 @@
   
   .trophy-progress-bar {
     width: 100%;
-    height: 12px;
+    height: 14px;
     background-color: #ddd;
-    border-radius: 10px;
+    border-radius: 999px;
     overflow: hidden;
-    margin-top: 6px;
   }
   
   .trophy-progress-fill {
     height: 100%;
-    background: linear-gradient(to right, #4caf50, #81c784);
-    transition: width 0.4s ease-in-out;
+    background-color: #0b4433;
+    width: 0;
+    transition: width 0.3s ease-in-out;
   }
-  
-  .trophy-count {
-    font-size: 0.9rem;
-    margin-top: 4px;
-    color: #555;
-  }
-  
-  
   
   .trophy-right {
     font-size: 2rem;
@@ -85,5 +77,63 @@
   
   .trophy-card .trophy-status:contains("✔️") {
     color: #6f42c1; /* purple tick */
+  }
+  
+  @media (max-width: 768px) {
+    /* Tighten up overall padding */
+    .achievements-wrapper {
+      padding: 5rem 1rem 4rem; /* Less top/side padding */
+    }
+  
+    .achievements-container {
+      margin: 1rem auto;
+      margin-top: 30px;
+      gap: 1.5rem;
+    }
+  
+    /* Keep the trophy card in a single row */
+    .trophy-card {
+      flex-direction: row;        /* Row layout instead of column */
+      align-items: center;        /* Vertically center items */
+      justify-content: space-between;
+      padding: 1rem;             /* Reduce padding so box is less tall */
+    }
+  
+    /* Let the trophy icon shrink a bit */
+    .trophy-left {
+      flex: 0 0 auto;            /* Remove the fixed 80px width from desktop */
+      margin-bottom: 0;
+    }
+  
+    .trophy-img-placeholder {
+      font-size: 40px;           /* Slightly smaller trophy icon */
+    }
+  
+    /* Narrow the middle content's side padding */
+    .trophy-middle {
+      padding: 0 1rem;
+    }
+  
+    /* Slightly smaller title/description */
+    .trophy-title {
+      font-size: 1.2rem;
+    }
+    .trophy-description {
+      margin: 0.2rem 0 0.6rem;
+      font-size: 0.9rem;
+    }
+  
+    /* Slightly reduce progress bar height */
+    .trophy-progress-bar {
+      height: 12px;
+    }
+  
+    /* Keep the X/tick in the same row, center-aligned */
+    .trophy-right {
+      margin-top: 0; 
+      padding-left: 1rem; 
+      align-self: center;       /* Vertically center */
+      font-size: 1.5rem;        /* Adjust icon size as desired */
+    }
   }
   

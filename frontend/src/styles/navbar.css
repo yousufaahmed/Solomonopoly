@@ -122,3 +122,20 @@
     }
   }
   
+  /* Move logo & hamburger more to the left */
+.navbar_container {
+  /* Remove or reduce the default horizontal padding */
+  padding: 5px;
+  /* If you want them truly flush left, use 0px */
+  /* padding: 5px 0; */
+}
+
+/* Ensure the logo isn't offset by any margin */
+.logo_img {
+  margin-left: -15px;
+}
+
+/* If you want the hamburger closer to the left edge as well */
+.hamburger {
+  margin-left: 250px;
+}

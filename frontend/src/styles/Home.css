@@ -1,147 +1,124 @@
-/* Existing styles remain unchanged */
-
-/* Global reset to remove default margin, padding and box-sizing */
+/* Global reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Main heading styles */
+/* Base styles for large screens (≥769px) - Desktop and large tablets */
+.home_container {
+  width: 100%;
+  max-width: 1000px;
+  min-height: 100vh; /* Allows content to grow if needed */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;  /* Left-aligned for larger screens */
+  text-align: left;         /* Left-aligned text */
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  margin: 0;
+  padding: 0 40px;          /* Extra horizontal padding */
+  z-index: 0;
+}
+
+.home_container .tree {
+  background-image: url('./assets/tree.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 800px;
+  height: 800px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  opacity: 0.5;
+  z-index: -1;
+}
+
 .home_container h1 {
-    font-size: 50px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #0b4433;
-    text-align: center;
-    /* Removed fixed positioning to let h1 flow naturally */
-    /* position: fixed; left: 20px; margin-left: 20px; */
+  font-size: 50px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #0b4433;
 }
 
 .home_container h2 {
-    font-size: 20px;
-    font-weight: 400;
-    margin-top: 5px;
-    color: #0b4433;
-    text-align: left;
-    /* Removed fixed positioning and transform for better flow */
-    /* position: fixed; left: 20px; margin-left: 20px; transform: translate(0px, 70px); */
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 5px;
+  color: #0b4433;
 }
 
-/* Main container for the home page layout */
-.home_container {
-    width: 100%;           /* Use full width */
-    max-width: 1000px;     /* But no wider than 1000px */
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start;  /* Items aligned to the left */
-    text-align: center;         /* Text aligned to the left */
-    padding-left: 20px;       /* Gap from the viewport’s left edge */
-    font-family: "Poppins", sans-serif;
-    position: relative;
-    margin: 0;                /* Removed auto centering */
-    z-index: 0;
-}
-
-/* Large background tree image positioned on the right behind everything */
-.home_container .tree {
-    background-image: url('./assets/tree.svg'); /* imported as a background image */
-    background-size: contain;    /* makes sure tree is contained in the background */
-    background-repeat: no-repeat;/* prevents tree from repeating */
-    width: 800px;
-    height: 800px;
-    position: fixed;
-    right: 0;                    /* positions the tree towards the right */
-    bottom: 0;  
-    opacity: 50%;
-    z-index: -1;                 /* places the tree behind all other elements */
-}
-
-/* Button container styling */
 .button-container {
-    display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 20px;              /* Space between buttons */
-    top:80%;
-    transform: translate(0%,0%);
-    align-items: left;
-    margin: 10px;
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 20px;
+  align-items: flex-start;  /* Align left on larger screens */
+  margin: 10px;
 }
 
-/* QR Code Button (dark green) */
 .qr_button {
-    background-color: #0b4433;  /* dark green */
-    color: #e4e4e4;
-    border: none;
-    padding: 10px 20px;
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 25px;
-    transition: background-color 0.3s ease;
-    width: 350px;
-    height: 50px;
+  background-color: #0b4433; /* dark green */
+  color: #e4e4e4;
+  border: none;
+  padding: 10px 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+  width: 350px;
+  height: 50px;
 }
 
-/* Sustainability Button (lighter green) */
 .learn_button {
-    background-color: #2E8B58;  /* lighter green */
-    color: #e4e4e4;
-    border: none;
-    padding: 10px 20px;
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 25px;
-    transition: background-color 0.3s ease;
-    width: 350px;
-    height: 50px;
+  background-color: #2E8B58; /* lighter green */
+  color: #e4e4e4;
+  border: none;
+  padding: 10px 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+  width: 350px;
+  height: 50px;
 }
 
 .learn_button:hover {
-    color: #0b4433;  /* dark green text on hover */
+  color: #0b4433;
 }
 
+/* --- Media Queries --- */
 
-
-/* Responsive adjustments for tablets and smaller devices */
+/* For screens smaller than 768px (small tablets and phones) */
 @media (max-width: 768px) {
-    .home_container {
-        padding-left: 10px;
-    }
-    .home_container h1 {
-        font-size: 36px;
-    }
-    .home_container .tree {
-        width: 400px;
-        height: 400px;
-        top: 60%; /* slightly adjust vertical position */
-    }
-
-    .qr_button,
-    .learn_button {
-        font-size: 14px;
-        padding: 8px 16px;
-    }
+  .home_container {
+    align-items: center; /* Center content for smaller devices */
+    text-align: center;
+    padding: 0 20px;    /* Reduce horizontal padding */
+  }
+  .home_container h1 {
+    font-size: 32px;    /* Smaller heading */
+  }
+  .home_container h2 {
+    font-size: 18px;    /* Slightly smaller subheading */
+  }
+  .button-container {
+    align-items: center; /* Center buttons on small screens */
+  }
+  .qr_button,
+  .learn_button {
+    font-size: 13px;    /* Smaller text on buttons */
+    width: 250px;       /* Narrower buttons */
+    height: 45px;
+    transform: translateX(-10px);    /* Remove the desktop translation */
+  }
+  .home_container .tree {
+    width: 300px;
+    height: 300px;
+    opacity: 0.3;
+  }
 }
 
-/* Responsive adjustments for mobile devices */
-@media (max-width: 480px) {
-    .home_container h1 {
-        font-size: 28px;
-    }
-    .home_container .tree {
-        width: 200px;
-        height: 200px;
-        top: 70%; /* further adjust vertical position */
-    }
-
-    .qr_button,
-    .learn_button {
-        font-size: 20px;
-        padding: 6px 12px;
-    }
-}
