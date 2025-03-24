@@ -31,7 +31,7 @@ function QRScreen() {
 
         const decoded = jwtDecode(token);
         console.log('Decoded token:', decoded);
-        const response = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        const response = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
         setPlayerId(response.data.player_id);
       } catch (err) {
         console.error("Error fetching player ID:", err);
@@ -67,7 +67,7 @@ function QRScreen() {
 
             if (playerId) {
               try {
-                await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
+                await axios.patch(`yousufaa.pythonanywhere.com/api/task/${playerId}/${taskId}/update/`, {
                   completed: true,
                 });
                 alert("Task updated successfully!");

@@ -21,7 +21,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/leaderboard/");
+        const response = await axios.get("yousufaa.pythonanywhere.com/api/leaderboard/");
         setLeaderboardData(response.data);
       } catch (err) {
         setError(err.message);
