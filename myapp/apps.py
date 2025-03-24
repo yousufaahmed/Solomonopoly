@@ -1,3 +1,4 @@
+# Contributors: Ernest
 import os
 from django.apps import AppConfig
 
@@ -10,3 +11,6 @@ class MyappConfig(AppConfig):
             from myapp import scheduler  # Import scheduler module only when needed
             if not scheduler.scheduler.running:  # Ensures scheduler starts only once
                 scheduler.start_scheduler()
+        
+        # Import signals to ensure they are loaded
+        import myapp.signals

@@ -1,3 +1,4 @@
+#Contributors: Ahnaf
 from django.contrib import admin
 from myapp.models import Card, Player, Task, Purchases, Campus, PlayerTask, Gamekeeper, GamekeeperTask, Checkpoint, Trivia, Visits, TaskCheckpoint
 

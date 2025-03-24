@@ -1,3 +1,4 @@
+#Contributors: Eliot, Ernest, Sri, Yousuf
 """
 URL configuration for Solomonopoly project.
 
