@@ -18,6 +18,7 @@ import Store from "./pages/Store";
 import Inventory from "./pages/Inventory"
 import Map from "./pages/Map"
 import Terms from "./pages/TermsAndConditions"
+import Pack_Opening from "./pages/PackOpening"
 
 // Define the App component
 function App() {
@@ -135,6 +136,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Map />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the Pack Opening Animation */}
+            <Route 
+              path="/packopening" 
+              element={
+                <ProtectedRoute>
+                  <Pack_Opening />
                 </ProtectedRoute>
               } 
             />

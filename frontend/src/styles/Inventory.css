@@ -3,70 +3,88 @@
 /* Main container for the inventory page */
 .inventory-container {
   display: flex;
-  /* Push the content below the fixed navbar. Adjust to your navbar's height. */
-  margin-top: 100px;
-  padding: 20px;
-  box-sizing: border-box;
-  /* Let the page scroll normally, so remove position: fixed and height settings. */
+  flex-wrap: wrap;
+  margin-top: 100px; /* Adjust to your navbar height */
+  padding: 40px;
+  gap: 40px;
+  justify-content: center;
+  background-color: #f8f9fa; /* Light background for contrast */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Left side: large card display */
+/* Large card display area */
 .card-display {
   flex: 2;
+  min-width: 320px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-right: 20px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
 .card-display h1 {
   margin-bottom: 20px;
+  color: #2E8B57; /* Exeter green or your site’s primary accent */
+  font-size: 2rem;
+  font-weight: 600;
 }
 
-/* Constrain the displayed card size */
+/* Main card image styling */
 .card-display img {
-  max-width: 400px; /* Adjust as needed */
-  width: 100%;      /* Makes it responsive up to max-width */
+  max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Right side: thumbnails container */
+/* Thumbnails section */
 .thumbnail-box {
   flex: 1;
-  padding-left: 20px;
-  box-sizing: border-box;
-  /* If you want separate scrolling for thumbnails, you can add:
-     max-height: 80vh;
-     overflow-y: auto;
-   */
+  min-width: 300px;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  max-height: 600px;
 }
 
-/* Thumbnails grid */
 .card-thumbnails {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 15px;
 }
 
-/* Thumbnail styles */
+/* Each thumbnail */
 .thumbnail {
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
   border: 2px solid transparent;
-  transition: border 0.2s ease;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.thumbnail.active,
 .thumbnail:hover {
-  border-color: #2E8B58;
+  transform: scale(1.05);
+  border-color: #2E8B57;
+}
+
+.thumbnail.active {
+  border-color: #2E8B57;
+  box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.2);
 }
 
 .thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }

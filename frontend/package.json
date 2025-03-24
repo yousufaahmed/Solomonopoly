@@ -13,10 +13,13 @@
   "dependencies": {
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.9",
+    "canvas-confetti": "^1.9.3",
     "frontend": "file:",
+    "install": "^0.13.0",
     "jsqr": "^1.4.0",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.3",
+    "npm": "^11.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",

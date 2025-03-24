@@ -1,0 +1,52 @@
+/* PackOpening.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  @keyframes fadeInZoom {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .packopening_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    background-color: black;
+  }
+  
+  .packopening_wrapper img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 16px;
+    animation: fadeInZoom 3s ease-out;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    transition: transform 2s ease;
+  }
+  
+  .close-btn:hover {
+    transform: scale(1.2);
+    color: #0b4433;
+  }
+  

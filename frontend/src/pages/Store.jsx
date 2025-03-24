@@ -69,7 +69,7 @@ const Store = () => {
           <p className="pack-description">Open to obtain a bronze collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">150 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button onClick={() => window.location.href = '/packopening'} className="buy-button">Buy now!</button>
         </div>
 
         {/* Silver */}
@@ -81,7 +81,7 @@ const Store = () => {
           <p className="pack-description">Open to obtain a silver collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">300 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button onClick={() => window.location.href = '/packopening'} className="buy-button">Buy now!</button>
         </div>
 
         {/* Gold */}
@@ -93,7 +93,7 @@ const Store = () => {
           <p className="pack-description">Open to obtain a gold collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">450 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button onClick={() => window.location.href = '/packopening'} className="buy-button">Buy now!</button>
         </div>
       </div>
     </div>
