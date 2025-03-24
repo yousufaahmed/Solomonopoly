@@ -26,7 +26,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const response = await axios.post("http://localhost:8000/api/token/refresh/", {
+        const response = await axios.post("yousufaa.pythonanywhere.com/api/token/refresh/", {
           refresh: refreshToken,
         });
 
