@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
 .store-container {
   background-color: #E2E2E2;
   min-height: 100vh;
@@ -32,7 +39,7 @@
   text-align: center;
   font-size: 1.8rem;
   font-weight: normal;
-  margin-top: 100px; 
+  margin-top: 100px;
   margin-bottom: 0.5rem;
 }
 
@@ -57,13 +64,11 @@
   width: 400px;
   height: 700px;
   padding: 1.5rem;
-  box-sizing: border-box;
   text-align: center;
-  position: relative; /* so transforms don't break layout */
-  
-  /* Hover effect: slightly grow and add shadow */
+  position: relative;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .store-card:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -76,12 +81,11 @@
   margin-bottom: 0.75rem;
 }
 
-/* Horizontal divider lines */
 .pack-divider {
   border: none;
   border-top: 1px solid #0B4433;
   margin: 1rem 0;
-  transform: translate(30px,-70px);
+  transform: translate(30px, -70px);
   width: 80%;
 }
 
@@ -116,32 +120,34 @@
   cursor: pointer;
   font-size: 1rem;
   transform: translate(-10px, -70px);
-  transition: opacity 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .buy-button:hover {
-    background-color: #276c47;
-    color: #E2E2E2; 
-  }
+  background-color: #276c47;
+}
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   .store-card {
     width: 90vw;
     height: auto;
   }
+
   .pack-image {
     width: 80%;
     transform: none;
     margin-bottom: 1rem;
   }
+
   .pack-divider {
-    margin: 0.5rem 0;
-  }
-  .pack-name, .pack-description, .pack-price {
     transform: none;
     margin: 0.5rem 0;
   }
+
+  .pack-name,
+  .pack-description,
+  .pack-price,
   .buy-button {
     transform: none;
   }

@@ -1,11 +1,15 @@
 // Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import Navbar from '../components/navbar';
 import '../styles/Store.css';
 import bronzePack from '../assets/bronze-pack.png';
 import silverPack from '../assets/silver-pack.png';
 import goldPack from '../assets/gold-pack.png';
+import coinsImage from '../assets/coins.png';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
+import { ACCESS_TOKEN } from '../constants';
 
 const Store = () => {
   const [coins, setCoins] = useState(0);
@@ -18,7 +22,6 @@ const Store = () => {
 
         const decoded = jwtDecode(token);
 
-        // Fetch username
         const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -35,7 +38,6 @@ const Store = () => {
           setCoins(userRecord.points);
         }
       } catch (error) {
-        console.error("Error fetching coin balance:", error);
       }
     };
 
@@ -45,10 +47,18 @@ const Store = () => {
   return (
     <div className="store-container">
       <Navbar />
+
+      {/* Coins top-right */}
+      <button type="button" className="coins_icon">
+        <img src={coinsImage} alt="coins" className="coins_image" />
+        {coins}
+      </button>
+
       <h1 className="store-title">Store</h1>
       <p className="store-subtitle">Purchase packs to obtain collectors cards!</p>
 
       <div className="store-cards">
+        {/* Bronze */}
         <div className="store-card">
           <img src={bronzePack} alt="Bronze Pack" className="pack-image" />
           <hr className="pack-divider" />
@@ -61,6 +71,7 @@ const Store = () => {
 
         </div>
 
+        {/* Silver */}
         <div className="store-card">
           <img src={silverPack} alt="Silver Pack" className="pack-image" />
           <hr className="pack-divider" />
@@ -72,6 +83,7 @@ const Store = () => {
           <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
         </div>
 
+        {/* Gold */}
         <div className="store-card">
           <img src={goldPack} alt="Gold Pack" className="pack-image" />
           <hr className="pack-divider" />

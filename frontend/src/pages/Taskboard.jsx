@@ -72,13 +72,19 @@ const TaskBoard = () => {
   const completedTasks = tasks.filter((task) => task.completed);
   const incompleteTasks = tasks.filter((task) => !task.completed);
 
-  const groupedIncompleteTasks = incompleteTasks.reduce((acc, task) => {
-    acc[task.kind] = acc[task.kind] || [];
-    acc[task.kind].push(task);
-    return acc;
-  }, {});
+  const groupedIncompleteTasks = {};
 
-  const allTaskCategories = [...new Set(tasks.map(task => task.kind))];
+  incompleteTasks.forEach(task => {
+    task.tags.forEach(tag => {
+      if (!groupedIncompleteTasks[tag]) {
+        groupedIncompleteTasks[tag] = [];
+      }
+      groupedIncompleteTasks[tag].push(task);
+    });
+  });
+
+  const allTaskCategories = [...new Set(incompleteTasks.flatMap(task => task.tags))];
+
 
   return (
     <div className="taskboard-container">
@@ -89,21 +95,35 @@ const TaskBoard = () => {
       </div>
 
       <div className="taskboard-scrollable">
-        {allTaskCategories.map((kind) => (
-          <div key={kind} className="task-section">
-            <div className="task-section-header fixed-height" onClick={() => toggleSection(kind)}>
-              <h3>{kind.charAt(0).toUpperCase() + kind.slice(1)} Tasks</h3>
-              <span className="toggle-icon">{expandedSections[kind] ? "▼" : "▶"}</span>
+        {allTaskCategories.map((tags) => (
+          <div key={tags} className="task-section">
+            <div className="task-section-header fixed-height" onClick={() => toggleSection(tags)}>
+              <h3>{tags.charAt(0).toUpperCase() + tags.slice(1)} Tasks</h3>
+              <span className="toggle-icon">{expandedSections[tags] ? "▼" : "▶"}</span>
             </div>
 
-            {expandedSections[kind] && (
+            {expandedSections[tags] && (
               <div className="task-list">
-                {groupedIncompleteTasks[kind]?.length > 0 ? (
-                  groupedIncompleteTasks[kind].map((taskObj) => (
+                {groupedIncompleteTasks[tags]?.length > 0 ? (
+                  groupedIncompleteTasks[tags].map((taskObj) => (
                     <div key={taskObj.task_id} className="task-card">
                       <div className="task-title">{taskObj.title}</div>
                       <p className="task-description">{taskObj.description}</p>
-                      <div className="task-points">Points: {taskObj.points}</div>
+                      {taskObj.max_count > 1 ? (
+                        <div className="task-progress">
+                          <div className="task-progress-bar">
+                            <div
+                              className="task-progress-fill"
+                              style={{ width: `${Math.min((taskObj.progress / taskObj.max_count) * 100, 100)}%` }}
+                            ></div>
+                          </div>
+                          <p className="task-progress-text">
+                            Progress: {taskObj.count} / {taskObj.max_count}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="task-points">Points: {taskObj.points}</div>
+                      )}
                       <div className="task-action">
                         <button
                           className={`task-button ${taskObj.completed ? 'completed' : ''}`}

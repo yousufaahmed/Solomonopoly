@@ -1,5 +1,3 @@
-// Written by Mohammed Zarrar Shahid and Yousuf Ahmed
-
 import React, { useEffect, useState } from "react";
 import '../styles/UserProfile.css';
 import sign_out from "../assets/sign_out.png";
@@ -32,6 +30,29 @@ const rareAvatars = avatarEntries
   .map(([_, src]) => src);
 
 const avatarList = [...commonAvatars, ...uncommonAvatars, ...rareAvatars];
+
+// Dynamically import and sort avatars by rarity
+const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
+  eager: true,
+  import: 'default'
+});
+
+const avatarEntries = Object.entries(avatarModules);
+
+const commonAvatars = avatarEntries
+  .filter(([filename]) => filename.includes("PROFILE_COMMON_"))
+  .map(([_, src]) => src);
+
+const uncommonAvatars = avatarEntries
+  .filter(([filename]) => filename.includes("PROFILE_UNCOMMON_"))
+  .map(([_, src]) => src);
+
+const rareAvatars = avatarEntries
+  .filter(([filename]) => filename.includes("PROFILE_RARE_"))
+  .map(([_, src]) => src);
+
+const avatarList = [...commonAvatars, ...uncommonAvatars, ...rareAvatars];
+
 
 const UserProfile = () => {
   const [name, setName] = useState('');
@@ -101,7 +122,6 @@ const UserProfile = () => {
         {coins}
       </button>
 
-      {/* Clickable profile picture */}
       <img
         src={selectedAvatar}
         alt="user_img"
@@ -147,7 +167,7 @@ const UserProfile = () => {
         </select>
       </div>
 
-      {/* Leaderboard position */}
+      {/* Leaderboard position button */}
       <button type="button" className="leaderpos_btn">
         Leaderboard Position: {leaderboardPosition ? `#${leaderboardPosition}` : "#?"}
       </button>
