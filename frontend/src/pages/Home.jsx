@@ -3,7 +3,6 @@
 import React from "react";
 import '../styles/Home.css';
 import Navbar from "../components/navbar"; 
-import Footer from "../components/Footer";  // Import the Footer component
 import qr from '../assets/qr_code.png';
 import tree from '../assets/tree.svg';
 import ovals from "../assets/ovals.png";
