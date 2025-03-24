@@ -39,7 +39,7 @@ const UserForm = () => {
     //   .catch(err => console.error(err));
 
     // ✅ Redirect to home
-    navigate("/home");
+    navigate("/loginform");
   };
 
   return (

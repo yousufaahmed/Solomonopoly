@@ -26,7 +26,7 @@ class LeaderboardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ["rank", "username", "points"]
+        fields = ["rank", "username", "points", "logo"]
 
     def get_rank(self, obj):
         queryset = Player.objects.all().order_by("-points")

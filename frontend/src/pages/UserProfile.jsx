@@ -130,8 +130,7 @@ const UserProfile = () => {
 
       <div className="user_text">
         <h1 className="user_intro">Hi {name}!</h1>
-        <h1 className="user_id">#345-876</h1>
-        <h1 className="user_date">Joined Mar 2025</h1>
+        <h1 className="user_date">Joined 2025</h1>
 
         {showAvatarPopup && (
           <div className="avatar_popup">
@@ -175,7 +174,7 @@ const UserProfile = () => {
 
       {/* Delete account */}
       <button type="button" className="delete_account_btn" onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}>
-        Delete Account 🗑️
+        Delete Account 
       </button>
 
       {showDeleteConfirm && (
@@ -184,7 +183,7 @@ const UserProfile = () => {
           className="delete_confirm_btn"
           onClick={() => console.log("Account deletion triggered")}
         >
-          Click to confirm deletion ❗
+          Click to confirm deletion
         </button>
       )}
     </div>
