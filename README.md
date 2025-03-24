@@ -26,6 +26,9 @@ source env/bin/activate <- MacOS
 pip install -r requirements.txt
 
 ### 3 - Run django server
+
+python manage.py migrate
+
 python manage.py runserver
 
 

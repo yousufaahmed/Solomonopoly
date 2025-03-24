@@ -79,3 +79,78 @@
     color: #6f42c1; /* purple tick */
   }
   
+  .trophy-img-placeholder {
+    font-size: 50px;
+  }
+  
+  .trophy-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+  
+
+  @media (max-width: 768px) {
+    /* Tighten up overall padding */
+    .achievements-wrapper {
+      padding: 5rem 1rem 4rem; /* Less top/side padding */
+    }
+  
+    .achievements-container {
+      margin: 1rem auto;
+      margin-top: 30px;
+      gap: 1.5rem;
+    }
+  
+    /* Keep the trophy card in a single row */
+    .trophy-card {
+      flex-direction: row;        /* Row layout instead of column */
+      align-items: center;        /* Vertically center items */
+      justify-content: space-between;
+      padding: 1rem;             /* Reduce padding so box is less tall */
+    }
+  
+    /* Let the trophy icon shrink a bit */
+    .trophy-left {
+      flex: 0 0 auto;            /* Remove the fixed 80px width from desktop */
+      margin-bottom: 0;
+    }
+  
+    .trophy-img-placeholder {
+      font-size: 40px;           /* Slightly smaller trophy icon */
+    }
+  
+    /* Narrow the middle content's side padding */
+    .trophy-middle {
+      padding: 0 1rem;
+    }
+  
+    /* Slightly smaller title/description */
+    .trophy-title {
+      font-size: 1.2rem;
+    }
+    .trophy-description {
+      margin: 0.2rem 0 0.6rem;
+      font-size: 0.9rem;
+    }
+  
+    /* Slightly reduce progress bar height */
+    .trophy-progress-bar {
+      height: 12px;
+    }
+  
+    /* Keep the X/tick in the same row, center-aligned */
+    .trophy-right {
+      margin-top: 0; 
+      padding-left: 1rem; 
+      align-self: center;       /* Vertically center */
+      font-size: 1.5rem;        /* Adjust icon size as desired */
+    }
+  }
+
+  .trophy-img {
+    width: 48px;
+    height: 48px;
+  }
+  
+  

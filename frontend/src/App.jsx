@@ -69,7 +69,7 @@ function App() {
 
             {/* Route for the T&C page */}
             <Route 
-              path="/TermsAndConditions" 
+              path="/Terms" 
               element={<Terms />} 
             />
 

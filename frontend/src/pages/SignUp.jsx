@@ -19,6 +19,12 @@ const SignUp = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters!");
+      setLoading(false);
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       setLoading(false);
@@ -40,6 +46,7 @@ const SignUp = () => {
       localStorage.setItem("accessToken", res.data.access);
       localStorage.setItem("refreshToken", res.data.refresh);
 
+      console.log("res.data:", res.data);
       navigate("/userform");
 
     } catch (error) {
@@ -62,7 +69,7 @@ const SignUp = () => {
       <button
         type="button"
         className="close-btn"
-        onClick={() => (window.location.href = "/home")}
+        onClick={() => navigate("/home")}
       >
         X
       </button>
@@ -126,7 +133,7 @@ const SignUp = () => {
               <button
                 type="button"
                 className="terms-btn"
-                onClick={() => (window.location.href = "/TermsAndConditions")}
+                onClick={handleTermsClick}
               >
                 Terms and Conditions
               </button>
