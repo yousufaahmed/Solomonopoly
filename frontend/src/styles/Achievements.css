@@ -53,18 +53,26 @@
   
   .trophy-progress-bar {
     width: 100%;
-    height: 14px;
+    height: 12px;
     background-color: #ddd;
-    border-radius: 999px;
+    border-radius: 10px;
     overflow: hidden;
+    margin-top: 6px;
   }
   
   .trophy-progress-fill {
     height: 100%;
-    background-color: #0b4433;
-    width: 0;
-    transition: width 0.3s ease-in-out;
+    background: linear-gradient(to right, #4caf50, #81c784);
+    transition: width 0.4s ease-in-out;
   }
+  
+  .trophy-count {
+    font-size: 0.9rem;
+    margin-top: 4px;
+    color: #555;
+  }
+  
+  
   
   .trophy-right {
     font-size: 2rem;
