@@ -486,3 +486,4 @@ def delete_player(request, player_id):
             {"error": f"Failed to delete player: {str(e)}"}, 
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+    

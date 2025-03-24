@@ -249,7 +249,6 @@ const Achievements = () => {
       bus: "Bus_trophy_image.png",
     };
     
-
     for (const tag of tags) {
       const filename = tagMap[tag.toLowerCase()];
       if (filename && trophyImages[`../assets/${filename}`]) {
@@ -269,20 +268,46 @@ const Achievements = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.user_id;
 
-        const playerRes = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${userId}/`);
+        // Step 1: Get player ID
+        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${userId}/`);
         const pid = playerRes.data.player_id;
         setPlayerId(pid);
 
-        const playerAchievementsRes = await axios.get(`yousufaa.pythonanywhere.com/api/player/${pid}/achievements/`);
+        // Step 2: Get ALL achievements to know their original counts
+        const allAchievementsRes = await axios.get(`http://localhost:8000/api/achievements/`);
+        const allAchievements = allAchievementsRes.data;
+        
+        // Create a map of achievement ID to original count
+        const achievementCountMap = {};
+        allAchievements.forEach(achievement => {
+          achievementCountMap[achievement.achievement_id] = achievement.count;
+        });
+
+        // Step 3: Get player's achievements progress
+        const playerAchievementsRes = await axios.get(`http://localhost:8000/api/player/${pid}/achievements/`);
         const playerAchievements = playerAchievementsRes.data;
 
         const detailedAchievements = await Promise.all(
           playerAchievements.map(async (pa) => {
-            const achievementRes = await axios.get(`yousufaa.pythonanywhere.com/api/achievement/${pa.achievement}/`);
+            const achievementRes = await axios.get(`http://localhost:8000/api/achievement/${pa.achievement}/`);
             const achievement = achievementRes.data;
 
-            const countNeeded = achievement.count_needed || 1;
-            const progress = Math.max(0, Math.min(100, ((countNeeded - pa.count) / countNeeded) * 100));
+            // Get the original total count from our map
+            const originalTotalCount = achievementCountMap[pa.achievement] || 1;
+            
+            // If pa.count is remaining items (e.g., "7 left"), then:
+            const completed = originalTotalCount - pa.count;
+            const progressPercentage = (completed / originalTotalCount) * 100;
+            
+            // Ensure progress is between 0 and 100
+            const progress = Math.max(0, Math.min(100, progressPercentage));
+            
+            console.log(`Achievement: ${achievement.name}`);
+            console.log(`- Original total count: ${originalTotalCount}`);
+            console.log(`- Count remaining: ${pa.count}`);
+            console.log(`- Completed: ${completed}`);
+            console.log(`- Progress %: ${progress}`);
+            
             const tagNames = (pa.tags || []).map((tag) => tag.name.toLowerCase());
 
             return {
@@ -290,7 +315,7 @@ const Achievements = () => {
               progress,
               earned: pa.completed,
               remaining: pa.count,
-              maxCount: countNeeded,
+              maxCount: originalTotalCount,
               tags: tagNames,
             };
           })
@@ -323,7 +348,11 @@ const Achievements = () => {
                 <div className="trophy-progress-bar">
                   <div
                     className="trophy-progress-fill"
-                    style={{ width: `${trophy.progress}%` }}
+                    style={{ 
+                      width: `${trophy.progress}%`,
+                      // Add a minimum width for visibility even at small percentages
+                      minWidth: trophy.progress > 0 ? '4px' : '0'
+                    }}
                   ></div>
                 </div>
                 <p className="trophy-count">

@@ -18,7 +18,7 @@ const ResetPwd = () => {
     setLoading(true);
     try {
       // Replace this URL with your actual reset password API endpoint
-      await axios.post("yousufaa.pythonanywhere.com/api/reset-password/", { email });
+      await axios.post("http://localhost:8000/api/reset-password/", { email });
       // Optionally, show a success message or navigate to a confirmation page
       navigate("/loginform");
     } catch (error) {

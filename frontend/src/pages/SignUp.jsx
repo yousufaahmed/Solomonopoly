@@ -20,9 +20,9 @@ const SignUp = () => {
     setLoading(true);
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters!");
-      setLoading(false);
-      return;
+    alert("Password must be at least 6 characters!");
+    setLoading(false);
+    return;
     }
 
     if (password !== confirmPassword) {

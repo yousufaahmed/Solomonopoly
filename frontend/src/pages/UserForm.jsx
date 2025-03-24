@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/UserForm.css";
 import Navbar from "../components/navbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // ✅ if you plan to send the data to backend
 
 const UserForm = () => {
   const navigate = useNavigate();
@@ -31,14 +32,44 @@ const UserForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting data:", formData);
 
-    // Future API call here
-    // axios.post('/api/userform/', formData)
+    // 🌱 Build transport-related tags
+    const tags = new Set();
+
+    // Question 2: Bicycle usage
+    if (["Daily", "A few times a week", "Occasionally"].includes(formData.bikeUsage)) {
+      tags.add("cycle");
+    }
+
+    // Question 3: Bus usage
+    if (["Daily", "A few times a week", "Occasionally"].includes(formData.busUsage)) {
+      tags.add("bus");
+    }
+
+    // Question 4: Replace car
+    if (["Yes, always", "Sometimes", "Rarely"].includes(formData.replaceCar)) {
+      tags.add("bus");
+    }
+
+    // Question 5: Campus number (you’ll use this later)
+    const campusMap = {
+      "Streatham": 1,
+      "St Lukes": 2,
+    };
+    const campusId = campusMap[formData.campus];
+
+    const payload = {
+      tags: Array.from(tags),      // Send unique tags as array
+      campus: campusId,            // Campus number
+    };
+
+    console.log("Submitting transport data:", payload);
+
+    // Future API call
+    // axios.post('/api/user-transport-preferences/', payload)
     //   .then(res => console.log(res))
     //   .catch(err => console.error(err));
 
-    // ✅ Redirect to home
     navigate("/loginform");
   };
 

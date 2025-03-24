@@ -38,12 +38,12 @@ const PackOpening = () => {
 
         const decoded = jwtDecode(token);
 
-        const playerRes = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
+        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
         const playerId = playerRes.data.player_id;
 
         console.log(`Redeeming ${packType} pack for player ${playerId}`); // Debug log
 
-        const res = await axios.post(`yousufaa.pythonanywhere.com/api/player/${playerId}/redeem_pack/`, {
+        const res = await axios.post(`http://localhost:8000/api/player/${playerId}/redeem_pack/`, {
           pack_type: packType
         });
 
