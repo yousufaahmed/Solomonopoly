@@ -127,7 +127,7 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      const res = await api.post("http://localhost:8000/api/token/", {
+      const res = await api.post("yousufaa.pythonanywhere.com/api/token/", {
         username,
         password,
       });
