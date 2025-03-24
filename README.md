@@ -66,7 +66,9 @@ source env/bin/activate <- MacOS
 
 ### 3 - Download Dependencies
 npm install
+
 npm install react-leaflet-cluster
+
 npm install canvas-confetti
 
 ### 4 - Run app
