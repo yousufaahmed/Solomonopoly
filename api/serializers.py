@@ -43,7 +43,7 @@ class TaskBoardSerializer(serializers.ModelSerializer):
     completed = serializers.BooleanField(read_only=True)
     tags = serializers.SlugRelatedField(source="task.tags", many=True, read_only=True, slug_field="name")
     max_count = serializers.IntegerField(source="task.count", read_only=True)
-    progress = serializers.IntegerField(source="player_task.progress", read_only=True)
+    progress = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = PlayerTask
