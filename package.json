@@ -1,15 +1,14 @@
 {
     "dependencies": {
-      "@fortawesome/fontawesome-svg-core": "^6.7.2",
-      "@fortawesome/free-brands-svg-icons": "^6.7.2",
-      "@fortawesome/free-regular-svg-icons": "^6.7.2",
-      "@fortawesome/free-solid-svg-icons": "^6.7.2",
-      "@fortawesome/react-fontawesome": "^0.2.2"
+        "@fortawesome/fontawesome-svg-core": "^6.7.2",
+        "@fortawesome/free-brands-svg-icons": "^6.7.2",
+        "@fortawesome/free-regular-svg-icons": "^6.7.2",
+        "@fortawesome/free-solid-svg-icons": "^6.7.2",
+        "@fortawesome/react-fontawesome": "^0.2.2",
+        "react-leaflet-cluster": "^2.1.0"
     },
-  
     "scripts": {
-      "dev": "vite",
-      "start": "node server.js"
+        "dev": "vite",
+        "start": "node server.js"
     }
-    
-  }
+}

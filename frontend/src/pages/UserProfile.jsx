@@ -7,6 +7,29 @@ import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 import Navbar from "../components/navbar";
 import axios from 'axios';
+import termsHtml from "./TermsHtml.jsx";
+
+// Dynamically import and sort avatars by rarity
+const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
+  eager: true,
+  import: 'default'
+});
+
+const avatarEntries = Object.entries(avatarModules);
+
+const commonAvatars = avatarEntries
+  .filter(([filename]) => filename.includes("PROFILE_COMMON_"))
+  .map(([_, src]) => src);
+
+const uncommonAvatars = avatarEntries
+  .filter(([filename]) => filename.includes("PROFILE_UNCOMMON_"))
+  .map(([_, src]) => src);
+
+const rareAvatars = avatarEntries
+  .filter(([filename]) => filename.includes("PROFILE_RARE_"))
+  .map(([_, src]) => src);
+
+const avatarList = [...commonAvatars, ...uncommonAvatars, ...rareAvatars];
 
 // Dynamically import and sort avatars by rarity
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
@@ -38,6 +61,8 @@ const UserProfile = () => {
   const [campus, setCampus] = useState("Streatham");
   const [selectedAvatar, setSelectedAvatar] = useState(localStorage.getItem("selectedAvatar") || default_profile);
   const [showAvatarPopup, setShowAvatarPopup] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +74,8 @@ const UserProfile = () => {
         const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
+        if (!usernameResponse.ok) throw new Error('Failed to fetch username');
+
         const { username } = await usernameResponse.json();
         setName(username);
 
@@ -81,8 +108,8 @@ const UserProfile = () => {
       <Navbar />
 
       {/* Sign out button */}
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         className="sign_out_icon"
         onClick={() => window.location.href = '/logout'}
       >
@@ -95,7 +122,6 @@ const UserProfile = () => {
         {coins}
       </button>
 
-      {/* Profile picture (clickable) */}
       <img
         src={selectedAvatar}
         alt="user_img"
@@ -131,9 +157,9 @@ const UserProfile = () => {
 
       {/* Campus dropdown */}
       <div className="campus_select_container">
-        <select 
-          className="campus_select" 
-          value={campus} 
+        <select
+          className="campus_select"
+          value={campus}
           onChange={(e) => setCampus(e.target.value)}
         >
           <option value="Streatham">Streatham</option>
@@ -145,6 +171,51 @@ const UserProfile = () => {
       <button type="button" className="leaderpos_btn">
         Leaderboard Position: {leaderboardPosition ? `#${leaderboardPosition}` : "#?"}
       </button>
+
+      {/* Read T&Cs button */}
+      <button
+        type="button"
+        className="terms_btn"
+        onClick={() => setShowTermsPopup(!showTermsPopup)}
+      >
+        📘 Read T&C's
+      </button>
+
+      {/* Popup container for T&Cs */}
+      {showTermsPopup && (
+        <div className="terms_popup">
+          <button
+            className="terms_close_btn"
+            onClick={() => setShowTermsPopup(false)}
+          >
+            ✖
+          </button>
+          <div
+            className="terms_content"
+            dangerouslySetInnerHTML={{ __html: termsHtml }}
+          />
+        </div>
+      )}
+
+      {/* Delete account button */}
+      <button
+        type="button"
+        className="delete_account_btn"
+        onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
+      >
+        Delete Account 🗑️
+      </button>
+
+      {/* Confirm delete */}
+      {showDeleteConfirm && (
+        <button
+          type="button"
+          className="delete_confirm_btn"
+          onClick={() => console.log("Account deletion triggered")}
+        >
+          Click to confirm deletion ❗
+        </button>
+      )}
     </div>
   );
 };
