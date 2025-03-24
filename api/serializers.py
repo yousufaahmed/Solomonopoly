@@ -134,9 +134,28 @@ class PlayerTaskSerializerUpdate(serializers.ModelSerializer):
             instance.player.points += instance.task.points  # Add task points to player
             instance.player.save()  # Save updated player points
 
+            self.update_achievement_progress(instance.player, instance.task)  # Update achievement progress
+
         instance.completed = completed  # Update task completion status
         instance.save()
         return instance
+    
+    def update_achievement_progress(self, player, task):
+        """Decreases achievement count and marks as complete if count reaches 0."""
+        achievements = PlayerAchievement.objects.filter(
+            player=player, tags__in=task.tags.all(), completed=False
+        ).distinct()
+
+        for player_achievement in achievements:
+            if player_achievement.count > 0:
+                player_achievement.count -= 1
+
+                if player_achievement.count == 0:
+                    print("Achievement completed!")
+                    player_achievement.completed = True
+
+                player_achievement.save()
+
 
         
 
@@ -179,28 +198,47 @@ class UserSerializer(serializers.ModelSerializer):
     
 
 class AchievementSerializer(serializers.ModelSerializer):
+    tags = serializers.SlugRelatedField(
+        many=True, queryset=Tag.objects.all(), slug_field="name"
+    )
+    
     class Meta:
         model = Achievement
-        fields = ['achievement_id', 'name', 'description', 'logo']  # Auto-includes ID
+        fields = ['achievement_id', 'name', 'description', 'logo', "tags", "count"]  # Auto-includes ID
+
+    def update(self, instance, validated_data):
+        tags_data = validated_data.pop("tags",[])
+        instance = super().update(instance, validated_data) 
+        instance.tags.set(tags_data)
+        return instance
         
         
 class PlayerAchievementSerializer(serializers.ModelSerializer):
-    #task_name = serializers.CharField(source ='task.title', read_only = True)
-    #player_name = serializers.CharField(source='player.username', read_only=True)
-
     class Meta:
         model = PlayerAchievement
-        fields = ["player", "achievement", "completed"]
-        #extra_kwargs = {'player':{'read_only':True}, 'task':{'read_only':True}}
+        fields = ["player", "achievement", "completed", "count"]
 
     def create(self, validated_data):
         player = validated_data['player']
         achievement = validated_data['achievement']
 
         if PlayerAchievement.objects.filter(player=player, achievement=achievement).exists():
-            raise serializers.ValidationError("The achivement has already been assigned to the player.")
+            raise serializers.ValidationError("The achievement has already been assigned to the player.")
 
-        return PlayerAchievement.objects.create(**validated_data)
+        # Create the PlayerAchievement with initial count from achievement
+        player_achievement = PlayerAchievement.objects.create(
+            player=player,
+            achievement=achievement,
+            count=achievement.count,  # Set the initial count
+            completed=False
+        )
+
+        # Copy tags from achievement to player_achievement if achievement has tags
+        player_achievement.tags.set(achievement.tags.all())
+
+        return player_achievement
+
+
     
 class PlayerAchievementSerializerUpdate(serializers.ModelSerializer):
     #task_name = serializers.CharField(source ='task.title', read_only = True)
@@ -208,7 +246,7 @@ class PlayerAchievementSerializerUpdate(serializers.ModelSerializer):
 
     class Meta:
         model = PlayerAchievement
-        fields = ["player", "achievement", "completed"]
+        fields = ["player", "achievement", "completed", "count"]
         extra_kwargs = {'player':{'read_only':True}, 'achievement':{'read_only':True}}
 
     def create(self, validated_data):

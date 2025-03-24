@@ -86,6 +86,8 @@ class Achievement(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     logo = models.CharField(max_length=1000)
+    count = models.IntegerField(default=0)
+    tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
 
 class Card(models.Model):
     card_id = models.AutoField(primary_key=True)
@@ -156,6 +158,9 @@ class PlayerAchievement(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
+    tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
+    count = models.IntegerField(default=0)
+
 
     class Meta:
         unique_together = ('player', 'achievement')  # Ensures a Player can only have one record per Achivement
