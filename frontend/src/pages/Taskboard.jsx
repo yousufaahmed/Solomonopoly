@@ -43,21 +43,26 @@ const TaskBoard = () => {
   const handleToggle = async (taskId) => {
     const taskObj = tasks.find((t) => t.task_id === taskId);
     if (!taskObj) return;
-
-    const newCompleted = !taskObj.completed;
-
+  
     try {
-      await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
-        completed: newCompleted
-      });
-
-      setTasks(tasks.map((t) =>
-        t.task_id === taskId ? { ...t, completed: newCompleted } : t
-      ));
+      if (taskObj.max_count <= 1) {
+        // manually send { completed: true }
+        await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
+          completed: true
+        });
+      } else {
+        // backend handles progress
+        await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`);
+      }
+  
+      // Always refresh task list after update
+      const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
+      setTasks(response.data);
     } catch (err) {
       console.error("Error updating task:", err);
     }
   };
+  
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
@@ -125,12 +130,25 @@ const TaskBoard = () => {
                         <div className="task-points">Points: {taskObj.points}</div>
                       )}
                       <div className="task-action">
-                        <button
-                          className={`task-button ${taskObj.completed ? 'completed' : ''}`}
-                          onClick={() => handleToggle(taskObj.task_id)}
-                        >
-                          {taskObj.completed ? "Completed" : "Mark as Complete"}
-                        </button>
+                        {taskObj.completed ? (
+                          <button className="task-button completed" disabled>
+                            Completed
+                          </button>
+                        ) : taskObj.max_count <= 1 ? (
+                          <button
+                            className="task-button"
+                            onClick={() => handleToggle(taskObj.task_id)}
+                          >
+                            Mark as Complete
+                          </button>
+                        ) : (
+                          <button
+                            className="task-button"
+                            onClick={() => handleToggle(taskObj.task_id)}
+                          >
+                            Step Complete
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))
