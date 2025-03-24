@@ -8,8 +8,6 @@ import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 import Navbar from "../components/navbar"; 
 
-
-
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,10 +22,10 @@ const TaskBoard = () => {
         if (!token) return;
 
         const decoded = jwtDecode(token);
-        var response1 = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
-        var playerId = response1.data.player_id;
+        const response1 = await axios.get(`http://yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
+        const playerId = response1.data.player_id;
         setPlayerId(playerId);
-        const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
+        const response = await axios.get(`http://yousufaa.pythonanywhere.com/api/player/${playerId}/tasks/`);
         setTasks(response.data);
         
       } catch (err) {
@@ -47,16 +45,16 @@ const TaskBoard = () => {
     try {
       if (taskObj.max_count <= 1) {
         // manually send { completed: true }
-        await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
+        await axios.patch(`http://yousufaa.pythonanywhere.com/api/task/${playerId}/${taskId}/update/`, {
           completed: true
         });
       } else {
         // backend handles progress
-        await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`);
+        await axios.patch(`http://yousufaa.pythonanywhere.com/api/task/${playerId}/${taskId}/update/`);
       }
   
       // Always refresh task list after update
-      const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
+      const response = await axios.get(`http://yousufaa.pythonanywhere.com/api/player/${playerId}/tasks/`);
       setTasks(response.data);
     } catch (err) {
       console.error("Error updating task:", err);
@@ -89,7 +87,6 @@ const TaskBoard = () => {
   });
 
   const allTaskCategories = [...new Set(incompleteTasks.flatMap(task => task.tags))];
-
 
   return (
     <div className="taskboard-container">
@@ -193,6 +190,3 @@ const TaskBoard = () => {
 };
 
 export default TaskBoard;
-
-
-
