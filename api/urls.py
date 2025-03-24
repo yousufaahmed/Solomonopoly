@@ -2,7 +2,9 @@ from django.urls import path
 from .views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
     TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView,
-    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView#, UserUpdateView#, PlayerCardListView
+    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView #UserUpdateView#, PlayerCardListView
+    # ,PlayerDeleteView, TaskDeleteView, CardDeleteView, 
+    # PurchaseDeleteView, BulkDeleteView
 )
 
 urlpatterns = [
@@ -45,5 +47,22 @@ urlpatterns = [
 
     #more to come
     path('player/<int:player_id>/redeem_pack/', RedeemCardPackView.as_view(), name='redeem-pack'),
+    
+    
+    
+    # # Delete a player and all related data
+    # path('players/<int:player_id>/delete/', PlayerDeleteView.as_view(), name='delete-player'),
+    
+    # # Delete a task and all related data
+    # path('tasks/<int:task_id>/delete/', TaskDeleteView.as_view(), name='delete-task'),
+    
+    # # Delete a card and all related data
+    # path('cards/<int:card_id>/delete/', CardDeleteView.as_view(), name='delete-card'),
+    
+    # # Delete a specific purchase
+    # path('players/<int:player_id>/purchases/<int:card_id>/delete/', PurchaseDeleteView.as_view(), name='delete-purchase'),
+    
+    # # Bulk delete endpoint
+    # path('bulk-delete/', BulkDeleteView.as_view(), name='bulk-delete'),
 
 ]

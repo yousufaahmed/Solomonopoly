@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer
-from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement
+from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement, GamekeeperTask, TaskCheckpoint
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from django.db.models import Case, When, Value, IntegerField
 
@@ -385,5 +385,203 @@ class RedeemCardPackView(generics.CreateAPIView):
             purchases.append(PurchasesSerializer(purchase).data)
 
         return Response({"cards_awarded": purchases}, status=status.HTTP_201_CREATED)
+    
+    
+
+
+# class PlayerDeleteView(APIView):
+#     """
+#     Delete a player and all related records.
+    
+#     This will cascade delete:
+#     - Player object
+#     - User object (via cascade)
+#     - PlayerTask instances
+#     - PlayerAchievement instances
+#     - Purchases instances
+#     - Visits instances
+#     """
+#     permission_classes = [IsAuthenticated, IsAdminUser]
+    
+#     def delete(self, request, player_id):
+#         player = get_object_or_404(Player, player_id=player_id)
+        
+#         # Deletion of User will cascade to Player and all related models with ForeignKey to Player
+#         user = player.user
+#         user.delete()
+        
+#         return Response({"detail": f"Player {player_id} and all related data successfully deleted."}, 
+#                         status=status.HTTP_204_NO_CONTENT)
+
+
+# class TaskDeleteView(APIView):
+#     """
+#     Delete a task and all related records.
+    
+#     This will delete:
+#     - Task object
+#     - PlayerTask instances
+#     - GamekeeperTask instances
+#     - TaskCheckpoint instances
+#     """
+#     permission_classes = [IsAuthenticated, IsAdminUser]
+    
+#     def delete(self, request, task_id):
+#         task = get_object_or_404(Task, task_id=task_id)
+        
+#         # Manually delete related records in junction tables
+#         PlayerTask.objects.filter(task=task).delete()
+#         GamekeeperTask.objects.filter(task=task).delete()
+#         TaskCheckpoint.objects.filter(task=task).delete()
+        
+#         # Delete the task itself
+#         task.delete()
+        
+#         return Response({"detail": f"Task {task_id} and all related data successfully deleted."},
+#                         status=status.HTTP_204_NO_CONTENT)
+
+
+# class CardDeleteView(APIView):
+#     """
+#     Delete a card and all related records.
+    
+#     This will delete:
+#     - Card object
+#     - Purchases instances
+#     - Remove card from Player.deck (many-to-many relationship)
+#     """
+#     permission_classes = [IsAuthenticated, IsAdminUser]
+    
+#     def delete(self, request, card_id):
+#         card = get_object_or_404(Card, card_id=card_id)
+        
+#         # Delete purchases of this card
+#         Purchases.objects.filter(card=card).delete()
+        
+#         # Remove card from all player decks (many-to-many)
+#         for player in Player.objects.filter(deck=card):
+#             player.deck.remove(card)
+        
+#         # Delete the card itself
+#         card.delete()
+        
+#         return Response({"detail": f"Card {card_id} and all related data successfully deleted."},
+#                         status=status.HTTP_204_NO_CONTENT)
+
+
+# class PurchaseDeleteView(APIView):
+#     """
+#     Delete a specific purchase by player and card.
+#     """
+#     permission_classes = [IsAuthenticated]
+    
+#     def delete(self, request, player_id, card_id, purchase_time=None):
+#         # Get player and card
+#         player = get_object_or_404(Player, player_id=player_id)
+#         card = get_object_or_404(Card, card_id=card_id)
+        
+#         # Filter purchases
+#         purchases_query = Purchases.objects.filter(player=player, card=card)
+        
+#         # If purchase_time is provided, filter by that as well
+#         if purchase_time:
+#             purchases_query = purchases_query.filter(purchase_time=purchase_time)
+        
+#         # If no purchases match the criteria
+#         if not purchases_query.exists():
+#             return Response({"detail": "No matching purchase found."},
+#                             status=status.HTTP_404_NOT_FOUND)
+        
+#         # Delete the purchases
+#         count = purchases_query.count()
+#         purchases_query.delete()
+        
+#         # Remove card from player's deck if they no longer own any copies
+#         if not Purchases.objects.filter(player=player, card=card).exists():
+#             if card in player.deck.all():
+#                 player.deck.remove(card)
+        
+#         return Response({"detail": f"Deleted {count} purchase(s)."},
+#                         status=status.HTTP_204_NO_CONTENT)
+
+
+# class BulkDeleteView(APIView):
+#     """
+#     Bulk delete multiple instances of any supported model type.
+    
+#     Request format:
+#     {
+#         "players": [1, 2, 3],
+#         "tasks": [4, 5, 6],
+#         "cards": [7, 8, 9],
+#         "purchases": [{"player": 1, "card": 2, "purchase_time": "2023-01-01T12:00:00Z"}]
+#     }
+#     """
+#     permission_classes = [IsAuthenticated, IsAdminUser]
+    
+#     def post(self, request):
+#         data = request.data
+#         deletion_counts = {}
+        
+#         # Delete players
+#         if "players" in data:
+#             player_ids = data["players"]
+#             users_to_delete = User.objects.filter(player__player_id__in=player_ids)
+#             count = users_to_delete.count()
+#             users_to_delete.delete()
+#             deletion_counts["players"] = count
+        
+#         # Delete tasks
+#         if "tasks" in data:
+#             task_ids = data["tasks"]
+#             # Delete related junction table records first
+#             PlayerTask.objects.filter(task__task_id__in=task_ids).delete()
+#             GamekeeperTask.objects.filter(task__task_id__in=task_ids).delete()
+#             TaskCheckpoint.objects.filter(task__task_id__in=task_ids).delete()
+#             # Delete tasks
+#             count = Task.objects.filter(task_id__in=task_ids).delete()[0]
+#             deletion_counts["tasks"] = count
+        
+#         # Delete cards
+#         if "cards" in data:
+#             card_ids = data["cards"]
+#             cards = Card.objects.filter(card_id__in=card_ids)
+            
+#             # Delete purchases for these cards
+#             Purchases.objects.filter(card__in=cards).delete()
+            
+#             # Remove cards from player decks
+#             for card in cards:
+#                 for player in Player.objects.filter(deck=card):
+#                     player.deck.remove(card)
+            
+#             # Delete the cards
+#             count = cards.delete()[0]
+#             deletion_counts["cards"] = count
+        
+#         # Delete purchases
+#         if "purchases" in data:
+#             purchase_count = 0
+#             for purchase_data in data["purchases"]:
+#                 player_id = purchase_data.get("player")
+#                 card_id = purchase_data.get("card")
+#                 purchase_time = purchase_data.get("purchase_time")
+                
+#                 purchases_query = Purchases.objects.filter(
+#                     player__player_id=player_id,
+#                     card__card_id=card_id
+#                 )
+                
+#                 if purchase_time:
+#                     purchases_query = purchases_query.filter(purchase_time=purchase_time)
+                
+#                 # Update the count
+#                 purchase_count += purchases_query.count()
+#                 purchases_query.delete()
+            
+#             deletion_counts["purchases"] = purchase_count
+         
+#         return Response({"detail": "Bulk deletion completed", "counts": deletion_counts},
+#                         status=status.HTTP_200_OK)
 
 
