@@ -1,6 +1,9 @@
-#Contributors: Ahnaf
+#Contributors: Ahnaf, Ernest
 from django.contrib import admin
 from myapp.models import Card, Player, Task, Purchases, Campus, PlayerTask, Gamekeeper, GamekeeperTask, Checkpoint, Trivia, Visits, TaskCheckpoint
+from django.contrib import messages
+from django.contrib.auth.models import User
+
 
 @admin.register(Card)
 class CardAdmin(admin.ModelAdmin):
@@ -14,11 +17,11 @@ class PlayerAdmin(admin.ModelAdmin):
     search_fields = ("user__username",)
     list_filter = ("campus",)
 
-@admin.register(Task)
-class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "points")
-    search_fields = ("title",)
-    list_filter = ()
+# @admin.register(Task)
+# class TaskAdmin(admin.ModelAdmin):
+#     list_display = ("title", "points")
+#     search_fields = ("title",)
+#     list_filter = ()
 
 @admin.register(Purchases)
 class PurchasesAdmin(admin.ModelAdmin):
@@ -60,3 +63,37 @@ class VisitsAdmin(admin.ModelAdmin):
 class TaskCheckpointAdmin(admin.ModelAdmin):
     list_display = ("task", "checkpoint")
 
+@admin.action(description="Assign selected task(s) to all players")
+def assign_tasks_to_all_players(modeladmin, request, queryset):
+    players = Player.objects.all()
+    tasks_assigned = 0
+    tasks_skipped = 0
+    
+    for task in queryset:
+        for player in players:
+            # Check if this task is already assigned to the player
+            if not PlayerTask.objects.filter(player=player, task=task).exists():
+                PlayerTask.objects.create(
+                    player=player,
+                    task=task,
+                    completed=False,
+                    progress=0
+                )
+                tasks_assigned += 1
+            else:
+                tasks_skipped += 1
+    
+    if tasks_assigned > 0:
+        messages.success(request, f"Successfully assigned {tasks_assigned} task-player combinations.")
+    if tasks_skipped > 0:
+        messages.warning(request, f"Skipped {tasks_skipped} task-player combinations (already existed).")
+
+@admin.register(Task)  
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ['task_id', 'title', 'points', 'count']
+    search_fields = ['title', 'description']
+    list_filter = ['tags']
+    actions = [assign_tasks_to_all_players]
+
+# Register your models with the admin site
+# admin.site.register(Task, TaskAdmin)
