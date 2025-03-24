@@ -291,3 +291,20 @@ body, html {
   font-style: italic;
   margin-top: 10px;
 }
+
+.task-progress-bar {
+  background: #e0e0e0;
+  border-radius: 6px;
+  height: 10px;
+  margin: 5px 0;
+  width: 100%;
+}
+.task-progress-fill {
+  background: #4caf50;
+  height: 100%;
+  border-radius: 6px;
+}
+.task-progress-text {
+  font-size: 12px;
+  color: #555;
+}

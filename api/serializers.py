@@ -42,11 +42,12 @@ class TaskBoardSerializer(serializers.ModelSerializer):
     player = serializers.CharField(source="player.username", read_only=True)  # Include player username
     completed = serializers.BooleanField(read_only=True)
     tags = serializers.SlugRelatedField(source="task.tags", many=True, read_only=True, slug_field="name")
-    count = serializers.IntegerField(source="task.count", read_only=True)
-    
+    max_count = serializers.IntegerField(source="task.count", read_only=True)
+    progress = serializers.IntegerField(source="player_task.progress", read_only=True)
+
     class Meta:
         model = PlayerTask
-        fields = ["player", "task_id", "title", "description", "tags", "points", "completed", "count"]
+        fields = ["player", "task_id", "title", "description", "tags", "points", "completed", "max_count", "progress"]
 
 class TriviaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -74,9 +75,11 @@ class TaskSerializer(serializers.ModelSerializer):
         many=True, queryset=Tag.objects.all(), slug_field="name"
     )
 
+    max_count = serializers.IntegerField(source="count", read_only=True)
+
     class Meta:
         model = Task
-        fields = ["task_id", "task_frame", "description", "title", "tags", "points", "count"]
+        fields = ["task_id", "task_frame", "description", "title", "tags", "points", "count", "max_count"]
     
     def update(self, instance, validated_data):
         tags_data = validated_data.pop("tags",[])
@@ -128,15 +131,30 @@ class PlayerTaskSerializerUpdate(serializers.ModelSerializer):
         extra_kwargs = {'player': {'read_only': True}, 'task': {'read_only': True}}
 
     def update(self, instance, validated_data):
-        completed = validated_data.get('completed', instance.completed)
+        task_count = instance.task.count
 
-        if not instance.completed and completed:  # Check if task is being completed now
-            instance.player.points += instance.task.points  # Add task points to player
-            instance.player.save()  # Save updated player points
+        # 🔹 CASE 1: Task has multiple steps (count > 1)
+        if task_count > 1:
+            if not instance.completed:
+                instance.progress += 1
 
-            self.update_achievement_progress(instance.player, instance.task)  # Update achievement progress
+                if instance.progress >= task_count:
+                    instance.completed = True
+                    instance.player.points += instance.task.points
+                    instance.player.save()
+                    self.update_achievement_progress(instance.player, instance.task)
 
-        instance.completed = completed  # Update task completion status
+        # 🔹 CASE 2: Single-step task (count == 0 or 1)
+        else:
+            completed = validated_data.get('completed', instance.completed)
+
+            if not instance.completed and completed:
+                instance.player.points += instance.task.points
+                instance.player.save()
+                self.update_achievement_progress(instance.player, instance.task)
+
+            instance.completed = completed
+
         instance.save()
         return instance
     

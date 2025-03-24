@@ -34,6 +34,18 @@ python manage.py runserver
 1) python manage.py createsuperuser
 2) http://127.0.0.1:8000/admin
 
+## Make tasks via API (DO NOT KEEP THIS IN THE README)
+
+1) python manage.py runserver
+2) navigate to http://127.0.0.1:8000/api/task/
+3) switch to raw data and make your task
+4) POST
+
+## Assign tasks via API (DO NOT KEEP THIS IN THE README)
+1) python manage.py runserver
+2) navigate to http://127.0.0.1:8000/api/task/<int:player_id>/assign_task/
+3) select player id and task id
+4) POST
 
 ## AFTER CHANGES LIKE ADDING A DIRECTORY OR CHANGING MODEL OR ADDING VIEWS
 

@@ -72,7 +72,7 @@ class Task(models.Model):
     task_frame = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     title = models.CharField(max_length=100)
-    count = models.IntegerField(default=0)
+    count = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
     # kind = models.CharField(
     #     max_length=50, 
@@ -86,7 +86,7 @@ class Achievement(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     logo = models.CharField(max_length=1000)
-    count = models.IntegerField(default=0)
+    count = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
 
 class Card(models.Model):
@@ -123,7 +123,8 @@ class PlayerTask(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
-
+    progress = models.IntegerField(default=0)
+    
     class Meta: # Can be changed so that tasks repeat
         unique_together = ('player', 'task')  # Ensures a Player can only have one record per Task
 
@@ -159,7 +160,7 @@ class PlayerAchievement(models.Model):
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
-    count = models.IntegerField(default=0)
+    count = models.IntegerField(default=1)
 
 
     class Meta:
