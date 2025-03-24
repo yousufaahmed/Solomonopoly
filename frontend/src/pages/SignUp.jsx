@@ -40,7 +40,8 @@ const SignUp = () => {
       localStorage.setItem("accessToken", res.data.access);
       localStorage.setItem("refreshToken", res.data.refresh);
 
-      navigate("/");
+      navigate("/userform");
+
     } catch (error) {
       console.error(error);
       setErMsg(

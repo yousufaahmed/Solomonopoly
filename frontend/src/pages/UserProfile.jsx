@@ -119,6 +119,7 @@ const UserProfile = () => {
         {coins}
       </button>
 
+      {/* Profile picture - clickable */}
       <img
         src={selectedAvatar || default_profile}
         alt="user_img"
@@ -127,7 +128,6 @@ const UserProfile = () => {
         style={{ cursor: "pointer" }}
       />
 
-      {/* User info and avatar popup */}
       <div className="user_text">
         <h1 className="user_intro">Hi {name}!</h1>
         <h1 className="user_id">#345-876</h1>
@@ -156,7 +156,7 @@ const UserProfile = () => {
         </select>
       </div>
 
-      {/* Leaderboard position button */}
+      {/* Leaderboard position */}
       <button type="button" className="leaderpos_btn">
         Leaderboard Position: {leaderboardPosition ? `#${leaderboardPosition}` : "#?"}
       </button>
