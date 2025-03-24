@@ -310,15 +310,15 @@ pointer-events: none;
 
 
 .delete_account_btn {
-  width: 100%;
+  width: 30%;
   max-width: 850px;
-  height: 70px;
-  background-color: #cc0000;
+  height: 50px;
+  background-color: transparent;
   border: none;
   border-radius: 35px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  color: red;
   margin-top: 20px;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -326,27 +326,30 @@ pointer-events: none;
 }
 
 .delete_account_btn:hover {
-  background-color: #a30000;
+  text-decoration: underline;
+  color: red;
 }
 
 .delete_confirm_btn {
   width: 100%;
   max-width: 850px;
-  height: 70px;
-  background-color: #ff3333;
+  height: 10px;
+  background-color: transparent;
   border: none;
   border-radius: 35px;
-  font-size: 22px;
-  font-weight: 600;
-  color: #fff;
-  margin-top: 15px;
+  font-size: 15px;
+  font-weight: 300;
+  color: red;
+  margin-top: 3px;
   cursor: pointer;
   animation: fadeIn 0.3s ease-in-out;
   transform: translateX(-10px);
 }
 
 .delete_confirm_btn:hover {
-  background-color: #d00000;
+  text-decoration: underline;
+  color: red;
+  
 }
 
 @keyframes fadeIn {

@@ -1,10 +1,16 @@
 // Code By: Yousuf Ahmed, Aleem Abbas Hussein, Mohammed Zarrar Shahid
-// All relevant imports
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/navbar';
 import '../styles/Leaderboard.css';
+import defaultProfile from '../assets/profilepics/PROFILE_COMMON_DEFAULT.png';
+
+// Dynamically import all profile pics
+const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
+  eager: true,
+  import: 'default',
+});
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -23,6 +29,7 @@ const Leaderboard = () => {
         setLoading(false);
       }
     };
+
     fetchLeaderboardData();
   }, []);
 
@@ -36,7 +43,7 @@ const Leaderboard = () => {
   };
 
   const everyoneData = getRankedData(leaderboardData);
-  const friendsData = getRankedData(leaderboardData);
+  const friendsData = getRankedData([]); // placeholder for future friends logic
   const displayData = activeTab === "Everyone" ? everyoneData : friendsData;
 
   if (loading) return <div>Loading...</div>;
@@ -46,6 +53,7 @@ const Leaderboard = () => {
     <div className="leaderboard-container">
       <Navbar />
       <header className="leaderboard-header">Leaderboard</header>
+      
       <div className="tabs">
         <button
           className={`tab-button ${activeTab === "Everyone" ? "active" : ""}`}
@@ -60,24 +68,31 @@ const Leaderboard = () => {
           Friends
         </button>
       </div>
+
       <div className="leaderboard-list">
-        {displayData.map((user, index) => (
-          <div key={index} className="leaderboard-item">
-            <div className="leaderboard-user">
-              <img
-                src={user.image || "/fallback.png"}
-                alt={user.username}
-                className="user-image"
-              />
-              <div className="user-info">
-                <p className="user-name">{user.username}</p>
-                <p className="user-score">{user.points} coins</p>
+        {displayData.map((user, index) => {
+          const avatarPath = `../assets/profilepics/${user.logo}`;
+          const profilePic = avatarModules[avatarPath] || defaultProfile;
+
+          return (
+            <div key={index} className="leaderboard-item">
+              <div className="leaderboard-user">
+                <img
+                  src={profilePic}
+                  alt={user.username}
+                  className="user-image"
+                />
+                <div className="user-info">
+                  <p className="user-name">{user.username}</p>
+                  <p className="user-score">{user.points} coins</p>
+                </div>
               </div>
+              <span className="user-rank">{user.rank}</span>
             </div>
-            <span className="user-rank">{user.rank}</span>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
       <div className="friend-code-container">
         <input
           type="text"

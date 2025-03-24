@@ -115,8 +115,6 @@ const PackOpening = () => {
               alt={cardName}
               className={`card-image rarity-${rarity}`}
             />
-            <h2 className="card-name">{cardName}</h2>
-            <p className="card-rarity">{rarity.toUpperCase()}</p>
           </>
         )}
       </div>
