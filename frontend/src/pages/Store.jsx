@@ -1,6 +1,6 @@
 // Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
 import '../styles/Store.css';
 import bronzePack from '../assets/bronze-pack.png';
@@ -8,6 +8,40 @@ import silverPack from '../assets/silver-pack.png';
 import goldPack from '../assets/gold-pack.png';
 
 const Store = () => {
+  const [coins, setCoins] = useState(0);
+
+  useEffect(() => {
+    const fetchCoins = async () => {
+      try {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) return;
+
+        const decoded = jwtDecode(token);
+
+        // Fetch username
+        const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const { username } = await usernameResponse.json();
+
+        const leaderboardResponse = await axios.get("http://localhost:8000/api/leaderboard/");
+        const leaderboardData = leaderboardResponse.data;
+
+        const userRecord = leaderboardData.find(
+          record => record.username.toLowerCase() === username.toLowerCase()
+        );
+
+        if (userRecord) {
+          setCoins(userRecord.points);
+        }
+      } catch (error) {
+        console.error("Error fetching coin balance:", error);
+      }
+    };
+
+    fetchCoins();
+  }, []);
+
   return (
     <div className="store-container">
       <Navbar />
@@ -23,7 +57,8 @@ const Store = () => {
           <p className="pack-description">Open to obtain a bronze collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">150 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
+
         </div>
 
         <div className="store-card">
@@ -34,7 +69,7 @@ const Store = () => {
           <p className="pack-description">Open to obtain a silver collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">300 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
         </div>
 
         <div className="store-card">
@@ -45,7 +80,8 @@ const Store = () => {
           <p className="pack-description">Open to obtain a gold collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">450 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
+
         </div>
       </div>
     </div>

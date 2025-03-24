@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: black;
+
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
@@ -31,7 +31,6 @@ body {
     max-width: 90%;
     max-height: 80vh;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
     animation: fadeInZoom 3s ease-out;
   }
   

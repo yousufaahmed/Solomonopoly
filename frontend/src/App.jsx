@@ -18,6 +18,8 @@ import Store from "./pages/Store";
 import Inventory from "./pages/Inventory"
 import Map from "./pages/Map"
 import Terms from "./pages/TermsAndConditions"
+import Pack_Opening from "./pages/PackOpening"
+
 
 // Define the App component
 function App() {
@@ -69,6 +71,7 @@ function App() {
               element={<Terms />} 
             />
 
+
             {/* Route for the QR Screen page */}
             <Route 
               path="/qr" 
@@ -79,7 +82,7 @@ function App() {
               } 
             />
 
-            {/* Route for the QR Screen page */}
+            {/* Route for the Inventory page */}
             <Route 
               path="/inventory" 
               element={
@@ -119,7 +122,7 @@ function App() {
               } 
             />
 
-            {/* Route for the Leaderboard page */}
+            {/* Route for the Store page */}
             <Route 
               path="/store" 
               element={
@@ -129,12 +132,22 @@ function App() {
               } 
             />
 
-            {/* Route for the Leaderboard page */}
+            {/* Route for the Map page */}
             <Route 
               path="/map" 
               element={
                 <ProtectedRoute>
                   <Map />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the Pack Opening Animation */}
+            <Route 
+              path="/packopening" 
+              element={
+                <ProtectedRoute>
+                  <Pack_Opening />
                 </ProtectedRoute>
               } 
             />
