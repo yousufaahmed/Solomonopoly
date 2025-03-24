@@ -17,7 +17,7 @@
 /* Coin display (top-right corner) */
 .coins_icon {
   position: absolute;
-  top: 120px;
+  top: 110px;
   right: 20px;
   display: flex;
   align-items: center;
@@ -136,12 +136,13 @@
 
   .pack-image {
     width: 80%;
-    transform: translate(0, 0);
+    transform: none;
     margin-bottom: 1rem;
   }
 
   .pack-divider {
     transform: none;
+    margin: 0.5rem 0;
   }
 
   .pack-name,
@@ -149,5 +150,15 @@
   .pack-price,
   .buy-button {
     transform: none;
+  }
+
+  .coins_icon {
+    top: 90px;
+    right: 10px;
+    font-size: 16px;
+  }
+
+  .coins_image {
+    width: 24px;
   }
 }

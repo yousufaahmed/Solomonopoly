@@ -1,6 +1,6 @@
 // Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import Navbar from '../components/navbar';
 import '../styles/Store.css';
 import bronzePack from '../assets/bronze-pack.png';
@@ -22,7 +22,6 @@ const Store = () => {
 
         const decoded = jwtDecode(token);
 
-        // Get username
         const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -39,7 +38,6 @@ const Store = () => {
           setCoins(userRecord.points);
         }
       } catch (error) {
-        console.error("Error fetching coins:", error);
       }
     };
 
@@ -69,7 +67,8 @@ const Store = () => {
           <p className="pack-description">Open to obtain a bronze collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">150 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
+
         </div>
 
         {/* Silver */}
@@ -81,7 +80,7 @@ const Store = () => {
           <p className="pack-description">Open to obtain a silver collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">300 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
         </div>
 
         {/* Gold */}
@@ -93,7 +92,8 @@ const Store = () => {
           <p className="pack-description">Open to obtain a gold collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">450 Coins</p>
-          <button className="buy-button">Buy now!</button>
+          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
+
         </div>
       </div>
     </div>
