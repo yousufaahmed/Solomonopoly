@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
-import "../styles/PackOpening.css";
+import "../styles/packopening.css";
 import packSound from "../assets/sounds/pack_open.mp3";
 import { jwtDecode } from "jwt-decode";
 import { ACCESS_TOKEN } from "../constants";
