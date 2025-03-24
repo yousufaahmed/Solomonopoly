@@ -18,7 +18,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 class PlayerIdOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['player_id']
+        fields = ['player_id' , 'logo']
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     rank = serializers.SerializerMethodField()
