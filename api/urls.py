@@ -1,7 +1,7 @@
 #Contributors: Eliot, Ernest, Sri
 from django.urls import path
 from .views import (
-    PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
+    PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView, delete_player,
     TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView,
     CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView, UpdatePlayerLogoView, CreateCardView, PlayerCardView #UserUpdateView#, PlayerCardListView
     # ,PlayerDeleteView, TaskDeleteView, CardDeleteView, 
@@ -47,7 +47,8 @@ urlpatterns = [
     path('achievement/<int:player_id>/<int:achievement_id>/update/', UpdatePlayerAchievementView.as_view(), name='update-player-achievement'),
     path('player/<int:player_id>/achievements/', PlayerAchievementView.as_view(), name='get-player-achievements'), # Used in Task Board for Each Player
 
-
+    # Player deletion endpoint
+    path('player/<int:player_id>/delete/', delete_player, name='delete_player'),
 
     #path('player/<int:player_id>/deck/', PlayerCardListView.as_view(), name='player-deck'),  -- finish this
 
