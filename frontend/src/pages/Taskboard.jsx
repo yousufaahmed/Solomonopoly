@@ -46,16 +46,16 @@ const TaskBoard = () => {
   
     try {
       if (taskObj.max_count <= 1) {
-        // ✅ Single-step: manually send { completed: true }
+        // manually send { completed: true }
         await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
           completed: true
         });
       } else {
-        // ✅ Multi-step: backend handles progress
+        // backend handles progress
         await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`);
       }
   
-      // ✅ Always refresh task list after update
+      // Always refresh task list after update
       const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
       setTasks(response.data);
     } catch (err) {
