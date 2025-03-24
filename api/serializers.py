@@ -1,4 +1,4 @@
-#Eliot's stuff >:(
+#Contributors: Eliot, Ernest, Sri
 
 from django.contrib.auth.models import User
 from myapp.models import Player, Trivia, Campus, Gamekeeper, Task, Card, Checkpoint, GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint, Achievement, PlayerAchievement, Tag

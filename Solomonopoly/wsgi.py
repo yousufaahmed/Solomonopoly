@@ -1,3 +1,4 @@
+#Contributors: Eliot, Ernest, Sri, Yousuf
 """
 WSGI config for Solomonopoly project.
 

@@ -1,5 +1,4 @@
-
-
+#Contributors: Eliot, Ernest, Sri
 import random
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
