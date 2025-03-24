@@ -29,7 +29,7 @@ const Navbar = () => {
         if (!token) return;
         const decoded = jwtDecode(token);
 
-        const res = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        const res = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
         const logoFile = res.data.logo;
 
         if (logoFile && avatarModules[`../assets/profilepics/${logoFile}`]) {

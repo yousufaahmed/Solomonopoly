@@ -22,10 +22,10 @@ const Inventory = () => {
         if (!token) return;
     
         const decoded = jwtDecode(token);
-        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        const playerRes = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
         const playerId = playerRes.data.player_id;
     
-        const cardsRes = await axios.get(`http://localhost:8000/api/player/${playerId}/cards/`);
+        const cardsRes = await axios.get(`yousufaa.pythonanywhere.com/api/player/${playerId}/cards/`);
         const fetchedCards = cardsRes.data;
     
         // Define rarity order

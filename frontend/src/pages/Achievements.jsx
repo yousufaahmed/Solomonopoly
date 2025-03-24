@@ -269,16 +269,16 @@ const Achievements = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.user_id;
 
-        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${userId}/`);
+        const playerRes = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${userId}/`);
         const pid = playerRes.data.player_id;
         setPlayerId(pid);
 
-        const playerAchievementsRes = await axios.get(`http://localhost:8000/api/player/${pid}/achievements/`);
+        const playerAchievementsRes = await axios.get(`yousufaa.pythonanywhere.com/api/player/${pid}/achievements/`);
         const playerAchievements = playerAchievementsRes.data;
 
         const detailedAchievements = await Promise.all(
           playerAchievements.map(async (pa) => {
-            const achievementRes = await axios.get(`http://localhost:8000/api/achievement/${pa.achievement}/`);
+            const achievementRes = await axios.get(`yousufaa.pythonanywhere.com/api/achievement/${pa.achievement}/`);
             const achievement = achievementRes.data;
 
             const countNeeded = achievement.count_needed || 1;
