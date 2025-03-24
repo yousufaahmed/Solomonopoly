@@ -1,0 +1,75 @@
+.userform-wrapper {
+    background-color: #E2E2E2;
+    min-height: 100vh;
+    padding: 120px 2rem 2rem; /* 👈 adds spacing from top */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  
+  .userform-card {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 850px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+  
+  .userform-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0b4433;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .userform-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .userform-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .userform-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0b4433;
+  }
+  
+  .userform-option {
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: #2e8b57;
+    transform: scale(1.2);
+  }
+  
+  .userform-submit {
+    background-color: #0b4433;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .userform-submit:hover {
+    background-color: #083326;
+  }
+  

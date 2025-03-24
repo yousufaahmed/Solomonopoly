@@ -9,12 +9,11 @@ import Navbar from "../components/navbar";
 import axios from 'axios';
 import termsHtml from "./TermsHtml.jsx";
 
-// Dynamically import and sort avatars by rarity
+// ✅ Import avatars once (your original was duplicated)
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
   eager: true,
   import: 'default'
 });
-
 const avatarEntries = Object.entries(avatarModules);
 
 const commonAvatars = avatarEntries
@@ -30,29 +29,6 @@ const rareAvatars = avatarEntries
   .map(([_, src]) => src);
 
 const avatarList = [...commonAvatars, ...uncommonAvatars, ...rareAvatars];
-
-// Dynamically import and sort avatars by rarity
-const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
-  eager: true,
-  import: 'default'
-});
-
-const avatarEntries = Object.entries(avatarModules);
-
-const commonAvatars = avatarEntries
-  .filter(([filename]) => filename.includes("PROFILE_COMMON_"))
-  .map(([_, src]) => src);
-
-const uncommonAvatars = avatarEntries
-  .filter(([filename]) => filename.includes("PROFILE_UNCOMMON_"))
-  .map(([_, src]) => src);
-
-const rareAvatars = avatarEntries
-  .filter(([filename]) => filename.includes("PROFILE_RARE_"))
-  .map(([_, src]) => src);
-
-const avatarList = [...commonAvatars, ...uncommonAvatars, ...rareAvatars];
-
 
 const UserProfile = () => {
   const [name, setName] = useState('');
@@ -122,6 +98,7 @@ const UserProfile = () => {
         {coins}
       </button>
 
+      {/* Profile picture - clickable */}
       <img
         src={selectedAvatar}
         alt="user_img"
@@ -130,7 +107,6 @@ const UserProfile = () => {
         style={{ cursor: "pointer" }}
       />
 
-      {/* User info and avatar popup */}
       <div className="user_text">
         <h1 className="user_intro">Hi {name}!</h1>
         <h1 className="user_id">#345-876</h1>
@@ -167,7 +143,7 @@ const UserProfile = () => {
         </select>
       </div>
 
-      {/* Leaderboard position button */}
+      {/* Leaderboard position */}
       <button type="button" className="leaderpos_btn">
         Leaderboard Position: {leaderboardPosition ? `#${leaderboardPosition}` : "#?"}
       </button>
@@ -181,7 +157,7 @@ const UserProfile = () => {
         📘 Read T&C's
       </button>
 
-      {/* Popup container for T&Cs */}
+      {/* T&Cs popup */}
       {showTermsPopup && (
         <div className="terms_popup">
           <button
@@ -197,7 +173,7 @@ const UserProfile = () => {
         </div>
       )}
 
-      {/* Delete account button */}
+      {/* Delete account */}
       <button
         type="button"
         className="delete_account_btn"
@@ -206,7 +182,6 @@ const UserProfile = () => {
         Delete Account 🗑️
       </button>
 
-      {/* Confirm delete */}
       {showDeleteConfirm && (
         <button
           type="button"
