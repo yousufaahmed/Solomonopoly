@@ -179,6 +179,7 @@ const UserProfile = () => {
 
 
       {showDeleteConfirm && (
+
   <button
   type="button"
   className="delete_confirm_btn"
@@ -210,6 +211,7 @@ const UserProfile = () => {
 </button>
 
 )}
+
 
     </div>
   );
