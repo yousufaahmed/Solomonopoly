@@ -1,4 +1,4 @@
-# myapp/apps.py
+import os
 from django.apps import AppConfig
 
 class MyappConfig(AppConfig):
@@ -6,6 +6,7 @@ class MyappConfig(AppConfig):
     name = 'myapp'
 
     def ready(self):
-        # Import the scheduler and start it when the app is ready
-        import myapp.scheduler  # Adjust the import path to your scheduler module
-        myapp.scheduler.start_scheduler()  # Start the scheduler
+        if os.environ.get('RUN_MAIN') == 'true':  # Prevents duplicate schedulers in dev mode
+            from myapp import scheduler  # Import scheduler module only when needed
+            if not scheduler.scheduler.running:  # Ensures scheduler starts only once
+                scheduler.start_scheduler()
