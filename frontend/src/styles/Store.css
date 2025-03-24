@@ -127,6 +127,24 @@
   background-color: #276c47;
 }
 
+/* Add this to your Store.css file */
+.error-message {
+  background-color: #ff5757;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px auto 20px;
+  max-width: 300px;
+  text-align: center;
+  font-weight: bold;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .store-card {

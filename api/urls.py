@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView,
     TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,PlayerIdView, AchievementView, AssignAchievementToPlayerView, PlayerAchievementView, UpdateAchievementView, UpdatePlayerAchievementView, TaskboardView,
-    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView, UpdatePlayerLogoView #UserUpdateView#, PlayerCardListView
+    CardListView, CardView, CreatePurchaseRecordView, AchievementListView, CreateAchievementView , RedeemCardPackView, UpdatePlayerLogoView, CreateCardView, PlayerCardView #UserUpdateView#, PlayerCardListView
     # ,PlayerDeleteView, TaskDeleteView, CardDeleteView, 
     # PurchaseDeleteView, BulkDeleteView
 )
@@ -31,9 +31,12 @@ urlpatterns = [
     path('player/<int:player_id>/tasks/', TaskboardView.as_view()),#PlayerTaskView.as_view(), name='get-player-tasks'), # Used in Task Board for Each Player
 
     #Card Endpoints
+    path('card/', CreateCardView.as_view(), name='card-create'),
     path('cards/', CardListView.as_view(), name='card-list'),
     path('card/<int:card_id>/', CardView.as_view(), name='card-detail'),
     path('player/<int:player_id>/purchases/', CreatePurchaseRecordView.as_view(), name='purchase-card' ),
+    path('player/<int:player_id>/cards/', PlayerCardView.as_view()),
+
 
     #Achievement Endpoints
     path('achievement/', CreateAchievementView.as_view(), name='achievement-list-create'),

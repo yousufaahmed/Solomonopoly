@@ -59,3 +59,4 @@ class VisitsAdmin(admin.ModelAdmin):
 @admin.register(TaskCheckpoint)
 class TaskCheckpointAdmin(admin.ModelAdmin):
     list_display = ("task", "checkpoint")
+
