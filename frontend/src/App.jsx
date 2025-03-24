@@ -19,6 +19,7 @@ import Inventory from "./pages/Inventory"
 import Map from "./pages/Map"
 import Terms from "./pages/TermsAndConditions"
 import Pack_Opening from "./pages/PackOpening"
+import UserForm from "./pages/UserForm"
 
 
 // Define the App component
@@ -119,6 +120,14 @@ function App() {
                 <ProtectedRoute>
                   <Leaderboard />
                 </ProtectedRoute>
+              } 
+            />
+
+            {/* Route for the User Form page */}
+            <Route 
+              path="/UserForm" 
+              element={
+                  <UserForm />
               } 
             />
 
