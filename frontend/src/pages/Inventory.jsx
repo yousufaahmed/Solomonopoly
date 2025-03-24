@@ -15,6 +15,7 @@ import CR7 from "../assets/cards/CR7.png";
 import Goku from "../assets/cards/goku.png";
 import Smart from "../assets/cards/smart.png";
 import Spider from "../assets/cards/spider.png";
+import Phoenix from "../assets/cards/phoenix.png";
 
 import "../styles/Inventory.css";
 
@@ -34,7 +35,8 @@ const cards = [
   { id: 12, image: CR7 },
   { id: 13, image: Goku },
   { id: 14, image: Smart },
-  { id: 15, image: Spider }
+  { id: 15, image: Spider },
+  { id: 16, image: Phoenix }
 ];
 
 const Inventory = () => {
