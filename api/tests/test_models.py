@@ -7,8 +7,8 @@ from django.utils import timezone
 from datetime import datetime
 
 from myapp.models import (
-    Trivia, Campus, Gamekeeper, Player, Task, Card, Checkpoint,
-    GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint
+    Trivia, Campus, Gamekeeper, Player, Task, Card, Tag, Checkpoint, Achievement,
+    GamekeeperTask, PlayerTask, Purchases, Visits, TaskCheckpoint, PlayerAchievement
 )
 
 class TriviaModelTest(TestCase):
@@ -125,7 +125,6 @@ class TaskModelTest(TestCase):
         self.assertEqual(task.description, "Test Task Description")
         self.assertEqual(task.points, 10)
         self.assertEqual(task.task_frame, "")  # Default blank
-        self.assertEqual(task.kind, "")  # Default blank
         self.assertIsNotNone(task.task_id)
 
 
@@ -397,4 +396,52 @@ class TaskCheckpointModelTest(TestCase):
             TaskCheckpoint.objects.create(
                 task=self.task,
                 checkpoint=self.checkpoint
+            )
+            
+class PlayerAchievementModelTest(TestCase):
+    def setUp(self):
+        self.campus = Campus.objects.create(
+            name="Test Campus",
+            location="Test Location"
+        )
+        self.user = User.objects.create_user(
+            username="testuser",
+            password="testpassword"
+        )
+        self.player = Player.objects.create(
+            user=self.user,
+            username="PlayerUsername",
+            campus=self.campus
+        )
+        self.achievement = Achievement.objects.create(
+            name="Test Achievement",
+            description="Test Achievement Description"
+        )
+        self.tag = Tag.objects.create(name=Tag.TagKind.DAILY)
+
+    def test_player_achievement_creation(self):
+        """Test creating a PlayerAchievement instance"""
+        player_achievement = PlayerAchievement.objects.create(
+            player=self.player,
+            achievement=self.achievement,
+            completed=False,
+            count=1
+        )
+        player_achievement.tags.add(self.tag)
+        self.assertEqual(player_achievement.player, self.player)
+        self.assertEqual(player_achievement.achievement, self.achievement)
+        self.assertFalse(player_achievement.completed)
+        self.assertEqual(player_achievement.count, 1)
+        self.assertIn(self.tag, player_achievement.tags.all())
+
+    def test_player_achievement_unique_constraint(self):
+        """Test that a player cannot have duplicate achievement assignments"""
+        PlayerAchievement.objects.create(
+            player=self.player,
+            achievement=self.achievement
+        )
+        with self.assertRaises(IntegrityError):
+            PlayerAchievement.objects.create(
+                player=self.player,
+                achievement=self.achievement
             )
