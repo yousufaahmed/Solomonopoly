@@ -1,9 +1,21 @@
 #Contributors: Ahnaf, Ernest
 from django.contrib import admin
-from myapp.models import Card, Player, Task, Purchases, Campus, PlayerTask, Gamekeeper, GamekeeperTask, Checkpoint, Trivia, Visits, TaskCheckpoint
+from myapp.models import Card, Player, Task, Purchases, Campus, PlayerTask, Gamekeeper, GamekeeperTask, Checkpoint, Trivia, Visits, TaskCheckpoint, Achievement, PlayerAchievement
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+
+# @admin.register(Achievement)
+# class AchievementAdmin(admin.ModelAdmin):
+#     list_display = ('achievement_id', 'name', 'description', 'logo', 'count')
+#     search_fields = ('name',)
+#     list_filter = ('tags',)
+
+@admin.register(PlayerAchievement)
+class PlayerAchievementAdmin(admin.ModelAdmin):
+    list_display = ('player', 'achievement', 'completed', 'count')
+    search_fields = ('player__username', 'achievement__name')
+    list_filter = ('completed', 'tags')
 
 @admin.register(Card)
 class CardAdmin(admin.ModelAdmin):
