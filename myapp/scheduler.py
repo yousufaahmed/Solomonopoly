@@ -1,3 +1,4 @@
+#Contributors: Ernest
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger

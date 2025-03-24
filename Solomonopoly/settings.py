@@ -1,3 +1,4 @@
+#Contributors: Eliot, Ernest, Sri, Yousuf
 """
 Django settings for Solomonopoly project.
 

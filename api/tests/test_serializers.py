@@ -1,3 +1,4 @@
+#Contributors: Ahnaf, Ernest
 from django.test import TestCase
 from django.contrib.auth.models import User
 from myapp.models import Player, Campus, Task, Trivia, Card

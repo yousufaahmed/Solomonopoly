@@ -1,5 +1,5 @@
-
-
+#Contributors: Eliot, Ernest, Sri
+from django.http import JsonResponse
 import random
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login
@@ -442,3 +442,47 @@ class UpdatePlayerLogoView(generics.UpdateAPIView):
 
     def get_queryset(self):
         return Player.objects.all()
+    
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def delete_player(request, player_id):
+    """
+    Delete a player and all associated data
+    
+    This will:
+    1. Delete the Player record
+    2. Delete the associated User record which will cascade delete
+       all other data linked to this player through relationships
+    """
+    try:
+        # Get the player
+        player = Player.objects.get(player_id=player_id)
+        
+        # Check if the requesting user is the owner of this account
+        # You may want to add admin permission check as well
+        # if request.user != player.user and not request.user.is_staff and not request.user.is_superuser:
+        #     return JsonResponse(
+        #         {"error": "You do not have permission to delete this player"}, 
+        #         status=status.HTTP_403_FORBIDDEN
+        #     )
+        
+        # Get the associated User to delete
+        user = player.user
+        user.delete()
+        
+        return JsonResponse(
+            {"message": "Player account and all associated data successfully deleted"}, 
+            status=status.HTTP_200_OK
+        )
+        
+    except Player.DoesNotExist:
+        return JsonResponse(
+            {"error": "Player not found"}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception as e:
+        return JsonResponse(
+            {"error": f"Failed to delete player: {str(e)}"}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
