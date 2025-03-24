@@ -1,20 +1,66 @@
 // Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/navbar';
 import '../styles/Store.css';
 import bronzePack from '../assets/bronze-pack.png';
 import silverPack from '../assets/silver-pack.png';
 import goldPack from '../assets/gold-pack.png';
+import coinsImage from '../assets/coins.png';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
+import { ACCESS_TOKEN } from '../constants';
 
 const Store = () => {
+  const [coins, setCoins] = useState(0);
+
+  useEffect(() => {
+    const fetchCoins = async () => {
+      try {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) return;
+
+        const decoded = jwtDecode(token);
+
+        // Get username
+        const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const { username } = await usernameResponse.json();
+
+        const leaderboardResponse = await axios.get("http://localhost:8000/api/leaderboard/");
+        const leaderboardData = leaderboardResponse.data;
+
+        const userRecord = leaderboardData.find(
+          record => record.username.toLowerCase() === username.toLowerCase()
+        );
+
+        if (userRecord) {
+          setCoins(userRecord.points);
+        }
+      } catch (error) {
+        console.error("Error fetching coins:", error);
+      }
+    };
+
+    fetchCoins();
+  }, []);
+
   return (
     <div className="store-container">
       <Navbar />
+
+      {/* Coins top-right */}
+      <button type="button" className="coins_icon">
+        <img src={coinsImage} alt="coins" className="coins_image" />
+        {coins}
+      </button>
+
       <h1 className="store-title">Store</h1>
       <p className="store-subtitle">Purchase packs to obtain collectors cards!</p>
 
       <div className="store-cards">
+        {/* Bronze */}
         <div className="store-card">
           <img src={bronzePack} alt="Bronze Pack" className="pack-image" />
           <hr className="pack-divider" />
@@ -26,6 +72,7 @@ const Store = () => {
           <button className="buy-button">Buy now!</button>
         </div>
 
+        {/* Silver */}
         <div className="store-card">
           <img src={silverPack} alt="Silver Pack" className="pack-image" />
           <hr className="pack-divider" />
@@ -37,6 +84,7 @@ const Store = () => {
           <button className="buy-button">Buy now!</button>
         </div>
 
+        {/* Gold */}
         <div className="store-card">
           <img src={goldPack} alt="Gold Pack" className="pack-image" />
           <hr className="pack-divider" />
