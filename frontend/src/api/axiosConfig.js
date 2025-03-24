@@ -3,7 +3,9 @@ import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 const api = axios.create({
-  baseURL: "yousufaa.pythonanywhere.com/api",
+
+  baseURL: "http://yousufaa.pythonanywhere.com/api",
+
 });
 
 api.interceptors.request.use(
@@ -26,9 +28,16 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
         const response = await axios.post("yousufaa.pythonanywhere.com/api/token/refresh/", {
           refresh: refreshToken,
         });
+
+         const response = await axios.post(
+          "http://yousufaa.pythonanywhere.com/api/token/refresh/",
+          { refresh: refreshToken }
+        );
+
 
         const newAccess = response.data.access;
         localStorage.setItem(ACCESS_TOKEN, newAccess);
@@ -46,5 +55,4 @@ api.interceptors.response.use(
   }
 );
 
-// ✅ This is the fix:
 export default api;
