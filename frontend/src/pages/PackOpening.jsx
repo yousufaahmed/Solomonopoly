@@ -1,61 +1,101 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
-import Navbar from "../components/navbar";
-import CR7 from "../assets/cards/CR7.png";
 import "../styles/PackOpening.css";
 import packSound from "../assets/sounds/pack_open.mp3";
+import { jwtDecode } from "jwt-decode";
+import { ACCESS_TOKEN } from "../constants";
+import axios from "axios";
+
+const cardModules = import.meta.glob('../assets/cards/*.png', {
+  eager: true,
+  import: 'default'
+});
 
 const PackOpening = () => {
   const audioRef = useRef(null);
+  const [cardImage, setCardImage] = useState(null);
+  const [cardName, setCardName] = useState("");
+  const [rarity, setRarity] = useState("");
+  const [hasRedeemed, setHasRedeemed] = useState(false);
+  const redemptionRef = useRef(false); // Use ref to track redemption across renders
+
+  const packType = new URLSearchParams(window.location.search).get("pack");
 
   useEffect(() => {
-    // Play the sound
-    const audio = audioRef.current;
-    if (audio) {
-      audio.volume = 1.0;
-      audio.play().catch((err) => console.log(err));
+    const redeemCard = async () => {
+      // Check the ref value instead of state to prevent double redemption
+      if (redemptionRef.current) return;
+      
+      // Set ref immediately to prevent any possibility of double execution
+      redemptionRef.current = true;
+      
+      try {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
 
-      // Start fading out after 2.5 seconds
-      setTimeout(() => {
-        const fadeOutInterval = setInterval(() => {
-          if (audio.volume > 0.05) {
-            audio.volume = audio.volume - 0.05;
-          } else {
-            audio.volume = 0;
-            clearInterval(fadeOutInterval);
-            audio.pause(); // optional: stop playback after fade
-          }
-        }, 100); // fades over ~1.5 seconds
-      }, 2500); // delay before fade starts
-    }
+        const decoded = jwtDecode(token);
 
-    // Firework-style confetti
-    const duration = 3 * 1000;
-    const end = Date.now() + duration;
+        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        const playerId = playerRes.data.player_id;
 
-    const frame = () => {
-      confetti({
-        particleCount: 7,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: ["#bb0000", "#ffffff"],
-      });
-      confetti({
-        particleCount: 7,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: ["#2E8B57", "#ffffff"],
-      });
+        console.log(`Redeeming ${packType} pack for player ${playerId}`); // Debug log
 
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
+        const res = await axios.post(`http://localhost:8000/api/player/${playerId}/redeem_pack/`, {
+          pack_type: packType
+        });
+
+        const card = res.data.card_awarded;
+        setCardName(card.name);
+        setRarity(card.rarity);
+        setHasRedeemed(true);
+
+        const imagePath = `../assets/cards/${card.picture}`;
+        const matchedImage = cardModules[imagePath];
+        setCardImage(matchedImage || null);
+      } catch (err) {
+        console.error("Redemption failed", err);
+        // Reset the ref if redemption fails so user can try again
+        redemptionRef.current = false;
       }
     };
 
+    redeemCard();
+
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 1.0;
+      audio.play().catch(console.error);
+
+      setTimeout(() => {
+        const fade = setInterval(() => {
+          audio.volume = Math.max(audio.volume - 0.05, 0);
+          if (audio.volume === 0) {
+            audio.pause();
+            clearInterval(fade);
+          }
+        }, 100);
+      }, 2500);
+    }
+
+    const end = Date.now() + 3000;
+    const frame = () => {
+      confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 } });
+      confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 } });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    };
     frame();
-  }, []);
+    
+    // Cleanup function
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.volume = 0;
+      }
+    };
+  }, [packType]); // Only depend on packType, not hasRedeemed
 
   return (
     <>
@@ -68,7 +108,17 @@ const PackOpening = () => {
         >
           X
         </button>
-        <img src={CR7} alt="CR7 Card" />
+        {cardImage && (
+          <>
+            <img
+              src={cardImage}
+              alt={cardName}
+              className={`card-image rarity-${rarity}`}
+            />
+            <h2 className="card-name">{cardName}</h2>
+            <p className="card-rarity">{rarity.toUpperCase()}</p>
+          </>
+        )}
       </div>
     </>
   );

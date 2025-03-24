@@ -86,15 +86,24 @@ class Achievement(models.Model):
     achievement_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    logo = models.CharField(max_length=1000)
+    logo = models.CharField(max_length=1000, default="default.png")
     count = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag, blank=True)  # Many-to-Many Relationship
 
 class Card(models.Model):
+    class CardRarity(models.TextChoices):
+        COMMON = "common", "common"
+        UNCOMMON = "uncommon", "uncommon"
+        RARE = "rare", "rare"
+        LEGENDARY = "legendary", "legendary"
     card_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    rarity = models.CharField(max_length=50)
+    picture = models.CharField(max_length=1000, default="default.png")
+    rarity = models.CharField(
+        max_length=10,
+        choices=CardRarity.choices,
+        default=CardRarity.COMMON)
 
 class Checkpoint(models.Model):
     class CheckpointType(models.TextChoices):

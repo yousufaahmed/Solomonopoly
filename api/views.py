@@ -221,15 +221,22 @@ class PlayerTaskView(generics.ListAPIView):
 
 ### Card/Purchase Views ###
 
+# Create a new card
+class CreateCardView(generics.CreateAPIView):
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+    permission_classes = [AllowAny]
+
 class CardListView(generics.ListAPIView):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 class CardView(generics.RetrieveAPIView):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    lookup_field = 'card_id'
 
 class CreatePurchaseRecordView(generics.CreateAPIView):
     serializer_class = PurchasesSerializer
@@ -267,27 +274,84 @@ class PurchaseView(generics.RetrieveAPIView):
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticated]
 
-class PlayerPurchasesView(generics.CreateAPIView):
-    queryset = Purchases.objects.all()
+    
+class RedeemCardPackView(generics.CreateAPIView):
     serializer_class = PurchasesSerializer
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         player_id = kwargs.get("player_id")
         player = get_object_or_404(Player, pk=player_id)
 
-        card_id = request.data.get("card")
-        if not card_id:
-            return Response({"error": "Card ID is required."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        card = get_object_or_404(Card, pk=card_id)
+        pack_type = request.data.get("pack_type", "bronze").lower()
+
+        # Define coin costs and rarity weights per pack
+        pack_costs = {
+            "bronze": 150,
+            "silver": 300,
+            "gold": 450
+        }
+
+        rarity_weights_by_pack = {
+            "bronze":    {"common": 70, "uncommon": 20, "rare": 9, "legendary": 1},
+            "silver":    {"common": 50, "uncommon": 30, "rare": 15, "legendary": 5},
+            "gold":      {"common": 30, "uncommon": 30, "rare": 25, "legendary": 15}
+        }
+
+        if pack_type not in pack_costs:
+            return Response({"error": "Invalid pack type."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if player.points < pack_costs[pack_type]:
+            return Response({"error": "Insufficient coins."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Deduct coins
+        player.points -= pack_costs[pack_type]
+        player.save()
+
+        # Card selection
+        rarity_weights = rarity_weights_by_pack[pack_type]
+        all_cards = list(Card.objects.all())
+        cards_by_rarity = {"common": [], "uncommon": [], "rare": [], "legendary": []}
+        for card in all_cards:
+            cards_by_rarity[card.rarity].append(card)
+
+        weighted_pool = []
+        for rarity, cards in cards_by_rarity.items():
+            if cards:
+                weight = rarity_weights.get(rarity, 0)
+                weighted_pool.extend(cards * weight)
 
 
-        serializer = self.get_serializer(data={"player": player.player_id, "card": card_id})
-        if serializer.is_valid():
-            serializer.save(player = player, card = card)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if not weighted_pool:
+            # fallback: pick from all cards
+            selected_card = random.choice(all_cards)
+        else:
+            selected_card = random.choice(weighted_pool)
+
+
+        selected_card = random.choice(weighted_pool)
+        purchase = Purchases.objects.create(player=player, card=selected_card)
+
+        return Response({
+            "card_awarded": {
+                "card_id": selected_card.card_id,
+                "name": selected_card.name,
+                "picture": selected_card.picture,
+                "rarity": selected_card.rarity
+            },
+            "remaining_coins": player.points
+        }, status=status.HTTP_201_CREATED)
+
+
+    
+
+class PlayerCardView(generics.ListAPIView):
+    serializer_class = CardSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        player_id = self.kwargs["player_id"]
+        return Card.objects.filter(purchases__player__player_id=player_id)
     
 
 class CreateAchievementView(generics.CreateAPIView):
@@ -368,25 +432,6 @@ class UpdatePlayerAchievementView(generics.UpdateAPIView):
 
 #class LeaderboardView():
 
-class RedeemCardPackView(generics.CreateAPIView):
-    serializer_class = PurchasesSerializer
-    permission_classes = [IsAuthenticated]
-
-    def create(self, request, *args, **kwargs):
-        player_id = kwargs.get("player_id")
-        player = get_object_or_404(Player, pk=player_id)
-
-        all_cards = list(Card.objects.all())
-        if len(all_cards) < 3:
-            return Response({"error": "Not enough cards in the database to redeem a pack."}, status=status.HTTP_400_BAD_REQUEST)
-
-        awarded_cards = random.sample(all_cards, k=3)
-        purchases = []
-        for card in awarded_cards:
-            purchase = Purchases.objects.create(player=player, card=card)
-            purchases.append(PurchasesSerializer(purchase).data)
-
-        return Response({"cards_awarded": purchases}, status=status.HTTP_201_CREATED)
 
 
 class UpdatePlayerLogoView(generics.UpdateAPIView):

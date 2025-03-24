@@ -1,5 +1,3 @@
-// Written by Mohammed Zarrar Shahid and Aleem-Deen Abbas Hussein
-
 import React, { useEffect, useState } from "react";
 import Navbar from '../components/navbar';
 import '../styles/Store.css';
@@ -13,6 +11,7 @@ import { ACCESS_TOKEN } from '../constants';
 
 const Store = () => {
   const [coins, setCoins] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -38,11 +37,24 @@ const Store = () => {
           setCoins(userRecord.points);
         }
       } catch (error) {
+        console.error("Failed to fetch coins:", error);
       }
     };
 
     fetchCoins();
   }, []);
+
+  const handleBuyPack = (packType, price) => {
+    if (coins < price) {
+      setErrorMessage("Not enough credits!");
+      // Clear error message after 3 seconds
+      setTimeout(() => setErrorMessage(""), 3000);
+      return;
+    }
+    
+    // If they have enough coins, proceed to pack opening
+    window.location.href = `/packopening?pack=${packType}`;
+  };
 
   return (
     <div className="store-container">
@@ -56,6 +68,13 @@ const Store = () => {
 
       <h1 className="store-title">Store</h1>
       <p className="store-subtitle">Purchase packs to obtain collectors cards!</p>
+      
+      {/* Error message display */}
+      {errorMessage && (
+        <div className="error-message">
+          {errorMessage}
+        </div>
+      )}
 
       <div className="store-cards">
         {/* Bronze */}
@@ -67,8 +86,12 @@ const Store = () => {
           <p className="pack-description">Open to obtain a bronze collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">150 Coins</p>
-          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
-
+          <button
+            className="buy-button"
+            onClick={() => handleBuyPack('bronze', 150)}
+          >
+            Buy now!
+          </button>
         </div>
 
         {/* Silver */}
@@ -80,7 +103,12 @@ const Store = () => {
           <p className="pack-description">Open to obtain a silver collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">300 Coins</p>
-          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
+          <button 
+            className="buy-button" 
+            onClick={() => handleBuyPack('silver', 300)}
+          >
+            Buy now!
+          </button>
         </div>
 
         {/* Gold */}
@@ -92,8 +120,12 @@ const Store = () => {
           <p className="pack-description">Open to obtain a gold collectors card!</p>
           <hr className="pack-divider" />
           <p className="pack-price">450 Coins</p>
-          <button className="buy-button" onClick={() => window.location.href = "/packopening"}>Buy now!</button>
-
+          <button 
+            className="buy-button" 
+            onClick={() => handleBuyPack('gold', 450)}
+          >
+            Buy now!
+          </button>
         </div>
       </div>
     </div>
