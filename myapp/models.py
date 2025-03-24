@@ -29,6 +29,7 @@ class Player(models.Model):
     points = models.IntegerField(default=0)
     deck = models.ManyToManyField('Card', blank=True)
     campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
+    logo = models.CharField(max_length=1000, default="default.png")
 
 class Tag(models.Model):
     class TagKind(models.TextChoices):

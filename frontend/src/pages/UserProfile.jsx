@@ -9,11 +9,12 @@ import Navbar from "../components/navbar";
 import axios from 'axios';
 import termsHtml from "./TermsHtml.jsx";
 
-// ✅ Import avatars once (your original was duplicated)
+// Dynamically import and sort avatars by rarity
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
   eager: true,
   import: 'default'
 });
+
 const avatarEntries = Object.entries(avatarModules);
 
 const commonAvatars = avatarEntries
@@ -35,10 +36,11 @@ const UserProfile = () => {
   const [coins, setCoins] = useState(0);
   const [leaderboardPosition, setLeaderboardPosition] = useState(null);
   const [campus, setCampus] = useState("Streatham");
-  const [selectedAvatar, setSelectedAvatar] = useState(localStorage.getItem("selectedAvatar") || default_profile);
+  const [selectedAvatar, setSelectedAvatar] = useState(default_profile);
   const [showAvatarPopup, setShowAvatarPopup] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
+  const [playerId, setPlayerId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,32 +48,36 @@ const UserProfile = () => {
         const token = localStorage.getItem(ACCESS_TOKEN);
         if (!token) return;
         const decoded = jwtDecode(token);
+        const userId = decoded.user_id;
 
-        const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
+        // Get player ID and logo filename
+        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${userId}/`);
+        const { player_id, logo } = playerRes.data;
+        setPlayerId(player_id);
+
+        // Use the saved logo to reconstruct the avatar path
+        if (logo && avatarModules[`../assets/profilepics/${logo}`]) {
+          setSelectedAvatar(avatarModules[`../assets/profilepics/${logo}`]);
+        }
+
+        // Get username
+        const usernameRes = await axios.get(`http://localhost:8000/api/user/${userId}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (!usernameResponse.ok) throw new Error('Failed to fetch username');
-
-        const { username } = await usernameResponse.json();
+        const { username } = usernameRes.data;
         setName(username);
 
-        const leaderboardResponse = await axios.get("http://localhost:8000/api/leaderboard/");
-        const leaderboardData = leaderboardResponse.data;
+        // Get leaderboard and player rank
+        const leaderboardRes = await axios.get("http://localhost:8000/api/leaderboard/");
+        const sorted = leaderboardRes.data.sort((a, b) => b.points - a.points);
+        const userEntry = sorted.find(record => record.username.toLowerCase() === username.toLowerCase());
 
-        const sortedLeaderboard = leaderboardData.sort((a, b) => b.points - a.points);
-        const userRecord = sortedLeaderboard.find(
-          record => record.username.toLowerCase() === username.toLowerCase()
-        );
-
-        if (userRecord) {
-          setCoins(userRecord.points);
-          const rank = sortedLeaderboard.findIndex(
-            record => record.username.toLowerCase() === username.toLowerCase()
-          ) + 1;
-          setLeaderboardPosition(rank);
+        if (userEntry) {
+          setCoins(userEntry.points);
+          setLeaderboardPosition(sorted.findIndex(r => r.username.toLowerCase() === username.toLowerCase()) + 1);
         }
       } catch (error) {
-        console.error("Error fetching user profile data:", error);
+        console.error("Error fetching profile:", error);
         setName("User");
       }
     };
@@ -79,16 +85,31 @@ const UserProfile = () => {
     fetchData();
   }, []);
 
+  const handleAvatarSelect = async (avatar) => {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    const decoded = jwtDecode(token);
+    const filename = avatar.split("/").pop();
+
+    try {
+      await axios.patch(
+        `http://localhost:8000/api/player/${playerId}/logo/`,
+        { logo: filename },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setSelectedAvatar(avatar);
+      setShowAvatarPopup(false);
+    } catch (err) {
+      console.error("Failed to update avatar:", err);
+    }
+  };
+
   return (
     <div className="user_container">
       <Navbar />
 
       {/* Sign out button */}
-      <button
-        type="submit"
-        className="sign_out_icon"
-        onClick={() => window.location.href = '/logout'}
-      >
+      <button type="submit" className="sign_out_icon" onClick={() => window.location.href = '/logout'}>
         <img src={sign_out} alt="signout" className="sign_out_image" />
       </button>
 
@@ -100,7 +121,7 @@ const UserProfile = () => {
 
       {/* Profile picture - clickable */}
       <img
-        src={selectedAvatar}
+        src={selectedAvatar || default_profile}
         alt="user_img"
         className="user_img"
         onClick={() => setShowAvatarPopup(!showAvatarPopup)}
@@ -120,11 +141,7 @@ const UserProfile = () => {
                 src={avatar}
                 alt={`avatar-${index}`}
                 className="avatar_option"
-                onClick={() => {
-                  setSelectedAvatar(avatar);
-                  localStorage.setItem("selectedAvatar", avatar);
-                  setShowAvatarPopup(false);
-                }}
+                onClick={() => handleAvatarSelect(avatar)}
               />
             ))}
           </div>
@@ -133,11 +150,7 @@ const UserProfile = () => {
 
       {/* Campus dropdown */}
       <div className="campus_select_container">
-        <select
-          className="campus_select"
-          value={campus}
-          onChange={(e) => setCampus(e.target.value)}
-        >
+        <select className="campus_select" value={campus} onChange={(e) => setCampus(e.target.value)}>
           <option value="Streatham">Streatham</option>
           <option value="St Lukes">St Lukes</option>
         </select>
@@ -149,36 +162,19 @@ const UserProfile = () => {
       </button>
 
       {/* Read T&Cs button */}
-      <button
-        type="button"
-        className="terms_btn"
-        onClick={() => setShowTermsPopup(!showTermsPopup)}
-      >
+      <button type="button" className="terms_btn" onClick={() => setShowTermsPopup(!showTermsPopup)}>
         📘 Read T&C's
       </button>
 
-      {/* T&Cs popup */}
       {showTermsPopup && (
         <div className="terms_popup">
-          <button
-            className="terms_close_btn"
-            onClick={() => setShowTermsPopup(false)}
-          >
-            ✖
-          </button>
-          <div
-            className="terms_content"
-            dangerouslySetInnerHTML={{ __html: termsHtml }}
-          />
+          <button className="terms_close_btn" onClick={() => setShowTermsPopup(false)}>✖</button>
+          <div className="terms_content" dangerouslySetInnerHTML={{ __html: termsHtml }} />
         </div>
       )}
 
       {/* Delete account */}
-      <button
-        type="button"
-        className="delete_account_btn"
-        onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
-      >
+      <button type="button" className="delete_account_btn" onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}>
         Delete Account 🗑️
       </button>
 

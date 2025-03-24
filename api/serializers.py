@@ -13,12 +13,12 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ["player_id", "user","username", "points", "deck", "campus"]
+        fields = ["player_id", "user","username", "points", "deck", "campus", "logo"]
 
 class PlayerIdOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['player_id']
+        fields = ['player_id' , 'logo']
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     rank = serializers.SerializerMethodField()
@@ -275,3 +275,9 @@ class PlayerAchievementSerializerUpdate(serializers.ModelSerializer):
             raise serializers.ValidationError("The achievement has already been assigned to the player.")
 
         return PlayerAchievement.objects.create(**validated_data)
+
+
+class PlayerUpdateLogoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['logo']  # Only allow logo updates

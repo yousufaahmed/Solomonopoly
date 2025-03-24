@@ -13,6 +13,7 @@
   "dependencies": {
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.9",
+    "canvas-confetti": "^1.9.3",
     "frontend": "file:",
     "jsqr": "^1.4.0",
     "jwt-decode": "^4.0.0",
