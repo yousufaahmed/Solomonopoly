@@ -51,7 +51,7 @@ const UserProfile = () => {
         const userId = decoded.user_id;
 
         // Get player ID and logo filename
-        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${userId}/`);
+        const playerRes = await axios.get(`http://yousufaa.pythonanywhere.com/api/playerid/${userId}/`);
         const { player_id, logo } = playerRes.data;
         setPlayerId(player_id);
 
@@ -61,14 +61,14 @@ const UserProfile = () => {
         }
 
         // Get username
-        const usernameRes = await axios.get(`http://localhost:8000/api/user/${userId}/username/`, {
+        const usernameRes = await axios.get(`http://yousufaa.pythonanywhere.com/api/user/${userId}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const { username } = usernameRes.data;
         setName(username);
 
         // Get leaderboard and player rank
-        const leaderboardRes = await axios.get("http://localhost:8000/api/leaderboard/");
+        const leaderboardRes = await axios.get("http://yousufaa.pythonanywhere.com/api/leaderboard/");
         const sorted = leaderboardRes.data.sort((a, b) => b.points - a.points);
         const userEntry = sorted.find(record => record.username.toLowerCase() === username.toLowerCase());
 
@@ -92,7 +92,7 @@ const UserProfile = () => {
 
     try {
       await axios.patch(
-        `http://localhost:8000/api/player/${playerId}/logo/`,
+        `http://yousufaa.pythonanywhere.com/api/player/${playerId}/logo/`,
         { logo: filename },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -177,42 +177,36 @@ const UserProfile = () => {
         Delete Account 
       </button>
 
-
       {showDeleteConfirm && (
+        <button
+          type="button"
+          className="delete_confirm_btn"
+          onClick={async () => {
+            try {
+              const response = await fetch(`http://yousufaa.pythonanywhere.com/api/player/${playerId}/delete/`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
 
-  <button
-  type="button"
-  className="delete_confirm_btn"
-  onClick={async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/player/${playerId}/delete/`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      ;
-
-      if (response.ok) {
-        alert("Your account has been successfully deleted.");
-        localStorage.removeItem(ACCESS_TOKEN); // Remove token
-        window.location.href = "/"; // Redirect to home or login page
-      } else {
-        const errorData = await response.json();
-        alert(`Failed to delete account: ${errorData.error || "Unknown error"}`);
-      }
-    } catch (error) {
-      console.error("Deletion error:", error);
-      alert("An error occurred while trying to delete your account.");
-    }
-  }}
->
-  Click to confirm deletion
-</button>
-
-)}
-
-
+              if (response.ok) {
+                alert("Your account has been successfully deleted.");
+                localStorage.removeItem(ACCESS_TOKEN);
+                window.location.href = "/";
+              } else {
+                const errorData = await response.json();
+                alert(`Failed to delete account: ${errorData.error || "Unknown error"}`);
+              }
+            } catch (error) {
+              console.error("Deletion error:", error);
+              alert("An error occurred while trying to delete your account.");
+            }
+          }}
+        >
+          Click to confirm deletion
+        </button>
+      )}
     </div>
   );
 };
