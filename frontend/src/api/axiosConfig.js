@@ -1,9 +1,10 @@
 // axiosConfig.js
 import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+const API = import.meta.env.VITE_API_BASE;
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: `${API}/api`,
 });
 
 api.interceptors.request.use(
@@ -26,7 +27,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const response = await axios.post("http://localhost:8000/api/token/refresh/", {
+        const response = await axios.post(`${API}/api/token/refresh/`, {
           refresh: refreshToken,
         });
 

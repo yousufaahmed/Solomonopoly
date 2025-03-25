@@ -1,8 +1,11 @@
+//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Yousuf Ahmed 
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingIndicator from "../components/LoadingIndicator";
 import "../styles/SignUp.css";
+const API = import.meta.env.VITE_API_BASE;
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -38,16 +41,16 @@ const SignUp = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:8000/api/user/register/", {
+      const res = await axios.post(`${API}/api/user/register/`, {
         username,
         password,
       });
 
-      localStorage.setItem("accessToken", res.data.access);
-      localStorage.setItem("refreshToken", res.data.refresh);
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
 
       console.log("res.data:", res.data);
-      navigate("/userform");
+      navigate("/loginform");
 
     } catch (error) {
       console.error(error);

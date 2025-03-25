@@ -5,6 +5,7 @@ import axios from 'axios';
 import Navbar from '../components/navbar';
 import '../styles/Leaderboard.css';
 import defaultProfile from '../assets/profilepics/PROFILE_COMMON_DEFAULT.png';
+const API = import.meta.env.VITE_API_BASE;
 
 // Dynamically import all profile pics
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
@@ -21,7 +22,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/leaderboard/");
+        const response = await axios.get(`${API}/api/leaderboard/`);
         setLeaderboardData(response.data);
       } catch (err) {
         setError(err.message);
@@ -84,7 +85,7 @@ const Leaderboard = () => {
                 />
                 <div className="user-info">
                   <p className="user-name">{user.username}</p>
-                  <p className="user-score">{user.points} coins</p>
+                  <p className="user-score">{user.points} points</p>
                 </div>
               </div>
               <span className="user-rank">{user.rank}</span>

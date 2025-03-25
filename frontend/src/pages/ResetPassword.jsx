@@ -7,6 +7,7 @@ import "../styles/ResetPassword.css";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import * as jwtDecodeModule from "jwt-decode";
+const API = import.meta.env.VITE_API_BASE;
 
 const ResetPwd = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const ResetPwd = () => {
     setLoading(true);
     try {
       // Replace this URL with your actual reset password API endpoint
-      await axios.post("http://localhost:8000/api/reset-password/", { email });
+      await axios.post(`${API}/api/reset-password/`, { email });
       // Optionally, show a success message or navigate to a confirmation page
       navigate("/loginform");
     } catch (error) {

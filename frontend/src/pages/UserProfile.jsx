@@ -1,3 +1,5 @@
+//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Yousuf Ahmed and Sri Guhan
+
 import React, { useEffect, useState } from "react";
 import '../styles/UserProfile.css';
 import sign_out from "../assets/sign_out.png";
@@ -8,6 +10,7 @@ import { ACCESS_TOKEN } from "../constants";
 import Navbar from "../components/navbar";
 import axios from 'axios';
 import termsHtml from "./TermsHtml.jsx";
+const API = import.meta.env.VITE_API_BASE;
 
 // Dynamically import and sort avatars by rarity
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
@@ -51,9 +54,19 @@ const UserProfile = () => {
         const userId = decoded.user_id;
 
         // Get player ID and logo filename
-        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${userId}/`);
+        const playerRes = await axios.get(`${API}/api/playerid/${userId}/`);
         const { player_id, logo } = playerRes.data;
         setPlayerId(player_id);
+
+
+        // Step 2: Get full player details including campus + logo
+        const playerDetailsRes = await axios.get(`${API}/api/player/${player_id}/`);
+        const campus = playerDetailsRes.data.campus;
+
+
+        // Set campus based on ID
+        const campusName = campus === 2 ? "St Lukes" : "Streatham";
+        setCampus(campusName);
 
         // Use the saved logo to reconstruct the avatar path
         if (logo && avatarModules[`../assets/profilepics/${logo}`]) {
@@ -61,14 +74,14 @@ const UserProfile = () => {
         }
 
         // Get username
-        const usernameRes = await axios.get(`http://localhost:8000/api/user/${userId}/username/`, {
+        const usernameRes = await axios.get(`${API}/api/user/${userId}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const { username } = usernameRes.data;
         setName(username);
 
         // Get leaderboard and player rank
-        const leaderboardRes = await axios.get("http://localhost:8000/api/leaderboard/");
+        const leaderboardRes = await axios.get(`${API}/api/leaderboard/`);
         const sorted = leaderboardRes.data.sort((a, b) => b.points - a.points);
         const userEntry = sorted.find(record => record.username.toLowerCase() === username.toLowerCase());
 
@@ -92,7 +105,7 @@ const UserProfile = () => {
 
     try {
       await axios.patch(
-        `http://localhost:8000/api/player/${playerId}/logo/`,
+        `${API}/api/player/${playerId}/logo/`,
         { logo: filename },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -149,10 +162,39 @@ const UserProfile = () => {
 
       {/* Campus dropdown */}
       <div className="campus_select_container">
-        <select className="campus_select" value={campus} onChange={(e) => setCampus(e.target.value)}>
+      <select
+          className="campus_select"
+          value={campus}
+          onChange={async (e) => {
+            const newCampusName = e.target.value;
+            setCampus(newCampusName);
+
+            const campusMap = {
+              "Streatham": 1,
+              "St Lukes": 2
+            };
+
+            const token = localStorage.getItem(ACCESS_TOKEN);
+            if (!token) return;
+
+            try {
+              await axios.patch(`${API}/api/player/${playerId}/update/`, {
+                campus: campusMap[newCampusName]
+              }, {
+                headers: { Authorization: `Bearer ${token}` }
+              });
+
+              console.log("Campus updated to:", newCampusName);
+            } catch (err) {
+              console.error("Failed to update campus:", err);
+              alert("Failed to update campus.");
+            }
+          }}
+        >
           <option value="Streatham">Streatham</option>
           <option value="St Lukes">St Lukes</option>
         </select>
+
       </div>
 
       {/* Leaderboard position */}
@@ -185,7 +227,7 @@ const UserProfile = () => {
   className="delete_confirm_btn"
   onClick={async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/player/${playerId}/delete/`, {
+      const response = await fetch(`${API}/api/player/${playerId}/delete/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -68,7 +68,7 @@ class PlayerView(generics.RetrieveAPIView):
 class UpdatePlayerDetailsView(generics.UpdateAPIView):
     queryset=Player.objects.all()
     serializer_class=PlayerSerializer
-    permission_classes=[IsAuthenticated]
+    permission_classes=[AllowAny]
 
     lookup_field = 'player_id'
 

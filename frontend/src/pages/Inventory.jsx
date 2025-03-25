@@ -1,9 +1,12 @@
+//Created by: Aleem, Sri Guhan, Yousuf
+
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import "../styles/Inventory.css";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { ACCESS_TOKEN } from "../constants";
+const API = import.meta.env.VITE_API_BASE;
 
 // Dynamically load all card images from folder
 const cardImages = import.meta.glob("../assets/cards/*.png", {
@@ -22,10 +25,10 @@ const Inventory = () => {
         if (!token) return;
     
         const decoded = jwtDecode(token);
-        const playerRes = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        const playerRes = await axios.get(`${API}/api/playerid/${decoded.user_id}/`);
         const playerId = playerRes.data.player_id;
     
-        const cardsRes = await axios.get(`http://localhost:8000/api/player/${playerId}/cards/`);
+        const cardsRes = await axios.get(`${API}/api/player/${playerId}/cards/`);
         const fetchedCards = cardsRes.data;
     
         // Define rarity order
