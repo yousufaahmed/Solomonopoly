@@ -30,8 +30,9 @@ The project uses:
 
 ## Live Demo
 
-- **Frontend** (hosted on Vercel): [https://solomonopoly.vercel.app](https://solomonopoly.vercel.app)  
+- **Frontend** (hosted on Vercel): [https://greenexeter1.vercel.app/](https://greenexeter1.vercel.app/)  
 - **Backend** (hosted on PythonAnywhere): [https://yousufaa.pythonanywhere.com](https://yousufaa.pythonanywhere.com)  
+- **Admin Board** (hosted on PythonAnywhere): [https://yousufaa.pythonanywhere.com/admin](https://yousufaa.pythonanywhere.com/admin) (Create SuperUser First!)
 - **Trello Board**: [Solomonopoly Tasks](https://trello.com/b/M4YLqqFd/solomonopoly)
 - **GitHub Link**: [Source Code](https://github.com/yousufaahmed/Solomonopoly)
 
@@ -55,6 +56,15 @@ pip install -r requirements.txt
 ```bash
 python manage.py migrate
 python manage.py runserver
+```
+
+## Add tags
+```bash
+python manage.py shell
+
+from myapp.models import Tag
+for tag_value, tag_label in Tag.TagKind.choices:
+    Tag.objects.get_or_create(name=tag_value)
 ```
 
 ### Create a superuser:
@@ -95,12 +105,7 @@ npm run dev
 
 Make sure your `.env` (not committed) looks like:
 ```env
-REACT_APP_API_BASE=https://yousufaa.pythonanywhere.com
-```
-
-Then in your React code:
-```js
-axios.get(`${process.env.REACT_APP_API_BASE}/api/player/`);
+VITE_API_BASE=http://localhost:8000
 ```
 
 ---
@@ -154,13 +159,4 @@ npx cypress open
 ```bash
 python manage.py makemigrations myapp
 python manage.py migrate
-```
-
-- If database needs resetting:
-```bash
-python manage.py shell
-
-from myapp.models import Tag
-for tag_value, tag_label in Tag.TagKind.choices:
-    Tag.objects.get_or_create(name=tag_value)
 ```
