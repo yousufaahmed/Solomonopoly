@@ -1,4 +1,7 @@
 // Written by Yousuf Ahmed
+import React from 'react';
+
+
 
 // Define the NotFound component
 function NotFound() {
