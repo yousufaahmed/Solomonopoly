@@ -11,7 +11,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer, PlayerUpdateLogoSerializer, UserUpdateSerializer
 from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement, GamekeeperTask, TaskCheckpoint
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from django.db.models import Case, When, Value, IntegerField
 
 # Create your views here.
@@ -148,7 +148,7 @@ class CreateTaskView(generics.CreateAPIView):
 class UpdateTaskView(generics.UpdateAPIView):
     queryset = Task.objects.prefetch_related("tags").all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 ### Need to fix player first ###
 
@@ -177,7 +177,7 @@ class AssignTaskToPlayerView(generics.CreateAPIView):
 class UpdatePlayerTaskView(generics.UpdateAPIView):
     #queryset = PlayerTask.objects.all()
     serializer_class = PlayerTaskSerializerUpdate
-    permission_classes = [AllowAny]#IsAuthenticated]
+    permission_classes = [AllowAny]#AllowAny]
 
     def get_object(self):
         player_id = self.kwargs["player_id"]
@@ -187,7 +187,7 @@ class UpdatePlayerTaskView(generics.UpdateAPIView):
 # 
 # class TaskboardView(generics.ListAPIView):
 #     serializer_class = PlayerTaskSerializer
-#     permission_classes = [IsAuthenticated]
+#     permission_classes = [AllowAny]
 
 #     def get_queryset(self):
 #         return PlayerTask.objects.filter(player=self.request.user.player).select_related("task")
@@ -268,12 +268,12 @@ class CreatePurchaseRecordView(generics.CreateAPIView):
 class PurchaseListView(generics.ListAPIView):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class PurchaseView(generics.RetrieveAPIView):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     
 class RedeemCardPackView(generics.CreateAPIView):
@@ -415,13 +415,13 @@ class PlayerAchievementView(generics.ListAPIView):
 class UpdateAchievementView(generics.UpdateAPIView):
     queryset = Achievement.objects.all()
     serializer_class = AchievementSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [AllowAny]
 
 
 class UpdatePlayerAchievementView(generics.UpdateAPIView):
     #queryset = PlayerTask.objects.all()
     serializer_class = PlayerAchievementSerializerUpdate
-    permission_classes = [AllowAny]#IsAuthenticated]
+    permission_classes = [AllowAny]#AllowAny]
 
     def get_object(self):
         player_id = self.kwargs["player_id"]
