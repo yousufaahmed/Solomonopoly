@@ -4,8 +4,13 @@ from django.urls import reverse, resolve
 from api.views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, LeaderboardView,
     TaskListView, TaskView, CreateTaskView, UpdateTaskView, AssignTaskToPlayerView,
-    CardListView, CardView, CreatePurchaseRecordView
+    CardListView, CardView, CreatePurchaseRecordView, UsernameView, PlayerIdView,
+    UpdatePlayerLogoView, CreateCardView, PlayerCardView, CreateAchievementView,
+    AchievementListView, AchievementView, UpdateAchievementView,
+    AssignAchievementToPlayerView, UpdatePlayerAchievementView, PlayerAchievementView,
+    RedeemCardPackView
 )
+from api.views import delete_player
 
 class URLTests(TestCase):
 
@@ -37,6 +42,36 @@ class URLTests(TestCase):
         self.assertEqual(url, '/api/player/1/update/')
         resolver = resolve(url)
         self.assertEqual(resolver.func.view_class, UpdatePlayerDetailsView)
+        
+    def test_username_url(self):
+        url = reverse('username', kwargs={'user_id': 1})
+        self.assertEqual(url, '/api/user/1/username/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, UsernameView)
+
+    def test_player_id_url(self):
+        url = reverse('player-id', kwargs={'user': 1})
+        self.assertEqual(url, '/api/playerid/1/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, PlayerIdView)
+
+    def test_update_player_logo_url(self):
+        url = reverse('update_player_logo', kwargs={'player_id': 1})
+        self.assertEqual(url, '/api/player/1/logo/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, UpdatePlayerLogoView)
+
+    def test_delete_player_url(self):
+        url = reverse('delete_player', kwargs={'player_id': 1})
+        self.assertEqual(url, '/api/player/1/delete/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func, delete_player)
+
+    def test_redeem_pack_url(self):
+        url = reverse('redeem-pack', kwargs={'player_id': 1})
+        self.assertEqual(url, '/api/player/1/redeem_pack/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, RedeemCardPackView)
 
     # Task URL Tests
     def test_task_list_url(self):
@@ -102,3 +137,52 @@ class URLTests(TestCase):
         self.assertEqual(url, '/api/player/1/purchases/')
         resolver = resolve(url)
         self.assertEqual(resolver.func.view_class, CreatePurchaseRecordView)
+
+    def test_card_create_url(self):
+        url = reverse('card-create')
+        self.assertEqual(url, '/api/card/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, CreateCardView)
+
+    # Achievement URL Tests
+    def test_create_achievement_url(self):
+        url = reverse('achievement-list-create')
+        self.assertEqual(url, '/api/achievement/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, CreateAchievementView)
+
+    def test_achievement_list_url(self):
+        url = reverse('achievement-list')
+        self.assertEqual(url, '/api/achievements/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, AchievementListView)
+
+    def test_achievement_detail_url(self):
+        url = reverse('achievement-detail', kwargs={'achievement_id': 1})
+        self.assertEqual(url, '/api/achievement/1/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, AchievementView)
+
+    def test_update_achievement_url(self):
+        url = reverse('achievement-update', kwargs={'achievement_id': 1})
+        self.assertEqual(url, '/api/achievement/1/update/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, UpdateAchievementView)
+
+    def test_assign_achievement_url(self):
+        url = reverse('assign-achievement', kwargs={'player_id': 1})
+        self.assertEqual(url, '/api/achievement/1/assign_achievement/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, AssignAchievementToPlayerView)
+
+    def test_update_player_achievement_url(self):
+        url = reverse('update-player-achievement', kwargs={'player_id': 1, 'achievement_id': 2})
+        self.assertEqual(url, '/api/achievement/1/2/update/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, UpdatePlayerAchievementView)
+
+    def test_player_achievements_url(self):
+        url = reverse('get-player-achievements', kwargs={'player_id': 1})
+        self.assertEqual(url, '/api/player/1/achievements/')
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, PlayerAchievementView)
