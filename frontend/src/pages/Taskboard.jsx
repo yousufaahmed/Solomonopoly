@@ -138,7 +138,7 @@ const TaskBoard = () => {
                             Completed
                           </button>
                         ) : shouldHideCompleteButton(taskObj) ? (
-                          <p className="qr-note">Complete via QR code</p>
+                          <a href="/qr" className="qr-note">Complete via QR code</a>
                         ) : taskObj.max_count <= 1 ? (
                           <button
                             className="task-button"
