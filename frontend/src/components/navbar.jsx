@@ -6,6 +6,7 @@ import default_profile from "../assets/profilepics/PROFILE_COMMON_DEFAULT.png";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+const API = import.meta.env.VITE_API_BASE;
 
 // Import all profile avatars dynamically
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
@@ -29,7 +30,7 @@ const Navbar = () => {
         if (!token) return;
         const decoded = jwtDecode(token);
 
-        const res = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
+        const res = await axios.get(`${API}/api/playerid/${decoded.user_id}/`);
         const logoFile = res.data.logo;
 
         if (logoFile && avatarModules[`../assets/profilepics/${logoFile}`]) {

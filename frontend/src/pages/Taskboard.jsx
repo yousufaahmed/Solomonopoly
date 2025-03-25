@@ -1,4 +1,4 @@
-//  Written by Aleem Abbas-Hussain and Yousuf Ahmed and Sri Guhan
+//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Yousuf Ahmed and Sri Guhan
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import Footer from "../components/footer";
 import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 import Navbar from "../components/navbar"; 
+const API = import.meta.env.VITE_API_BASE;
 
 
 
@@ -24,10 +25,10 @@ const TaskBoard = () => {
         if (!token) return;
 
         const decoded = jwtDecode(token);
-        var response1 = await axios.get(`http://localhost:8000/api/playerid/${decoded.user_id}/`);
+        var response1 = await axios.get(`${API}/api/playerid/${decoded.user_id}/`);
         var playerId = response1.data.player_id;
         setPlayerId(playerId);
-        const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
+        const response = await axios.get(`${API}/api/player/${playerId}/tasks/`);
         setTasks(response.data);
         
       } catch (err) {
@@ -47,16 +48,16 @@ const TaskBoard = () => {
     try {
       if (taskObj.max_count <= 1) {
         // manually send { completed: true }
-        await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`, {
+        await axios.patch(`${API}/api/task/${playerId}/${taskId}/update/`, {
           completed: true
         });
       } else {
         // backend handles progress
-        await axios.patch(`http://localhost:8000/api/task/${playerId}/${taskId}/update/`);
+        await axios.patch(`${API}/api/task/${playerId}/${taskId}/update/`);
       }
   
       // Always refresh task list after update
-      const response = await axios.get(`http://localhost:8000/api/player/${playerId}/tasks/`);
+      const response = await axios.get(`${API}/api/player/${playerId}/tasks/`);
       setTasks(response.data);
     } catch (err) {
       console.error("Error updating task:", err);

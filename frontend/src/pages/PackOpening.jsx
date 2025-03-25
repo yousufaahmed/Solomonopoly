@@ -1,3 +1,5 @@
+//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Sri Guhan
+
 import React, { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import "../styles/packopening.css";
@@ -5,6 +7,7 @@ import packSound from "../assets/sounds/pack_open.mp3";
 import { jwtDecode } from "jwt-decode";
 import { ACCESS_TOKEN } from "../constants";
 import axios from "axios";
+const API = import.meta.env.VITE_API_BASE;
 
 const cardModules = import.meta.glob('../assets/cards/*.png', {
   eager: true,
@@ -38,12 +41,12 @@ const PackOpening = () => {
 
         const decoded = jwtDecode(token);
 
-        const playerRes = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
+        const playerRes = await axios.get(`${API}/api/playerid/${decoded.user_id}/`);
         const playerId = playerRes.data.player_id;
 
         console.log(`Redeeming ${packType} pack for player ${playerId}`); // Debug log
 
-        const res = await axios.post(`yousufaa.pythonanywhere.com/api/player/${playerId}/redeem_pack/`, {
+        const res = await axios.post(`${API}/api/player/${playerId}/redeem_pack/`, {
           pack_type: packType
         });
 

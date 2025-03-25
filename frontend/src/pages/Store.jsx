@@ -1,3 +1,5 @@
+//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Yousuf Ahmed and Sri Guhan
+
 import React, { useEffect, useState } from "react";
 import Navbar from '../components/navbar';
 import '../styles/Store.css';
@@ -8,6 +10,7 @@ import coinsImage from '../assets/coins.png';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { ACCESS_TOKEN } from '../constants';
+const API = import.meta.env.VITE_API_BASE;
 
 const Store = () => {
   const [coins, setCoins] = useState(0);
@@ -21,12 +24,12 @@ const Store = () => {
 
         const decoded = jwtDecode(token);
 
-        const usernameResponse = await fetch(`http://localhost:8000/api/user/${decoded.user_id}/username/`, {
+        const usernameResponse = await fetch(`${API}/api/user/${decoded.user_id}/username/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const { username } = await usernameResponse.json();
 
-        const leaderboardResponse = await axios.get("http://localhost:8000/api/leaderboard/");
+        const leaderboardResponse = await axios.get(`${API}/api/leaderboard/`);
         const leaderboardData = leaderboardResponse.data;
 
         const userRecord = leaderboardData.find(

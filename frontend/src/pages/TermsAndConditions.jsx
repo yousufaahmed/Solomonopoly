@@ -1,3 +1,5 @@
+//  Written by Aleem Abbas-Hussain and Mohammed Shahid 
+
 import React from "react";
 import termsHtml from "./TermsHtml.jsx"; // import the string from above
 import "../styles/TermsAndConditions.css";

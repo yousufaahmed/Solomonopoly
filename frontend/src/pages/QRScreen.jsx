@@ -14,6 +14,7 @@ import ios_torch_button from '../assets/ios_torch_button.png';
 import Footer from '../components/footer';
 import { ACCESS_TOKEN } from '../constants';
 import Navbar from "../components/navbar"
+const API = import.meta.env.VITE_API_BASE;
 
 function QRScreen() {
   const webcamRef = useRef(null);
@@ -31,7 +32,7 @@ function QRScreen() {
 
         const decoded = jwtDecode(token);
         console.log('Decoded token:', decoded);
-        const response = await axios.get(`yousufaa.pythonanywhere.com/api/playerid/${decoded.user_id}/`);
+        const response = await axios.get(`${API}/api/playerid/${decoded.user_id}/`);
         setPlayerId(response.data.player_id);
       } catch (err) {
         console.error("Error fetching player ID:", err);
@@ -67,7 +68,7 @@ function QRScreen() {
 
             if (playerId) {
               try {
-                await axios.patch(`yousufaa.pythonanywhere.com/api/task/${playerId}/${taskId}/update/`, {
+                await axios.patch(`${API}/api/task/${playerId}/${taskId}/update/`, {
                   completed: true,
                 });
                 alert("Task updated successfully!");
