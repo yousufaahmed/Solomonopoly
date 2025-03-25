@@ -64,7 +64,6 @@ function QRScreen() {
           if (code) {
             const taskId = Number(code.data); // Ensure it's a number
             setScanResult(taskId);
-            alert(`QR Code Task ID: ${taskId}`);
 
             if (playerId) {
               try {
