@@ -3,9 +3,8 @@
 import React from "react";
 import '../styles/Home.css';
 import Navbar from "../components/navbar"; 
-import qr from '../assets/qr_code.png';
 import tree from '../assets/tree.svg';
-import ovals from "../assets/ovals.png";
+
 
 const Home = () => {
     return (

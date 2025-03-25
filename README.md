@@ -1,153 +1,166 @@
-# Solomonopoly
-Sustainability Project
 
-## Members
-1. Ernest Bozjigitov
-2. Sri Guhanathan
-3. Mohammed Shahid  
-4. Eliot Deacon
-5. Yousuf Ahmed
-6. Ahnaf Tahmid Haque
-7. Aleem Abbas-Hussain
+# Solomonopoly  
+A gamified sustainability app promoting environmentally friendly habits through tasks, achievements, and rewards.
 
-## Trello link
-https://trello.com/b/M4YLqqFd/solomonopoly
+---
 
-## BACKEND
+## Team Members
 
-### 1 - Start virtual environment in terminal
+- Ernest Bozjigitov  
+- Sri Guhanathan  
+- Mohammed Shahid  
+- Eliot Deacon  
+- Yousuf Ahmed  
+- Ahnaf Tahmid Haque  
+- Aleem Abbas-Hussain  
+
+---
+
+## Project Overview
+
+**Solomonopoly** is a full-stack web application designed to increase sustainability awareness and engagement on campus. Users complete real-world eco-friendly tasks (like recycling, walking, or saving water), earn coins, unlock achievements, and collect reward cards.  
+
+The project uses:
+- **Django REST Framework** for the backend
+- **React with Vite** for the frontend
+- PostgreSQL or SQLite for data storage
+- Authentication via JWT
+
+---
+
+## Live Demo
+
+- **Frontend** (hosted on Vercel): [https://solomonopoly.vercel.app](https://solomonopoly.vercel.app)  
+- **Backend** (hosted on PythonAnywhere): [https://yousufaa.pythonanywhere.com](https://yousufaa.pythonanywhere.com)  
+- **Trello Board**: [Solomonopoly Tasks](https://trello.com/b/M4YLqqFd/solomonopoly)
+- **GitHub Link**: [Source Code](https://github.com/yousufaahmed/Solomonopoly)
+
+---
+
+## Backend Setup (Django)
+
+### Create and activate virtual environment:
+```bash
 python -m venv env
+source env/bin/activate      # Mac/Linux
+.\env\Scripts\activate       # Windows
+```
 
-.\env\Scripts\activate <- WINDOWS
-
-source env/bin/activate <- MacOS 
-
-### 2 - Download dependencies
+### Install dependencies:
+```bash
 pip install -r requirements.txt
+```
 
-### 3 - Run django server
-
+### Run migrations and start server:
+```bash
 python manage.py migrate
-
 python manage.py runserver
+```
 
+### Create a superuser:
+```bash
+python manage.py createsuperuser
+# Visit: http://127.0.0.1:8000/admin
+```
 
-## MAKE SUPER USER TO MANUALLY ADD ENTRIES TO DATABASE
+---
 
-1) python manage.py createsuperuser
-2) http://127.0.0.1:8000/admin
+## Frontend Setup (React + Vite)
 
-## Make tasks via API (DO NOT KEEP THIS IN THE README)
+The Solomonopoly project’s frontend is built using React, with key components like user registration, login, task management, profile handling, and store interactions. It incorporates dynamic features such as QR scanning, avatar selection, and pack opening. User data, like coins and campus information, is managed with API calls, and JWT authentication ensures secure interactions. Styling is handled with CSS, while external assets like images and sounds enhance the user experience. Testing is performed with Jest, covering component rendering, form validation, and API integration. The app integrates well with a backend API, though some testing issues related to modern JavaScript syntax and mocks need resolution.
 
-1) python manage.py runserver
-2) navigate to http://127.0.0.1:8000/api/task/
-3) switch to raw data and make your task
-4) POST
-
-## Assign tasks via API (DO NOT KEEP THIS IN THE README)
-1) python manage.py runserver
-2) navigate to http://127.0.0.1:8000/api/task/<int:player_id>/assign_task/
-3) select player id and task id
-4) POST
-
-## AFTER CHANGES LIKE ADDING A DIRECTORY OR CHANGING MODEL OR ADDING VIEWS
-
-1) python manage.py makemigrations myapp
-2) python manage.py migrate
-
-## RUN FRONTEND
-
-### 1 - Enter frontend folder
+### Navigate to frontend folder:
+```bash
 cd frontend
+```
 
-### 2 - Start virtual environment in terminal
-python -m venv env
-
-.\env\Scripts\activate <- WINDOWS
-
-source env/bin/activate <- MacOS
-
-### 3 - Download Dependencies
+### Install dependencies:
+```bash
 npm install
+npm install react-leaflet-cluster canvas-confetti
+```
 
-npm install react-leaflet-cluster
-
-npm install canvas-confetti
-
-### 4 - Run app
+### Start the development server:
+```bash
 npm run dev
+```
 
-### 5 (Mobile) - View website
-Enter the web address provided under "Network" into your Chrome browser.
+### View the app:
+- On local machine: `http://localhost:5173/`
+- On mobile: use the "Network" URL in terminal
 
-e.g. https://XXX.XXX.X.XXX:XXXX/
+---
 
-### 5 (Laptop/PC) - View Website
-Enter the web address provided under "Network" into your Chrome browser.
+## Environment Configuration
 
-Or if using on the same machine select the first server under "Local"
+Make sure your `.env` (not committed) looks like:
+```env
+REACT_APP_API_BASE=https://yousufaa.pythonanywhere.com
+```
 
-Right-click, select "Inspect" and enter:
+Then in your React code:
+```js
+axios.get(`${process.env.REACT_APP_API_BASE}/api/player/`);
+```
 
-CONTROL + SHIFT + M -> WINDOWS
+---
 
-COMMAND + SHIFT + M -> MACOS
+## Testing
 
-to enter Mobile view
-
-## FRONTEND TESTING
-
-### 1 - Enter frontend folder
-cd frontend
-
-### 2 - Start virtual environment in terminal
-python -m venv env
-
-.\env\Scripts\activate <- WINDOWS
-
-source env/bin/activate <- MacOS
-
-### 3 - Download Dependencies
-npm install --save-dev jest
-
-### 4 - Run tests
-npm test
-
-## BACKEND TESTING
-
-Run Django Tests:
-
-
-To run all backend tests, execute the following command from the **root directory**:  
-
-
+### Backend Tests (Django):
+```bash
 python manage.py test api.tests
+```
 
-## FULL-STACK TESTING
+### Frontend Tests (Jest):
 
-Run full-stack tests (cypress or Playwright):
+The frontend of the Solomonopoly project uses Jest for testing various components and features. The tests cover key functionality such as user registration, login, task management, pack opening, user profile management, and store interactions. The test suite checks component rendering, form validation, API integration, and user interactions like avatar selection, coin display, and task completion. Some tests have encountered issues due to modern JavaScript syntax (e.g., import.meta) and the need for proper mocks, but successful tests include core app functionality, homepage layout, and store component behavior. Further configuration adjustments are needed for smooth test execution.
+
+```bash
+cd frontend
+npm install --save-dev jest
+npm test
+```
+
+### Full-Stack Tests (Cypress):
+```bash
 npx cypress open
+```
 
-FRONTEND TEMPLATE COMES FROM HERE:
-https://github.com/techwithtim/Django-React-Full-Stack-App
+---
 
+## Dependencies
 
+**Backend:**
+- Django
+- djangorestframework
+- django-cors-headers
+- simplejwt
 
+**Frontend:**
+- React
+- Vite
+- Axios
+- react-leaflet-cluster
+- canvas-confetti
+- Jest (for testing)
+- Cypress (optional)
 
+---
 
+## Dev Notes
 
+- After model/view changes:
+```bash
+python manage.py makemigrations myapp
+python manage.py migrate
+```
 
-
-
-
-
-
-
-# in case of database reset, run:
-
+- If database needs resetting:
+```bash
 python manage.py shell
 
 from myapp.models import Tag
-
 for tag_value, tag_label in Tag.TagKind.choices:
     Tag.objects.get_or_create(name=tag_value)
+```
