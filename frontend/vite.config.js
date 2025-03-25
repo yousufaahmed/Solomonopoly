@@ -11,5 +11,15 @@ export default defineConfig({
     host: true
   },
   plugins: [react(), basicSsl()],
-  base:"/",
+  base: "/",
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
 });
