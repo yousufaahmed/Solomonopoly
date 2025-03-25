@@ -1,4 +1,4 @@
-#Contributors: Eliot, Ernest, Sri
+#Contributors: Eliot, Ernest, Sri, Ahnaf
 from django.urls import path
 from .views import (
     PlayerListView, PlayerView, UpdatePlayerDetailsView, UpdatePlayerTaskView, PlayerTaskView, LeaderboardView, UsernameView, TaskboardView, delete_player, 

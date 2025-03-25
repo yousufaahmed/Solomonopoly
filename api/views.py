@@ -1,4 +1,4 @@
-#Contributors: Eliot, Ernest, Sri
+#Contributors: Eliot, Ernest, Sri, Ahnaf
 from django.http import JsonResponse
 import random
 from django.shortcuts import get_object_or_404, render, redirect
