@@ -67,6 +67,8 @@ python manage.py createsuperuser
 
 ## Frontend Setup (React + Vite)
 
+The Solomonopoly project’s frontend is built using React, with key components like user registration, login, task management, profile handling, and store interactions. It incorporates dynamic features such as QR scanning, avatar selection, and pack opening. User data, like coins and campus information, is managed with API calls, and JWT authentication ensures secure interactions. Styling is handled with CSS, while external assets like images and sounds enhance the user experience. Testing is performed with Jest, covering component rendering, form validation, and API integration. The app integrates well with a backend API, though some testing issues related to modern JavaScript syntax and mocks need resolution.
+
 ### Navigate to frontend folder:
 ```bash
 cd frontend
@@ -111,6 +113,9 @@ python manage.py test api.tests
 ```
 
 ### Frontend Tests (Jest):
+
+The frontend of the Solomonopoly project uses Jest for testing various components and features. The tests cover key functionality such as user registration, login, task management, pack opening, user profile management, and store interactions. The test suite checks component rendering, form validation, API integration, and user interactions like avatar selection, coin display, and task completion. Some tests have encountered issues due to modern JavaScript syntax (e.g., import.meta) and the need for proper mocks, but successful tests include core app functionality, homepage layout, and store component behavior. Further configuration adjustments are needed for smooth test execution.
+
 ```bash
 cd frontend
 npm install --save-dev jest
@@ -140,70 +145,6 @@ npx cypress open
 - canvas-confetti
 - Jest (for testing)
 - Cypress (optional)
-
-## RUN FRONTEND
-
-Led by Aleem Abbas-Hussain. and Mohammed Zarrar Shahid
-
-The Solomonopoly project’s frontend is built using React, with key components like user registration, login, task management, profile handling, and store interactions. It incorporates dynamic features such as QR scanning, avatar selection, and pack opening. User data, like coins and campus information, is managed with API calls, and JWT authentication ensures secure interactions. Styling is handled with CSS, while external assets like images and sounds enhance the user experience. Testing is performed with Jest, covering component rendering, form validation, and API integration. The app integrates well with a backend API, though some testing issues related to modern JavaScript syntax and mocks need resolution.
-
-### 1 - Enter frontend folder
-cd frontend
-
-### 2 - Start virtual environment in terminal
-python -m venv env
-
-.\env\Scripts\activate <- WINDOWS
-
-source env/bin/activate <- MacOS
-
-### 3 - Download Dependencies
-npm install
-
-npm install react-leaflet-cluster
-
-npm install canvas-confetti
-
-### 4 - Run app
-npm run dev
-
-### 5 (Mobile) - View website
-Enter the web address provided under "Network" into your Chrome browser.
-
-e.g. https://XXX.XXX.X.XXX:XXXX/
-
-### 5 (Laptop/PC) - View Website
-Enter the web address provided under "Network" into your Chrome browser.
-
-Or if using on the same machine select the first server under "Local"
-
-Right-click, select "Inspect" and enter:
-
-CONTROL + SHIFT + M -> WINDOWS
-
-COMMAND + SHIFT + M -> MACOS
-
-to enter Mobile view
-
-## FRONTEND TESTING
-
-The frontend of the Solomonopoly project uses Jest for testing various components and features. The tests cover key functionality such as user registration, login, task management, pack opening, user profile management, and store interactions. The test suite checks component rendering, form validation, API integration, and user interactions like avatar selection, coin display, and task completion. Some tests have encountered issues due to modern JavaScript syntax (e.g., import.meta) and the need for proper mocks, but successful tests include core app functionality, homepage layout, and store component behavior. Further configuration adjustments are needed for smooth test execution.
-
-### 1 - Enter frontend folder
-cd frontend
-
-### 2 - Start virtual environment in terminal
-python -m venv env
-
-.\env\Scripts\activate <- WINDOWS
-
-source env/bin/activate <- MacOS
-
-### 3 - Download Dependencies
-npm install --save-dev jest
-
-### 4 - Run tests
-npm test
 
 ---
 
