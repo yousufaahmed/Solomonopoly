@@ -1,5 +1,3 @@
-//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Yousuf Ahmed and Sri Guhan
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Taskboard.css';
@@ -8,8 +6,6 @@ import { jwtDecode } from 'jwt-decode';
 import { ACCESS_TOKEN } from "../constants";
 import Navbar from "../components/navbar"; 
 const API = import.meta.env.VITE_API_BASE;
-
-
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
@@ -64,6 +60,13 @@ const TaskBoard = () => {
     }
   };
   
+  // Function to check if a task should have its complete button hidden
+  const shouldHideCompleteButton = (task) => {
+    return task.tags.some(tag => 
+      tag.toLowerCase() === "streatham" || 
+      tag.toLowerCase() === "st lukes"
+    );
+  };
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
@@ -90,7 +93,6 @@ const TaskBoard = () => {
   });
 
   const allTaskCategories = [...new Set(incompleteTasks.flatMap(task => task.tags))];
-
 
   return (
     <div className="taskboard-container">
@@ -135,6 +137,8 @@ const TaskBoard = () => {
                           <button className="task-button completed" disabled>
                             Completed
                           </button>
+                        ) : shouldHideCompleteButton(taskObj) ? (
+                          <p className="qr-note">Complete via QR code</p>
                         ) : taskObj.max_count <= 1 ? (
                           <button
                             className="task-button"
@@ -188,12 +192,8 @@ const TaskBoard = () => {
           </div>
         </>
       )}
-
     </div>
   );
 };
 
 export default TaskBoard;
-
-
-

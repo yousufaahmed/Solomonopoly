@@ -178,6 +178,7 @@ function App() {
               element={<NotFound />} 
             />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/login" element={<Navigate to="/loginform" replace />} />
           </Routes>
         </BrowserRouter>
       </div>

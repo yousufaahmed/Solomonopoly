@@ -7,8 +7,9 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer, PlayerUpdateLogoSerializer
+from .serializers import UserSerializer, TaskSerializer, CardSerializer, PurchasesSerializer, PlayerSerializer,PlayerIdOnlySerializer, PlayerTaskSerializer, LeaderboardSerializer, PlayerTaskSerializerUpdate, PlayerAchievementSerializerUpdate, TaskBoardSerializer, AchievementSerializer, PlayerAchievementSerializer, PlayerUpdateLogoSerializer, UserUpdateSerializer
 from myapp.models import Player, Task, Card, Purchases, PlayerTask, Achievement, PlayerAchievement, GamekeeperTask, TaskCheckpoint
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from django.db.models import Case, When, Value, IntegerField
@@ -487,3 +488,7 @@ def delete_player(request, player_id):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
     
+class UserUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserUpdateSerializer
+    permission_classes = [AllowAny]  # or [AllowAny] if you're testing
