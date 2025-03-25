@@ -6,7 +6,7 @@ import axios from "axios";
 import LoadingIndicator from "../components/LoadingIndicator";
 import "../styles/SignUp.css";
 const API = import.meta.env.VITE_API_BASE;
-
+console.log("API:", API);
 const SignUp = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -15,12 +15,13 @@ const SignUp = () => {
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErMsg] = useState("");
-
+  console.log("API:", API);
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log("API:", API);
 
     if (password.length < 6) {
     alert("Password must be at least 6 characters!");
