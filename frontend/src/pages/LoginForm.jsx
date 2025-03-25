@@ -40,7 +40,8 @@ const LoginForm = () => {
       navigate("/home");
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
-      alert("Login failed: " + JSON.stringify(error.response?.data || error.message));
+      alert("Oops! Something went wrong during login. Please check your credentials and try again.");
+      setLoading(false);
     } finally {
       setLoading(false);
     }

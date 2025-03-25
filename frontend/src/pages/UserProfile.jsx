@@ -1,5 +1,3 @@
-//  Written by Aleem Abbas-Hussain and Mohammed Shahid and Yousuf Ahmed and Sri Guhan
-
 import React, { useEffect, useState } from "react";
 import '../styles/UserProfile.css';
 import sign_out from "../assets/sign_out.png";
@@ -12,27 +10,12 @@ import axios from 'axios';
 import termsHtml from "./TermsHtml.jsx";
 const API = import.meta.env.VITE_API_BASE;
 
-// Dynamically import and sort avatars by rarity
+// Dynamically import avatars
 const avatarModules = import.meta.glob('../assets/profilepics/*.png', {
   eager: true,
   import: 'default'
 });
-
-const avatarEntries = Object.entries(avatarModules);
-
-const commonAvatars = avatarEntries
-  .filter(([filename]) => filename.includes("PROFILE_COMMON_"))
-  .map(([_, src]) => src);
-
-const uncommonAvatars = avatarEntries
-  .filter(([filename]) => filename.includes("PROFILE_UNCOMMON_"))
-  .map(([_, src]) => src);
-
-const rareAvatars = avatarEntries
-  .filter(([filename]) => filename.includes("PROFILE_RARE_"))
-  .map(([_, src]) => src);
-
-const avatarList = [...commonAvatars, ...uncommonAvatars, ...rareAvatars];
+const avatarList = Object.entries(avatarModules).map(([_, src]) => src);
 
 const UserProfile = () => {
   const [name, setName] = useState('');
@@ -44,53 +27,52 @@ const UserProfile = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
   const [playerId, setPlayerId] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  // Username/Password update
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem(ACCESS_TOKEN);
         if (!token) return;
+
         const decoded = jwtDecode(token);
         const userId = decoded.user_id;
+        setUserId(userId);
 
-        // Get player ID and logo filename
         const playerRes = await axios.get(`${API}/api/playerid/${userId}/`);
         const { player_id, logo } = playerRes.data;
         setPlayerId(player_id);
 
-
-        // Step 2: Get full player details including campus + logo
         const playerDetailsRes = await axios.get(`${API}/api/player/${player_id}/`);
         const campus = playerDetailsRes.data.campus;
+        setCampus(campus === 2 ? "St Lukes" : "Streatham");
 
-
-        // Set campus based on ID
-        const campusName = campus === 2 ? "St Lukes" : "Streatham";
-        setCampus(campusName);
-
-        // Use the saved logo to reconstruct the avatar path
         if (logo && avatarModules[`../assets/profilepics/${logo}`]) {
           setSelectedAvatar(avatarModules[`../assets/profilepics/${logo}`]);
         }
 
-        // Get username
         const usernameRes = await axios.get(`${API}/api/user/${userId}/username/`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
-        const { username } = usernameRes.data;
-        setName(username);
+        setName(usernameRes.data.username);
 
-        // Get leaderboard and player rank
         const leaderboardRes = await axios.get(`${API}/api/leaderboard/`);
         const sorted = leaderboardRes.data.sort((a, b) => b.points - a.points);
-        const userEntry = sorted.find(record => record.username.toLowerCase() === username.toLowerCase());
+        const userEntry = sorted.find(
+          r => r.username.toLowerCase() === usernameRes.data.username.toLowerCase()
+        );
 
         if (userEntry) {
           setCoins(userEntry.points);
-          setLeaderboardPosition(sorted.findIndex(r => r.username.toLowerCase() === username.toLowerCase()) + 1);
+          setLeaderboardPosition(sorted.indexOf(userEntry) + 1);
         }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
         setName("User");
       }
     };
@@ -100,7 +82,6 @@ const UserProfile = () => {
 
   const handleAvatarSelect = async (avatar) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
-    const decoded = jwtDecode(token);
     const filename = avatar.split("/").pop();
 
     try {
@@ -109,7 +90,6 @@ const UserProfile = () => {
         { logo: filename },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
       setSelectedAvatar(avatar);
       setShowAvatarPopup(false);
     } catch (err) {
@@ -117,57 +97,82 @@ const UserProfile = () => {
     }
   };
 
+  const handleUserUpdate = async () => {
+    try {
+      const token = localStorage.getItem(ACCESS_TOKEN);
+      if (!token) return;
+
+      // Important: Use user ID, not player ID for this endpoint
+      await axios.patch(`${API}/api/user/${userId}/update/`, {
+        username: newUsername,
+        password: newPassword
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      alert("Login details updated successfully!");
+      // Clear form and redirect to login page
+      setNewUsername("");
+      setNewPassword("");
+      setShowUserDropdown(false);
+      
+      // Remove token and redirect to login form
+      localStorage.removeItem(ACCESS_TOKEN);
+      window.location.href = "/loginform";
+    } catch (err) {
+      console.error("Error updating login:", err);
+      alert("Failed to update login details. Please try again.");
+    }
+  };
+
   return (
     <div className="user_container">
       <Navbar />
 
-      {/* Sign out button */}
+      {/* Sign Out */}
       <button type="submit" className="sign_out_icon" onClick={() => window.location.href = '/logout'}>
         <img src={sign_out} alt="signout" className="sign_out_image" />
       </button>
 
-      {/* Coins display */}
+      {/* Coins */}
       <button type="submit" className="coins_icon">
         <img src={coinsImage} alt="coins" className="coins_image" />
         {coins}
       </button>
 
-      {/* Profile picture - clickable */}
-      <img
-        src={selectedAvatar || default_profile}
-        alt="user_img"
-        className="user_img"
-        onClick={() => setShowAvatarPopup(!showAvatarPopup)}
-        style={{ cursor: "pointer" }}
-      />
+      {/* Avatar with ✏️ */}
+      <div className="avatar-edit-container" onClick={() => setShowAvatarPopup(!showAvatarPopup)}>
+        <img src={selectedAvatar || default_profile} alt="user_img" className="user_img" />
+        <span className="emoji-pen">✏️</span>
+      </div>
 
       <div className="user_text">
         <h1 className="user_intro">Hi {name}!</h1>
         <h1 className="user_date">Joined 2025</h1>
-
-        {showAvatarPopup && (
-          <div className="avatar_popup">
-            {avatarList.map((avatar, index) => (
-              <img
-                key={index}
-                src={avatar}
-                alt={`avatar-${index}`}
-                className="avatar_option"
-                onClick={() => handleAvatarSelect(avatar)}
-              />
-            ))}
-          </div>
-        )}
       </div>
+
+      {showAvatarPopup && (
+        <div className="avatar_popup">
+          {avatarList.map((avatar, index) => (
+            <img
+              key={index}
+              src={avatar}
+              alt={`avatar-${index}`}
+              className="avatar_option"
+              onClick={() => handleAvatarSelect(avatar)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Campus dropdown */}
       <div className="campus_select_container">
-      <select
+        <select
           className="campus_select"
           value={campus}
           onChange={async (e) => {
-            const newCampusName = e.target.value;
-            setCampus(newCampusName);
+            const newCampus = e.target.value;
+            setCampus(newCampus);
 
             const campusMap = {
               "Streatham": 1,
@@ -179,14 +184,12 @@ const UserProfile = () => {
 
             try {
               await axios.patch(`${API}/api/player/${playerId}/update/`, {
-                campus: campusMap[newCampusName]
+                campus: campusMap[newCampus]
               }, {
                 headers: { Authorization: `Bearer ${token}` }
               });
-
-              console.log("Campus updated to:", newCampusName);
+              console.log("Campus updated.");
             } catch (err) {
-              console.error("Failed to update campus:", err);
               alert("Failed to update campus.");
             }
           }}
@@ -194,15 +197,37 @@ const UserProfile = () => {
           <option value="Streatham">Streatham</option>
           <option value="St Lukes">St Lukes</option>
         </select>
-
       </div>
 
-      {/* Leaderboard position */}
+      {/* Change Login Button */}
+      <button type="button" className="leaderpos_btn" onClick={() => setShowUserDropdown(!showUserDropdown)}>
+        ✨ Change Login Details
+      </button>
+
+      {showUserDropdown && (
+        <div className="user_dropdown">
+          <input
+            type="text"
+            placeholder="New Username"
+            value={newUsername}
+            onChange={(e) => setNewUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <button className="update_btn" onClick={handleUserUpdate}>Update & Logout</button>
+        </div>
+      )}
+
+      {/* Leaderboard Position */}
       <button type="button" className="leaderpos_btn">
         Leaderboard Position: {leaderboardPosition ? `#${leaderboardPosition}` : "#?"}
       </button>
 
-      {/* Read T&Cs button */}
+      {/* Terms */}
       <button type="button" className="terms_btn" onClick={() => setShowTermsPopup(!showTermsPopup)}>
         📘 Read T&C's
       </button>
@@ -214,43 +239,33 @@ const UserProfile = () => {
         </div>
       )}
 
-      {/* Delete account */}
+      {/* Delete Account */}
       <button type="button" className="delete_account_btn" onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}>
-        Delete Account 
+        Delete Account
       </button>
 
       {showDeleteConfirm && (
-      <button
-      type="button"
-      className="delete_confirm_btn"
-      onClick={async () => {
-        try {
-          const response = await fetch(`${API}/api/player/${playerId}/delete/`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          ;
+        <button type="button" className="delete_confirm_btn" onClick={async () => {
+          try {
+            const res = await fetch(`${API}/api/player/${playerId}/delete/`, {
+              method: 'DELETE',
+              headers: { 'Content-Type': 'application/json' }
+            });
 
-          if (response.ok) {
-            alert("Your account has been successfully deleted.");
-            localStorage.removeItem(ACCESS_TOKEN); // Remove token
-            window.location.href = "/"; // Redirect to home or login page
-          } else {
-            const errorData = await response.json();
-            alert(`Failed to delete account: ${errorData.error || "Unknown error"}`);
+            if (res.ok) {
+              alert("Account deleted.");
+              localStorage.removeItem(ACCESS_TOKEN);
+              window.location.href = "/";
+            } else {
+              alert("Failed to delete account.");
+            }
+          } catch (error) {
+            alert("Error deleting account.");
           }
-        } catch (error) {
-          console.error("Deletion error:", error);
-          alert("An error occurred while trying to delete your account.");
-        }
-      }}
-    >
-      Click to confirm deletion
-    </button>
-
-    )}
+        }}>
+          Click to confirm deletion
+        </button>
+      )}
     </div>
   );
 };
