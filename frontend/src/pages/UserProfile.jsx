@@ -219,42 +219,38 @@ const UserProfile = () => {
         Delete Account 
       </button>
 
-
       {showDeleteConfirm && (
+      <button
+      type="button"
+      className="delete_confirm_btn"
+      onClick={async () => {
+        try {
+          const response = await fetch(`${API}/api/player/${playerId}/delete/`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          ;
 
-  <button
-  type="button"
-  className="delete_confirm_btn"
-  onClick={async () => {
-    try {
-      const response = await fetch(`${API}/api/player/${playerId}/delete/`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      ;
+          if (response.ok) {
+            alert("Your account has been successfully deleted.");
+            localStorage.removeItem(ACCESS_TOKEN); // Remove token
+            window.location.href = "/"; // Redirect to home or login page
+          } else {
+            const errorData = await response.json();
+            alert(`Failed to delete account: ${errorData.error || "Unknown error"}`);
+          }
+        } catch (error) {
+          console.error("Deletion error:", error);
+          alert("An error occurred while trying to delete your account.");
+        }
+      }}
+    >
+      Click to confirm deletion
+    </button>
 
-      if (response.ok) {
-        alert("Your account has been successfully deleted.");
-        localStorage.removeItem(ACCESS_TOKEN); // Remove token
-        window.location.href = "/"; // Redirect to home or login page
-      } else {
-        const errorData = await response.json();
-        alert(`Failed to delete account: ${errorData.error || "Unknown error"}`);
-      }
-    } catch (error) {
-      console.error("Deletion error:", error);
-      alert("An error occurred while trying to delete your account.");
-    }
-  }}
->
-  Click to confirm deletion
-</button>
-
-)}
-
-
+    )}
     </div>
   );
 };

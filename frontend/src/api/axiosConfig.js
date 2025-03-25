@@ -47,5 +47,4 @@ api.interceptors.response.use(
   }
 );
 
-// ✅ This is the fix:
 export default api;
