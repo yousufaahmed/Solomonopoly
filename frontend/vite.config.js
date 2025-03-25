@@ -11,5 +11,5 @@ export default defineConfig({
     host: true
   },
   plugins: [react(), basicSsl()],
-  base: process.env.VITE_API_BASE || '/Solomonopoly',
+  base: process.env.VITE_API_BASE || '/',
 });
