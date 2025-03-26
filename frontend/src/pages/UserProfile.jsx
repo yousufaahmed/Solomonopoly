@@ -82,8 +82,11 @@ const UserProfile = () => {
 
   const handleAvatarSelect = async (avatar) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
-    const filename = avatar.split("/").pop();
-
+  
+    // Safely strip Vercel hash from filename
+    const rawFilename = avatar.split("/").pop();
+    const filename = rawFilename.replace(/-[a-zA-Z0-9]{8}(?=\.\w+$)/, "");
+  
     try {
       await axios.patch(
         `${API}/api/player/${playerId}/logo/`,
