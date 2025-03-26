@@ -30,6 +30,7 @@ const Achievements = () => {
       cycle: "Bike_trophy_image.png",
       walk: "Walking_trophy_image.png",
       bus: "Bus_trophy_image.png",
+      electric: "Electric_trophy_image.png",
     };
     
     for (const tag of tags) {
